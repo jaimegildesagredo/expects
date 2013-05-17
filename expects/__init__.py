@@ -15,7 +15,7 @@ class To(object):
         self.be = Be(self._actual)
 
     def equal(self, expected):
-        assert self._actual == expected, 'Expected {} to be {}'.format(
+        assert self._actual == expected, 'Expected {} to equal {}'.format(
             repr(self._actual), repr(expected))
 
 

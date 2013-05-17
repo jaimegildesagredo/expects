@@ -9,7 +9,7 @@ from expects import expect
 with describe('expect failures') as _:
     def it_should_show_quoted_strings_on_failure():
         with failure("Expected 'foo' to be 'bar'"):
-            expect('foo').to.equal('bar')
+            expect('foo').to.be('bar')
 
     def it_should_show_object_repr_on_failure():
         obj1, obj2 = object(), object()

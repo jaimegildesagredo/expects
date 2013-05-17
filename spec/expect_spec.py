@@ -13,7 +13,7 @@ with describe(expect) as _:
                 expect(1).to.equal(1)
 
             def it_should_fail_if_actual_does_not_equal_expected():
-                with failure('Expected 1 to be 2'):
+                with failure('Expected 1 to equal 2'):
                     expect(1).to.equal(2)
 
         with describe('be'):
