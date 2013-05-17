@@ -24,3 +24,19 @@ with describe(expect) as _:
             def it_should_fail_if_actual_is_not_expected():
                 with failure('Expected 1 to be 2'):
                     expect(1).to.be(2)
+
+            with describe('true'):
+                def it_should_pass_if_actual_is_true():
+                    expect(True).to.be.true
+
+                def it_should_fail_if_actual_is_false():
+                    with failure('Expected False to be True'):
+                        expect(False).to.be.true
+
+            with describe('false'):
+                def it_should_pass_if_actual_is_false():
+                    expect(False).to.be.false
+
+                def it_should_fail_if_actual_is_true():
+                    with failure('Expected True to be False'):
+                        expect(True).to.be.false
