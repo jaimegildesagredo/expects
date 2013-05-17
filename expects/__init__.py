@@ -1,36 +1,60 @@
 # -*- coding: utf-8 -*
 
 
-class expect(object):
-    def __init__(self, actual):
-        self._actual = actual
+class Expectation(object):
+    def __init__(self):
+        self._parent = None
 
-        self.to = To(self._actual)
+    @property
+    def actual(self):
+        return self._parent.actual
 
+    def __get__(self, instance, owner):
+        if instance is not None:
+            self._parent = instance
 
-class To(object):
-    def __init__(self, actual):
-        self._actual = actual
-
-        self.be = Be(self._actual)
-
-    def equal(self, expected):
-        assert self._actual == expected, 'Expected {} to equal {}'.format(
-            repr(self._actual), repr(expected))
+        return self
 
 
-class Be(object):
-    def __init__(self, actual):
-        self._actual = actual
+class Equal(Expectation):
+    def __call__(self, expected):
+        assert self.actual == expected, self.error_message(repr(expected))
+
+    def error_message(self, tail):
+        return self._parent.error_message('equal {}'.format(tail))
+
+
+class Be(Expectation):
+    equal = Equal()
 
     def __call__(self, expected):
-        assert self._actual is expected, 'Expected {} to be {}'.format(
-            repr(self._actual), repr(expected))
+        assert self.actual is expected, self.error_message(repr(expected))
 
     @property
     def true(self):
-        assert self._actual, 'Expected {} to be True'.format(repr(self._actual))
+        assert self.actual, self.error_message(True)
 
     @property
     def false(self):
-        assert not self._actual, 'Expected {} to be False'.format(repr(self._actual))
+        assert not self.actual, self.error_message(False)
+
+    def error_message(self, tail):
+        return self._parent.error_message('be {}'.format(tail))
+
+
+class To(Expectation):
+    be = Be()
+    equal = Equal()
+
+    def error_message(self, tail):
+        return self._parent.error_message('to {}'.format(tail))
+
+
+class expect(object):
+    to = To()
+
+    def __init__(self, actual):
+        self.actual = actual
+
+    def error_message(self, tail):
+        return 'Expected {} {}'.format(repr(self.actual), tail)
