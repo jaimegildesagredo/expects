@@ -42,8 +42,32 @@ class Be(Expectation):
         return self._parent.error_message('be {}'.format(tail))
 
 
+class Have(Expectation):
+    def property(self, *args):
+        name = args[0]
+
+        def error_message(tail):
+            return self.error_message('property {}'.format(tail))
+
+        assert hasattr(self.actual, name), error_message(repr(name))
+
+        try:
+            expected = args[1]
+        except IndexError:
+            pass
+        else:
+            value = getattr(self.actual, name)
+
+            assert value == expected, error_message('{} with value {} but was {}'.format(
+                repr(name), repr(expected), repr(value)))
+
+    def error_message(self, tail):
+        return self._parent.error_message('have {}'.format(tail))
+
+
 class To(Expectation):
     be = Be()
+    have = Have()
     equal = Equal()
 
     def error_message(self, tail):
