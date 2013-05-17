@@ -5,6 +5,7 @@ from spec.helpers import failure
 
 from expects import expect
 
+
 with describe(expect) as _:
     with describe('to'):
         with describe('equal'):
@@ -15,6 +16,11 @@ with describe(expect) as _:
                 with failure('Expected 1 to be 2'):
                     expect(1).to.equal(2)
 
-            def it_should_show_quoted_strings_on_failure():
-                with failure("Expected 'foo' to be 'bar'"):
-                    expect('foo').to.equal('bar')
+        with describe('be'):
+            def it_should_pass_if_actual_is_expected():
+                value = 1
+                expect(value).to.be(value)
+
+            def it_should_fail_if_actual_is_not_expected():
+                with failure('Expected 1 to be 2'):
+                    expect(1).to.be(2)
