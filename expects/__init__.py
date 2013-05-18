@@ -2,18 +2,17 @@
 
 
 class Expectation(object):
-    def __init__(self):
-        self._parent = None
+    def __init__(self, parent):
+        self._parent = parent
+
+        self.init()
+
+    def init(self):
+        pass
 
     @property
     def actual(self):
         return self._parent.actual
-
-    def __get__(self, instance, owner):
-        if instance is not None:
-            self._parent = instance
-
-        return self
 
 
 class Equal(Expectation):
@@ -25,7 +24,8 @@ class Equal(Expectation):
 
 
 class Be(Expectation):
-    equal = Equal()
+    def init(self):
+        self.equal = Equal(self)
 
     def __call__(self, expected):
         assert self.actual is expected, self.error_message(repr(expected))
@@ -66,9 +66,10 @@ class Have(Expectation):
 
 
 class To(Expectation):
-    be = Be()
-    have = Have()
-    equal = Equal()
+    def init(self):
+        self.be = Be(self)
+        self.have = Have(self)
+        self.equal = Equal(self)
 
     def raise_error(self, expected, message=None):
         def error_message(tail):
@@ -93,10 +94,9 @@ class To(Expectation):
 
 
 class expect(object):
-    to = To()
-
     def __init__(self, actual):
         self.actual = actual
+        self.to = To(self)
 
     def error_message(self, tail):
         return 'Expected {} {}'.format(repr(self.actual), tail)
