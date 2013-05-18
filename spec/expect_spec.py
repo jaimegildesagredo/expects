@@ -16,6 +16,41 @@ with describe(expect) as _:
                 with failure(1, 'to equal 2'):
                     expect(1).to.equal(2)
 
+        with describe('raise_error'):
+            def it_should_pass_if_actual_raises_expected_exception():
+                def callback():
+                    raise AttributeError()
+
+                expect(callback).to.raise_error(AttributeError)
+
+            def it_should_fail_if_actual_does_not_raise_expected_exception():
+                def callback():
+                    raise KeyError()
+
+                with failure(callback, 'to raise AttributeError but KeyError raised'):
+                    expect(callback).to.raise_error(AttributeError)
+
+            def it_should_fail_if_actual_does_not_raise_exception():
+                callback = lambda: None
+
+                with failure(callback, 'to raise AttributeError but None raised'):
+                    expect(callback).to.raise_error(AttributeError)
+
+            def it_should_pass_if_actual_raises_expected_exception_with_message():
+                message = 'Foo error'
+
+                def callback():
+                    raise AttributeError(message)
+
+                expect(callback).to.raise_error(AttributeError, message)
+
+            def it_should_fail_if_actual_raises_expected_exception_with_different_message():
+                def callback():
+                    raise AttributeError('bar')
+
+                with failure(callback, "to raise AttributeError with message 'foo' but was 'bar'"):
+                    expect(callback).to.raise_error(AttributeError, 'foo')
+
         with describe('be'):
             def it_should_pass_if_actual_is_expected():
                 value = 1

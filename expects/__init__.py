@@ -70,6 +70,24 @@ class To(Expectation):
     have = Have()
     equal = Equal()
 
+    def raise_error(self, expected, message=None):
+        def error_message(tail):
+            return self.error_message('raise {} {}'.format(
+                expected.__name__, tail))
+
+        try:
+            self.actual()
+        except expected as exc:
+            exc_message = str(exc)
+
+            if message is not None and message != exc_message:
+                raise AssertionError(error_message('with message {} but was {}'.format(
+                    repr(message), repr(exc_message))))
+        except Exception as err:
+            raise AssertionError(error_message('but {} raised'.format(type(err).__name__)))
+        else:
+            raise AssertionError(error_message('but {} raised'.format(None)))
+
     def error_message(self, tail):
         return self._parent.error_message('to {}'.format(tail))
 
