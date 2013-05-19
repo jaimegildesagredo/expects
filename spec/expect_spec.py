@@ -110,3 +110,31 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_property_is_not_none():
                     with failure(_.obj, "to have property 'bar' with value None but was 0"):
                         expect(_.obj).to.have.property('bar', None)
+
+
+    with describe('not_to'):
+        with describe('equal'):
+            def it_should_pass_if_actual_does_not_equal_expected():
+                expect(1).not_to.equal(2)
+
+            def it_should_fail_if_actual_equals_expected():
+                with failure(1, 'not to equal 1'):
+                    expect(1).not_to.equal(1)
+
+        with describe('be'):
+            def it_should_pass_if_actual_is_not_expected():
+                expect(1).not_to.be(2)
+
+            def it_should_fail_if_actual_is_expected():
+                value = 1
+
+                with failure(1, 'not to be 1'):
+                    expect(value).not_to.be(value)
+
+            with describe('equal'):
+                def it_should_pass_if_actual_does_not_equal_expected_():
+                    expect(1).not_to.be.equal(2)
+
+                def it_should_fail_if_actual_equals_expected_():
+                    with failure(1, 'not to be equal 1'):
+                        expect(1).not_to.be.equal(1)
