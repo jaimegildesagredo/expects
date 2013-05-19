@@ -91,7 +91,9 @@ class RaiseError(Expectation):
 
             if message is not None:
                 return message == exc_message, error_message(
-                    'with message {} but was {}'.format(repr(message), repr(exc_message)))
+                    'with message {} but message was {}'.format(repr(message), repr(exc_message)))
+            else:
+                return True, error_message('but {} raised'.format(type(exc).__name__))
         except Exception as err:
             return False, error_message('but {} raised'.format(type(err).__name__))
         else:

@@ -48,7 +48,7 @@ with describe(expect) as _:
                 def callback():
                     raise AttributeError('bar')
 
-                with failure(callback, "to raise AttributeError with message 'foo' but was 'bar'"):
+                with failure(callback, "to raise AttributeError with message 'foo' but message was 'bar'"):
                     expect(callback).to.raise_error(AttributeError, 'foo')
 
         with describe('be'):
@@ -120,6 +120,40 @@ with describe(expect) as _:
             def it_should_fail_if_actual_equals_expected():
                 with failure(1, 'not to equal 1'):
                     expect(1).not_to.equal(1)
+
+        with describe('raise_error'):
+            def it_should_pass_if_actual_does_not_raise_expected_exception():
+                def callback():
+                    raise AttributeError()
+
+                expect(callback).not_to.raise_error(KeyError)
+
+            def it_should_pass_if_actual_does_not_raise_exception():
+                expect(lambda: None).not_to.raise_error(AttributeError)
+
+            def it_should_pass_if_actual_raises_expected_exception_with_different_message():
+                def callback():
+                    raise AttributeError('bar')
+
+                expect(callback).not_to.raise_error(AttributeError, 'foo')
+
+            def it_should_fail_if_actual_raises_expected_exception():
+                def callback():
+                    raise AttributeError()
+
+                with failure(callback, 'not to raise AttributeError but AttributeError raised'):
+                    expect(callback).not_to.raise_error(AttributeError)
+
+            def it_should_fail_if_actual_raises_expected_exception_with_message():
+                message = 'Foo error'
+                failure_message = 'not to raise AttributeError with message {} but message was {}'.format(
+                    repr(message), repr(message))
+
+                def callback():
+                    raise AttributeError(message)
+
+                with failure(callback, failure_message):
+                    expect(callback).not_to.raise_error(AttributeError, message)
 
         with describe('be'):
             def it_should_pass_if_actual_is_not_expected():
