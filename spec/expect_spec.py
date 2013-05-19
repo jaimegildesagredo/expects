@@ -2,6 +2,7 @@
 
 from mamba import describe, before
 from spec.helpers import failure
+from spec.fixtures import Foo
 
 from expects import expect
 
@@ -96,17 +97,14 @@ with describe(expect) as _:
             with describe('property'):
                 @before.each
                 def foo():
-                    class Foo(object):
-                        bar = 0
-
                     _.obj = Foo()
 
                 def it_should_pass_if_actual_has_property():
                     expect(_.obj).to.have.property('bar')
 
                 def it_should_fail_if_actual_does_not_have_property():
-                    with failure(_.obj, "to have property 'foosplit'"):
-                        expect(_.obj).to.have.property('foosplit')
+                    with failure(_.obj, "to have property 'foo'"):
+                        expect(_.obj).to.have.property('foo')
 
                 def it_should_pass_if_actual_has_property_with_value():
                     expect(_.obj).to.have.property('bar', 0)
@@ -204,3 +202,23 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_is_none():
                     with failure(None, 'not to be None'):
                         expect(None).not_to.be.none
+
+        with describe('have'):
+            with describe('property'):
+                @before.each
+                def foo():
+                    _.obj = Foo()
+
+                def it_should_pass_if_actual_does_not_has_property():
+                    expect(_.obj).not_to.have.property('foo')
+
+                def it_should_pass_if_actual_does_not_has_property_with_value():
+                    expect(_.obj).not_to.have.property('foo', 0)
+
+                def it_should_fail_if_actual_has_property():
+                    with failure(_.obj, "not to have property 'bar'"):
+                        expect(_.obj).not_to.have.property('bar')
+
+                def it_should_fail_if_actual_has_property_with_value():
+                    with failure(_.obj, "not to have property 'bar'"):
+                        expect(_.obj).not_to.have.property('bar', 0)

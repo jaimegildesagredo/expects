@@ -67,10 +67,13 @@ class Have(Expectation):
         except IndexError:
             pass
         else:
-            value = getattr(self.actual, name)
-
-            self._assert(value == expected, error_message('{} with value {} but was {}'.format(
-                repr(name), repr(expected), repr(value))))
+            try:
+                value = getattr(self.actual, name)
+            except AttributeError:
+                pass
+            else:
+                self._assert(value == expected, error_message('{} with value {} but was {}'.format(
+                    repr(name), repr(expected), repr(value))))
 
     def error_message(self, tail):
         return self._parent.error_message('have {}'.format(tail))
