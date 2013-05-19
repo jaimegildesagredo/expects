@@ -45,6 +45,10 @@ class Be(Expectation):
     def false(self):
         self(False)
 
+    @property
+    def none(self):
+        self(None)
+
     def error_message(self, tail):
         return self._parent.error_message('be {}'.format(tail))
 

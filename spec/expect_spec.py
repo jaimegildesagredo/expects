@@ -84,6 +84,14 @@ with describe(expect) as _:
                     with failure(True, 'to be False'):
                         expect(True).to.be.false
 
+            with describe('none'):
+                def it_should_pass_if_actual_is_none():
+                    expect(None).to.be.none
+
+                def it_should_fail_if_actual_is_not_none():
+                    with failure(True, 'to be None'):
+                        expect(True).to.be.none
+
         with describe('have'):
             with describe('property'):
                 @before.each
@@ -188,3 +196,11 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_is_false_():
                     with failure(False, 'not to be False'):
                         expect(False).not_to.be.false
+
+            with describe('none'):
+                def it_should_pass_if_actual_is_not_none():
+                    expect('foo').not_to.be.none
+
+                def it_should_fail_if_actual_is_none():
+                    with failure(None, 'not to be None'):
+                        expect(None).not_to.be.none
