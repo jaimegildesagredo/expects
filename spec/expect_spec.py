@@ -172,3 +172,19 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_equals_expected_():
                     with failure(1, 'not to be equal 1'):
                         expect(1).not_to.be.equal(1)
+
+            with describe('true'):
+                def it_should_pass_if_actual_is_not_true():
+                    expect(False).not_to.be.true
+
+                def it_should_fail_if_actual_is_true_():
+                    with failure(True, 'not to be True'):
+                        expect(True).not_to.be.true
+
+            with describe('false'):
+                def it_should_pass_if_actual_is_not_false():
+                    expect(True).not_to.be.false
+
+                def it_should_fail_if_actual_is_false_():
+                    with failure(False, 'not to be False'):
+                        expect(False).not_to.be.false
