@@ -38,8 +38,14 @@ class Be(Expectation):
         self._assert(self.actual is expected, self.error_message(repr(expected)))
 
     def a(self, expected):
+        self.__instance_of(expected, 'a')
+
+    def an(self, expected):
+        self.__instance_of(expected, 'an')
+
+    def __instance_of(self, expected, article):
         self._assert(isinstance(self.actual, expected), self.error_message(
-            'a {} instance'.format(expected.__name__)))
+            '{} {} instance'.format(article, expected.__name__)))
 
     @property
     def true(self):
