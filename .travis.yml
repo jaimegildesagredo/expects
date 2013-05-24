@@ -13,4 +13,4 @@ install:
  - pip install -r requirements-devel.txt --use-mirrors --upgrade
 
 script:
- - mamba
+ - PYTHONPATH=$PYTHONPATH:. mamba
