@@ -69,6 +69,24 @@ with describe(expect) as _:
                     with failure(1, 'to be equal 2'):
                         expect(1).to.be.equal(2)
 
+            with describe('a'):
+                @before.each
+                def foo():
+                    _.obj = Foo()
+
+                def it_should_pass_if_actual_is_an_instance_of_the_expected_class():
+                    expect(_.obj).to.be.a(Foo)
+
+                def it_should_pass_if_actual_is_a_subclass_instance_of_the_expected_class():
+                    expect(_.obj).to.be.a(object)
+
+                def it_should_fail_if_actual_is_not_an_instance_of_the_expected_class():
+                    class Bar(object):
+                        pass
+
+                    with failure(_.obj, 'to be a Bar instance'):
+                        expect(_.obj).to.be.a(Bar)
+
             with describe('true'):
                 def it_should_pass_if_actual_is_true():
                     expect(True).to.be.true
@@ -116,7 +134,6 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_property_is_not_none():
                     with failure(_.obj, "to have property 'bar' with value None but was 0"):
                         expect(_.obj).to.have.property('bar', None)
-
 
     with describe('not_to'):
         with describe('equal'):
@@ -178,6 +195,25 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_equals_expected_():
                     with failure(1, 'not to be equal 1'):
                         expect(1).not_to.be.equal(1)
+
+            with describe('a'):
+                @before.each
+                def foo():
+                    _.obj = Foo()
+
+                def it_should_pass_if_actual_is_not_an_instance_of_the_expected_class():
+                    class Bar(object):
+                        pass
+
+                    expect(_.obj).not_to.be.a(Bar)
+
+                def it_should_fail_if_actual_is_a_subclass_instance_of_the_expected_class():
+                    with failure(_.obj, 'not to be a object instance'):
+                        expect(_.obj).not_to.be.a(object)
+
+                def it_should_fail_if_actual_is_an_instance_of_the_expected_class():
+                    with failure(_.obj, 'not to be a Foo instance'):
+                        expect(_.obj).not_to.be.a(Foo)
 
             with describe('true'):
                 def it_should_pass_if_actual_is_not_true():

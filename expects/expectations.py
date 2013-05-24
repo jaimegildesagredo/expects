@@ -37,6 +37,10 @@ class Be(Expectation):
     def __call__(self, expected):
         self._assert(self.actual is expected, self.error_message(repr(expected)))
 
+    def a(self, expected):
+        self._assert(isinstance(self.actual, expected), self.error_message(
+            'a {} instance'.format(expected.__name__)))
+
     @property
     def true(self):
         self(True)
