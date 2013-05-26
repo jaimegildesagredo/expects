@@ -161,7 +161,7 @@ with describe(expect) as _:
 
                 def it_should_fail_if_actual_has_property_without_value_in_kwargs():
                     with failure(_.obj, "to have property 'bar' with value 1 but was 0"):
-                        expect(_.obj).to.have.properties(bar=1, baz=0)
+                        expect(_.obj).to.have.properties(bar=1, baz=1)
 
                 def it_should_fail_if_actual_does_not_have_property_in_args_but_in_kwargs():
                     with failure(_.obj, "to have property 'foo'"):
