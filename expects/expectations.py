@@ -111,16 +111,6 @@ class Have(Expectation):
 
         self._assert(hasattr(self.actual, name), error_message(repr(name)))
 
-    def properties(self, *args, **kwargs):
-        try:
-            kwargs = dict(*args, **kwargs)
-        except (TypeError, ValueError):
-            for name in args:
-                self.property(name)
-        finally:
-            for name, value in kwargs.items():
-                self.property(name, value)
-
     def key(self, *args):
         name = args[0]
 
@@ -141,15 +131,21 @@ class Have(Expectation):
 
         self._assert(name in self.actual, self.error_message('key {}'.format(repr(name))))
 
+    def properties(self, *args, **kwargs):
+        self._dict_based_expectation(self.property, args, kwargs)
+
     def keys(self, *args, **kwargs):
+        self._dict_based_expectation(self.key, args, kwargs)
+
+    def _dict_based_expectation(self, expectation, args, kwargs):
         try:
             kwargs = dict(*args, **kwargs)
         except (TypeError, ValueError):
             for name in args:
-                self.key(name)
+                expectation(name)
         finally:
             for name, value in kwargs.items():
-                self.key(name, value)
+                expectation(name, value)
 
     def length(self, expected):
         value = len(self.actual)
