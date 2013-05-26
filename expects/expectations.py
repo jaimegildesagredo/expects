@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*
 
+import re
+
 
 class Expectation(object):
     def __init__(self, parent):
@@ -194,6 +196,10 @@ class To(Expectation):
         self.have = Have(self)
         self.equal = Equal(self)
         self.raise_error = RaiseError(self)
+
+    def match(self, expected, *flags):
+        self._assert(re.match(expected, self.actual, *flags), self.error_message(
+            'match {}'.format(repr(expected))))
 
     def error_message(self, tail):
         message = 'not to' if self.negative else 'to'

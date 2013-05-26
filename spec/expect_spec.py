@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*
 
+import re
+
 from mamba import describe, before
 from spec.helpers import failure
 from spec.fixtures import Foo
@@ -16,6 +18,19 @@ with describe(expect) as _:
             def it_should_fail_if_actual_does_not_equal_expected():
                 with failure(1, 'to equal 2'):
                     expect(1).to.equal(2)
+
+        with describe('match'):
+            def it_should_pass_if_actual_matches_expected_regexp():
+                expect(_.str).to.match(r'My \w+ string')
+
+            def it_should_pass_if_actual_matches_expected_regexp_with_re_flags():
+                expect(_.str).to.match(r'my [A-Z]+ strinG', re.I)
+
+            def it_should_fail_if_actual_does_not_match_expected_regexp():
+                pattern = r'My \W+ string'
+
+                with failure(_.str, 'to match {}'.format(repr(pattern))):
+                    expect(_.str).to.match(pattern)
 
         with describe('raise_error'):
             def it_should_pass_if_actual_raises_expected_exception():
@@ -316,6 +331,19 @@ with describe(expect) as _:
                 with failure(1, 'not to equal 1'):
                     expect(1).not_to.equal(1)
 
+        with describe('match'):
+            def it_should_pass_if_actual_does_not_match_expected_regexp():
+                expect(_.str).not_to.match(r'My \W+ string')
+
+            def it_should_pass_if_actual_does_not_match_expected_regexp_with_re_flags():
+                expect(_.str).not_to.match(r'My \W+ string', re.I)
+
+            def it_should_fail_if_actual_matches_expected_regexp():
+                pattern = r'My \w+ string'
+
+                with failure(_.str, 'not to match {}'.format(repr(pattern))):
+                    expect(_.str).not_to.match(pattern)
+
         with describe('raise_error'):
             def it_should_pass_if_actual_does_not_raise_expected_exception():
                 def callback():
@@ -602,3 +630,4 @@ with describe(expect) as _:
         _.obj = Foo()
         _.dct = {'bar': 0, 'baz': 1}
         _.lst = _.dct.keys()
+        _.str = 'My foo string'
