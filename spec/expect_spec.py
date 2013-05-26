@@ -178,10 +178,9 @@ with describe(expect) as _:
                     with failure(_.obj, "to have property 'foo'"):
                         expect(_.obj).to.have.property('foo')
 
-                # TODO: Add this example
-                #def it_should_fail_if_actual_does_not_have_property_with_value():
-                #    with failure(_.obj, "to have property 'foo'"):
-                #        expect(_.obj).to.have.property('foo', 0)
+                def it_should_fail_if_actual_does_not_have_property_with_value():
+                    with failure(_.obj, "to have property 'foo'"):
+                        expect(_.obj).to.have.property('foo', 0)
 
                 def it_should_fail_if_actual_has_property_without_value():
                     with failure(_.obj, "to have property 'bar' with value 1 but was 0"):
