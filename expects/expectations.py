@@ -65,6 +65,10 @@ class Be(Expectation):
         self._assert(self.actual <= expected, self.error_message(
             'less or equal to {}'.format(expected)))
 
+    def within(self, start, stop):
+        self._assert(self.actual in xrange(start, stop), self.error_message(
+            'within {}, {}'.format(start, stop)))
+
     @property
     def true(self):
         self(True)
