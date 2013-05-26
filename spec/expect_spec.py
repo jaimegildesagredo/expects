@@ -185,6 +185,16 @@ with describe(expect) as _:
                     with failure(_.obj, "to have property 'bar' with value 1 but was 0"):
                         expect(_.obj).to.have.properties({'bar': 1, 'baz': 1})
 
+            with describe('length'):
+                def it_should_pass_if_actual_has_the_expected_length():
+                    expect('foo').to.have.length(3)
+
+                def it_should_fail_if_actual_does_not_have_the_expected_length():
+                    actual = 'foo'
+
+                    with failure(actual, 'to have length 2 but was 3'):
+                        expect(actual).to.have.length(2)
+
     with describe('not_to'):
         with describe('equal'):
             def it_should_pass_if_actual_does_not_equal_expected():
@@ -360,6 +370,16 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_has_property_in_dict_with_value():
                     with failure(_.obj, "not to have property 'bar' with value 0 but was 0"):
                         expect(_.obj).not_to.have.properties({'bar': 0, 'foo': 1})
+
+            with describe('length'):
+                def it_should_pass_if_actual_does_not_have_the_expected_length():
+                    expect('foo').not_to.have.length(2)
+
+                def it_should_fail_if_actual_have_the_expected_length():
+                    actual = 'foo'
+
+                    with failure(actual, 'not to have length 3 but was 3'):
+                        expect(actual).not_to.have.length(3)
 
     @before.all
     def fixtures():

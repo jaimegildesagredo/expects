@@ -101,6 +101,12 @@ class Have(Expectation):
             for name, value in kwargs.items():
                 self.property(name, value)
 
+    def length(self, expected):
+        value = len(self.actual)
+
+        self._assert(value == expected, self.error_message(
+            'length {} but was {}'.format(expected, value)))
+
     def error_message(self, tail):
         return self._parent.error_message('have {}'.format(tail))
 
