@@ -94,6 +94,22 @@ with describe(expect) as _:
                     with failure(_.obj, 'to be an Object instance'):
                         expect(_.obj).to.be.an(Object)
 
+            with describe('greater_than'):
+                def it_should_pass_if_actual_is_greater_than_expected():
+                    expect(5).to.be.greater_than(4)
+
+                def it_should_fail_if_actual_is_not_greater_than_expected():
+                    with failure(1, 'to be greater than 4'):
+                        expect(1).to.be.greater_than(4)
+
+            with describe('less_than'):
+                def it_should_pass_if_actual_is_less_than_expected():
+                    expect(1).to.be.less_than(4)
+
+                def it_should_fail_if_actual_is_not_less_than_expected():
+                    with failure(4, 'to be less than 1'):
+                        expect(4).to.be.less_than(1)
+
             with describe('true'):
                 def it_should_pass_if_actual_is_true():
                     expect(True).to.be.true
@@ -281,6 +297,22 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_is_an_instance_of_the_expected_class_():
                     with failure(_.obj, 'not to be an object instance'):
                         expect(_.obj).not_to.be.an(object)
+
+            with describe('greater_than'):
+                def it_should_pass_if_actual_is_not_greater_than_expected():
+                    expect(1).not_to.be.greater_than(4)
+
+                def it_should_fail_if_actual_is_greater_than_expected():
+                    with failure(5, 'not to be greater than 4'):
+                        expect(5).not_to.be.greater_than(4)
+
+            with describe('less_than'):
+                def it_should_pass_if_actual_is_not_less_than_expected():
+                    expect(4).not_to.be.less_than(1)
+
+                def it_should_fail_if_actual_is_less_than_expected():
+                    with failure(1, 'not to be less than 4'):
+                        expect(1).not_to.be.less_than(4)
 
             with describe('true'):
                 def it_should_pass_if_actual_is_not_true():

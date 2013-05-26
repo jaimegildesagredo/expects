@@ -47,6 +47,14 @@ class Be(Expectation):
         self._assert(isinstance(self.actual, expected), self.error_message(
             '{} {} instance'.format(article, expected.__name__)))
 
+    def greater_than(self, expected):
+        self._assert(self.actual > expected, self.error_message(
+            'greater than {}'.format(expected)))
+
+    def less_than(self, expected):
+        self._assert(self.actual < expected, self.error_message(
+            'less than {}'.format(expected)))
+
     @property
     def true(self):
         self(True)
