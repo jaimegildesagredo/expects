@@ -167,6 +167,16 @@ with describe(expect) as _:
                         expect(actual).to.be.empty
 
         with describe('have'):
+            def it_should_pass_if_actual_has_expected_item():
+                expect(_.lst).to.have('bar')
+
+            def it_should_pass_if_actual_has_expected_items():
+                expect(_.lst).to.have('bar', 'baz')
+
+            def it_should_fail_if_actual_does_not_have_expected_item():
+                with failure(_.lst, "to have 'foo'"):
+                    expect(_.lst).to.have('bar', 'foo')
+
             with describe('property'):
                 def it_should_pass_if_actual_has_property():
                     expect(_.obj).to.have.property('bar')
@@ -459,6 +469,16 @@ with describe(expect) as _:
                         expect(actual).not_to.be.empty
 
         with describe('have'):
+            def it_should_pass_if_actual_does_not_have_expected_item():
+                expect(_.lst).not_to.have('foo')
+
+            def it_should_pass_if_actual_does_not_have_expected_items():
+                expect(_.lst).not_to.have('foo', 'foobar')
+
+            def it_should_fail_if_actual_has_expected_item():
+                with failure(_.lst, "not to have 'bar'"):
+                    expect(_.lst).not_to.have('bar', 'foo')
+
             with describe('property'):
                 def it_should_pass_if_actual_does_not_have_property():
                     expect(_.obj).not_to.have.property('foo')
@@ -581,3 +601,4 @@ with describe(expect) as _:
     def fixtures():
         _.obj = Foo()
         _.dct = {'bar': 0, 'baz': 1}
+        _.lst = _.dct.keys()

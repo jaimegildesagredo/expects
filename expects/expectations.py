@@ -84,6 +84,10 @@ class Be(Expectation):
 
 
 class Have(Expectation):
+    def __call__(self, *args):
+        for arg in args:
+            self._assert(arg in self.actual, self.error_message(repr(arg)))
+
     def property(self, *args):
         def error_message(tail):
             return self.error_message('property {}'.format(tail))
