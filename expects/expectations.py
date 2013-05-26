@@ -87,6 +87,16 @@ class Have(Expectation):
 
         self._assert(hasattr(self.actual, name), error_message(repr(name)))
 
+    def properties(self, *args, **kwargs):
+        try:
+            kwargs = dict(*args, **kwargs)
+        except (TypeError, ValueError):
+            for name in args:
+                self.property(name)
+        finally:
+            for name, value in kwargs.items():
+                self.property(name, value)
+
     def error_message(self, tail):
         return self._parent.error_message('have {}'.format(tail))
 
