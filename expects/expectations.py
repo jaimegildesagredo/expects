@@ -137,6 +137,16 @@ class Have(Expectation):
 
         self._assert(name in self.actual, self.error_message('key {}'.format(repr(name))))
 
+    def keys(self, *args, **kwargs):
+        try:
+            kwargs = dict(*args, **kwargs)
+        except (TypeError, ValueError):
+            for name in args:
+                self.key(name)
+        finally:
+            for name, value in kwargs.items():
+                self.key(name, value)
+
     def length(self, expected):
         value = len(self.actual)
 

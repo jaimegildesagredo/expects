@@ -250,6 +250,43 @@ with describe(expect) as _:
                     with failure(_.dct, "to have key 'bar' with value None but was 0"):
                         expect(_.dct).to.have.key('bar', None)
 
+            with describe('keys'):
+                def it_should_pass_if_actual_has_keys_in_args():
+                    expect(_.dct).to.have.keys('bar', 'baz')
+
+                def it_should_pass_if_actual_has_keys_in_kwargs():
+                    expect(_.dct).to.have.keys(bar=0, baz=1)
+
+                def it_should_pass_if_actual_has_keys_in_args_and_kwargs():
+                    expect(_.dct).to.have.keys('bar', baz=1)
+
+                def it_should_pass_if_actual_has_keys_in_dict():
+                    expect(_.dct).to.have.keys({'bar': 0, 'baz': 1})
+
+                def it_should_fail_if_actual_does_not_have_key_in_args():
+                    with failure(_.dct, "to have key 'foo'"):
+                        expect(_.dct).to.have.keys('bar', 'foo')
+
+                def it_should_fail_if_actual_does_not_have_key_in_kwargs():
+                    with failure(_.dct, "to have key 'foo'"):
+                        expect(_.dct).to.have.keys(bar=0, foo=1)
+
+                def it_should_fail_if_actual_has_key_without_value_in_kwargs():
+                    with failure(_.dct, "to have key 'bar' with value 1 but was 0"):
+                        expect(_.dct).to.have.keys(bar=1, baz=1)
+
+                def it_should_fail_if_actual_does_not_have_key_in_args_but_in_kwargs():
+                    with failure(_.dct, "to have key 'foo'"):
+                        expect(_.dct).to.have.keys('foo', bar=0)
+
+                def it_should_fail_if_actual_has_key_in_args_and_kwargs_without_value():
+                    with failure(_.dct, "to have key 'bar' with value 1 but was 0"):
+                        expect(_.dct).to.have.keys('baz', bar=1)
+
+                def it_should_fail_if_actual_has_key_without_value_in_dict():
+                    with failure(_.dct, "to have key 'bar' with value 1 but was 0"):
+                        expect(_.dct).to.have.keys({'bar': 1, 'baz': 1})
+
             with describe('length'):
                 def it_should_pass_if_actual_has_the_expected_length():
                     expect('foo').to.have.length(3)
@@ -493,6 +530,42 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_has_expected_key_with_value():
                     with failure(_.dct, "not to have key 'bar' with value 0 but was 0"):
                         expect(_.dct).not_to.have.key('bar', 0)
+
+            with describe('keys'):
+                def it_should_pass_if_actual_does_not_have_keys_in_args():
+                    expect(_.dct).not_to.have.keys('foo', 'foobar')
+
+                def it_should_pass_if_actual_does_not_have_keys_in_kwargs():
+                    expect(_.dct).not_to.have.keys(foo=0, foobar=1)
+
+                def it_should_pass_if_actual_has_key_without_value_in_kwargs():
+                    expect(_.dct).not_to.have.keys(foo=0, bar=1)
+
+                def it_should_pass_if_actual_does_not_have_keys_in_dict():
+                    expect(_.dct).not_to.have.keys({'foo': 0, 'foobar': 1})
+
+                def it_should_pass_if_actual_has_key_without_value_in_dict():
+                    expect(_.dct).not_to.have.keys({'foo': 0, 'bar': 1})
+
+                def it_should_fail_if_actual_has_key_in_args():
+                    with failure(_.dct, "not to have key 'bar'"):
+                        expect(_.dct).not_to.have.keys('foo', 'bar')
+
+                def it_should_fail_if_actual_has_key_in_kwargs_with_value():
+                    with failure(_.dct, "not to have key 'bar' with value 0 but was 0"):
+                        expect(_.dct).not_to.have.keys(baz=0, bar=0)
+
+                def it_should_fail_if_actual_has_key_in_args_but_not_in_kwargs():
+                    with failure(_.dct, "not to have key 'bar'"):
+                        expect(_.dct).not_to.have.keys('bar', baz=0)
+
+                def it_should_fail_if_actual_has_key_in_kwargs_but_not_in_args():
+                    with failure(_.dct, "not to have key 'bar' with value 0 but was 0"):
+                        expect(_.dct).not_to.have.keys('foo', bar=0)
+
+                def it_should_fail_if_actual_has_key_in_dict_with_value():
+                    with failure(_.dct, "not to have key 'bar' with value 0 but was 0"):
+                        expect(_.dct).not_to.have.keys({'bar': 0, 'foo': 1})
 
             with describe('length'):
                 def it_should_pass_if_actual_does_not_have_the_expected_length():
