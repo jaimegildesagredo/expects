@@ -453,7 +453,7 @@ with describe(expect) as _:
                 def it_should_pass_if_actual_does_not_have_the_expected_length():
                     expect('foo').not_to.have.length(2)
 
-                def it_should_fail_if_actual_have_the_expected_length():
+                def it_should_fail_if_actual_has_the_expected_length():
                     actual = 'foo'
 
                     with failure(actual, 'not to have length 3 but was 3'):
