@@ -171,12 +171,17 @@ with describe(expect) as _:
                 def it_should_pass_if_actual_has_property():
                     expect(_.obj).to.have.property('bar')
 
+                def it_should_pass_if_actual_has_property_with_value():
+                    expect(_.obj).to.have.property('bar', 0)
+
                 def it_should_fail_if_actual_does_not_have_property():
                     with failure(_.obj, "to have property 'foo'"):
                         expect(_.obj).to.have.property('foo')
 
-                def it_should_pass_if_actual_has_property_with_value():
-                    expect(_.obj).to.have.property('bar', 0)
+                # TODO: Add this example
+                #def it_should_fail_if_actual_does_not_have_property_with_value():
+                #    with failure(_.obj, "to have property 'foo'"):
+                #        expect(_.obj).to.have.property('foo', 0)
 
                 def it_should_fail_if_actual_has_property_without_value():
                     with failure(_.obj, "to have property 'bar' with value 1 but was 0"):
@@ -222,6 +227,29 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_has_property_without_value_in_dict():
                     with failure(_.obj, "to have property 'bar' with value 1 but was 0"):
                         expect(_.obj).to.have.properties({'bar': 1, 'baz': 1})
+
+            with describe('key'):
+                def it_should_pass_if_actual_has_expected_key():
+                    expect(_.dct).to.have.key('bar')
+
+                def it_should_pass_if_actual_has_key_and_value():
+                    expect(_.dct).to.have.key('bar', 0)
+
+                def it_should_fail_if_actual_does_not_have_expected_key():
+                    with failure(_.dct, "to have key 'foo'"):
+                        expect(_.dct).to.have.key('foo')
+
+                def it_should_fail_if_actual_does_not_have_key_with_value():
+                    with failure(_.dct, "to have key 'foo'"):
+                        expect(_.dct).to.have.key('foo', 0)
+
+                def it_should_fail_if_actual_has_key_without_expected_value():
+                    with failure(_.dct, "to have key 'bar' with value 1 but was 0"):
+                        expect(_.dct).to.have.key('bar', 1)
+
+                def it_should_fail_if_actual_has_key_without_none_value():
+                    with failure(_.dct, "to have key 'bar' with value None but was 0"):
+                        expect(_.dct).to.have.key('bar', None)
 
             with describe('length'):
                 def it_should_pass_if_actual_has_the_expected_length():
@@ -449,6 +477,24 @@ with describe(expect) as _:
                     with failure(_.obj, "not to have property 'bar' with value 0 but was 0"):
                         expect(_.obj).not_to.have.properties({'bar': 0, 'foo': 1})
 
+            with describe('key'):
+                def it_should_pass_if_actual_does_not_have_expected_key():
+                    expect(_.dct).not_to.have.key('foo')
+
+                def it_should_pass_if_actual_does_not_have_expected_key_with_value():
+                    expect(_.dct).not_to.have.key('foo', 0)
+
+                def it_should_pass_if_actual_has_expected_key_without_value():
+                    expect(_.dct).not_to.have.key('bar', 1)
+
+                def it_should_fail_if_actual_has_expected_key():
+                    with failure(_.dct, "not to have key 'bar'"):
+                        expect(_.dct).not_to.have.key('bar')
+
+                def it_should_fail_if_actual_has_expected_key_with_value():
+                    with failure(_.dct, "not to have key 'bar' with value 0 but was 0"):
+                        expect(_.dct).not_to.have.key('bar', 0)
+
             with describe('length'):
                 def it_should_pass_if_actual_does_not_have_the_expected_length():
                     expect('foo').not_to.have.length(2)
@@ -462,3 +508,4 @@ with describe(expect) as _:
     @before.all
     def fixtures():
         _.obj = Foo()
+        _.dct = {'bar': 0, 'baz': 1}

@@ -117,6 +117,26 @@ class Have(Expectation):
             for name, value in kwargs.items():
                 self.property(name, value)
 
+    def key(self, *args):
+        name = args[0]
+
+        try:
+            expected = args[1]
+        except IndexError:
+            pass
+        else:
+            try:
+                value = self.actual[name]
+            except KeyError:
+                pass
+            else:
+                self._assert(value == expected, self.error_message(
+                    'key {} with value {} but was {}'.format(repr(name), repr(expected), repr(value))))
+
+                return
+
+        self._assert(name in self.actual, self.error_message('key {}'.format(repr(name))))
+
     def length(self, expected):
         value = len(self.actual)
 
