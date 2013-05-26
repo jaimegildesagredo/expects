@@ -65,12 +65,10 @@ class Be(Expectation):
 
 class Have(Expectation):
     def property(self, *args):
-        name = args[0]
-
         def error_message(tail):
             return self.error_message('property {}'.format(tail))
 
-        self._assert(hasattr(self.actual, name), error_message(repr(name)))
+        name = args[0]
 
         try:
             expected = args[1]
@@ -84,6 +82,10 @@ class Have(Expectation):
             else:
                 self._assert(value == expected, error_message('{} with value {} but was {}'.format(
                     repr(name), repr(expected), repr(value))))
+
+                return
+
+        self._assert(hasattr(self.actual, name), error_message(repr(name)))
 
     def error_message(self, tail):
         return self._parent.error_message('have {}'.format(tail))

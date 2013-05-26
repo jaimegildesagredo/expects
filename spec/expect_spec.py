@@ -70,10 +70,6 @@ with describe(expect) as _:
                         expect(1).to.be.equal(2)
 
             with describe('a'):
-                @before.each
-                def foo():
-                    _.obj = Foo()
-
                 def it_should_pass_if_actual_is_an_instance_of_the_expected_class():
                     expect(_.obj).to.be.a(Foo)
 
@@ -88,10 +84,6 @@ with describe(expect) as _:
                         expect(_.obj).to.be.a(Bar)
 
             with describe('an'):
-                @before.each
-                def foo():
-                    _.obj = Foo()
-
                 def it_should_pass_if_actual_is_an_instance_of_the_expected_class_():
                     expect(_.obj).to.be.an(object)
 
@@ -128,10 +120,6 @@ with describe(expect) as _:
 
         with describe('have'):
             with describe('property'):
-                @before.each
-                def foo():
-                    _.obj = Foo()
-
                 def it_should_pass_if_actual_has_property():
                     expect(_.obj).to.have.property('bar')
 
@@ -146,7 +134,7 @@ with describe(expect) as _:
                     with failure(_.obj, "to have property 'bar' with value 1 but was 0"):
                         expect(_.obj).to.have.property('bar', 1)
 
-                def it_should_fail_if_actual_property_is_not_none():
+                def it_should_fail_if_actual_has_property_without_none_value():
                     with failure(_.obj, "to have property 'bar' with value None but was 0"):
                         expect(_.obj).to.have.property('bar', None)
 
@@ -212,10 +200,6 @@ with describe(expect) as _:
                         expect(1).not_to.be.equal(1)
 
             with describe('a'):
-                @before.each
-                def foo():
-                    _.obj = Foo()
-
                 def it_should_pass_if_actual_is_not_an_instance_of_the_expected_class():
                     class Bar(object):
                         pass
@@ -231,10 +215,6 @@ with describe(expect) as _:
                         expect(_.obj).not_to.be.a(Foo)
 
             with describe('an'):
-                @before.each
-                def foo():
-                    _.obj = Foo()
-
                 def it_should_pass_if_actual_is_not_an_instance_of_the_expected_class_():
                     class Object(object):
                         pass
@@ -271,20 +251,23 @@ with describe(expect) as _:
 
         with describe('have'):
             with describe('property'):
-                @before.each
-                def foo():
-                    _.obj = Foo()
-
-                def it_should_pass_if_actual_does_not_has_property():
+                def it_should_pass_if_actual_does_not_have_property():
                     expect(_.obj).not_to.have.property('foo')
 
-                def it_should_pass_if_actual_does_not_has_property_with_value():
+                def it_should_pass_if_actual_does_not_have_property_with_value():
                     expect(_.obj).not_to.have.property('foo', 0)
+
+                def it_should_pass_if_actual_has_property_without_value():
+                    expect(_.obj).not_to.have.property('bar', 1)
 
                 def it_should_fail_if_actual_has_property():
                     with failure(_.obj, "not to have property 'bar'"):
                         expect(_.obj).not_to.have.property('bar')
 
                 def it_should_fail_if_actual_has_property_with_value():
-                    with failure(_.obj, "not to have property 'bar'"):
+                    with failure(_.obj, "not to have property 'bar' with value 0 but was 0"):
                         expect(_.obj).not_to.have.property('bar', 0)
+
+    @before.all
+    def fixtures():
+        _.obj = Foo()
