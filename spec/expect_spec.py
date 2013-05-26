@@ -118,6 +118,16 @@ with describe(expect) as _:
                     with failure(True, 'to be None'):
                         expect(True).to.be.none
 
+            with describe('empty'):
+                def it_should_pass_if_actual_is_empty():
+                    expect('').to.be.empty
+
+                def it_should_fail_if_actual_is_not_empty():
+                    actual = 'foo'
+
+                    with failure(actual, 'to be empty'):
+                        expect(actual).to.be.empty
+
         with describe('have'):
             with describe('property'):
                 def it_should_pass_if_actual_has_property():
@@ -285,6 +295,16 @@ with describe(expect) as _:
                 def it_should_fail_if_actual_is_none():
                     with failure(None, 'not to be None'):
                         expect(None).not_to.be.none
+
+            with describe('empty'):
+                def it_should_pass_if_actual_is_not_empty():
+                    expect('foo').not_to.be.empty
+
+                def it_should_fail_if_actual_is_empty():
+                    actual = ''
+
+                    with failure(actual, 'not to be empty'):
+                        expect(actual).not_to.be.empty
 
         with describe('have'):
             with describe('property'):

@@ -59,6 +59,10 @@ class Be(Expectation):
     def none(self):
         self(None)
 
+    @property
+    def empty(self):
+        self._assert(len(self.actual) == 0, self.error_message('empty'))
+
     def error_message(self, tail):
         return self._parent.error_message('be {}'.format(tail))
 
