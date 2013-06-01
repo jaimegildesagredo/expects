@@ -2,15 +2,19 @@
 
 import re
 
+from ._compat import with_metaclass
 
-class Expectation(object):
+
+class Builder(type):
+    def __get__(cls, instance, owner):
+        if instance is not None:
+            return cls(instance)
+        return cls
+
+
+class Expectation(with_metaclass(Builder)):
     def __init__(self, parent):
         self._parent = parent
-
-        self.init()
-
-    def init(self):
-        pass
 
     @property
     def actual(self):
@@ -33,8 +37,7 @@ class Equal(Expectation):
 
 
 class Be(Expectation):
-    def init(self):
-        self.equal = Equal(self)
+    equal = Equal
 
     def __call__(self, expected):
         self._assert(self.actual is expected, self.error_message(repr(expected)))
@@ -195,11 +198,10 @@ class RaiseError(Expectation):
 
 
 class To(Expectation):
-    def init(self):
-        self.be = Be(self)
-        self.have = Have(self)
-        self.equal = Equal(self)
-        self.raise_error = RaiseError(self)
+    be = Be
+    have = Have
+    equal = Equal
+    raise_error = RaiseError
 
     def match(self, expected, *flags):
         self._assert(re.match(expected, self.actual, *flags), self.error_message(

@@ -4,10 +4,11 @@ from .expectations import To
 
 
 class expect(object):
+    to = To
+
     def __init__(self, actual):
         self.actual = actual
         self.negative = False
-        self.to = To(self)
 
     @property
     def not_to(self):
