@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 
-from contextlib import contextmanager
 
+class failure(object):
+    def __init__(self, actual, message):
+        self.message = 'Expected {} {}'.format(repr(actual), message)
 
-@contextmanager
-def failure(actual, message):
-    try:
-        yield
-    except AssertionError as err:
-        message = _failure_message(actual, message)
+    def __enter__(self):
+        pass
 
-        if str(err) != message:
-            raise AssertionError("Expected error message '{}' to be '{}'".format(err, message))
-    else:
-        raise AssertionError('Expected AssertionError to be raised')
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        if exc_type is None:
+            raise AssertionError('Expected AssertionError to be raised')
 
+        if exc_type == AssertionError:
+            if str(exc_value) == self.message:
+                return True
 
-def _failure_message(actual, message):
-    return 'Expected {} {}'.format(repr(actual), message)
+            raise AssertionError("Expected error message '{}' to be '{}'".format(
+                exc_value, self.message))
