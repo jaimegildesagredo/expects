@@ -216,6 +216,9 @@ class To(Expectation):
         self._assert(re.match(expected, self.actual, *flags), self.error_message(
             'match {}'.format(repr(expected))))
 
+    def assert_that(self, matcher):
+        self._assert(matcher.matches(self.actual), str(matcher))
+
     def error_message(self, tail):
         message = 'not to' if self.negative else 'to'
 
