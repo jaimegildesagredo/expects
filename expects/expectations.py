@@ -86,7 +86,16 @@ class Be(Expectation):
 
     @property
     def empty(self):
-        self._assert(len(self.actual) == 0, self.error_message('empty'))
+        self._assert(self.__is_empty(self.actual), self.error_message('empty'))
+
+    def __is_empty(self, collection):
+        try:
+            return len(collection) == 0
+        except TypeError:
+            try:
+                next(collection)
+            except StopIteration:
+                return True
 
     def error_message(self, tail):
         return self._parent.error_message('be {}'.format(tail))
@@ -206,6 +215,9 @@ class To(Expectation):
     def match(self, expected, *flags):
         self._assert(re.match(expected, self.actual, *flags), self.error_message(
             'match {}'.format(repr(expected))))
+
+    def assert_that(self, matcher):
+        self._assert(matcher.matches(self.actual), str(matcher))
 
     def error_message(self, tail):
         message = 'not to' if self.negative else 'to'

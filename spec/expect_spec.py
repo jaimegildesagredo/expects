@@ -4,7 +4,7 @@ import re
 
 from mamba import describe, before
 from spec.helpers import failure
-from spec.fixtures import Foo
+from spec.fixtures import Foo, Matcher
 
 from expects import expect
 
@@ -31,6 +31,14 @@ with describe(expect) as _:
 
                 with failure(_.str, 'to match {}'.format(repr(pattern))):
                     expect(_.str).to.match(pattern)
+
+        with describe('assert_that'):
+            def it_should_pass_if_actual_satisfy_matcher():
+                expect(True).to.assert_that(_.matcher)
+
+            def it_should_fail_if_actual_does_not_satisfy_matcher():
+                with failure(True, 'but was False'):
+                    expect(False).to.assert_that(_.matcher)
 
         with describe('raise_error'):
             def it_should_pass_if_actual_raises_expected_exception():
@@ -183,8 +191,17 @@ with describe(expect) as _:
                 def it_should_pass_if_actual_is_empty():
                     expect('').to.be.empty
 
+                def it_should_pass_if_actual_is_an_empty_iterable():
+                    expect(iter('')).to.be.empty
+
                 def it_should_fail_if_actual_is_not_empty():
                     actual = 'foo'
+
+                    with failure(actual, 'to be empty'):
+                        expect(actual).to.be.empty
+
+                def it_should_fail_if_actual_is_a_non_empty_iterable():
+                    actual = iter('foo')
 
                     with failure(actual, 'to be empty'):
                         expect(actual).to.be.empty
@@ -647,3 +664,4 @@ with describe(expect) as _:
         _.dct = {'bar': 0, 'baz': 1}
         _.lst = _.dct.keys()
         _.str = 'My foo string'
+        _.matcher = Matcher()
