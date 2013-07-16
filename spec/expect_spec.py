@@ -339,6 +339,16 @@ with describe(expect) as _:
                     with failure(actual, 'to have length 2 but was 3'):
                         expect(actual).to.have.length(2)
 
+                def it_should_pass_if_actual_iterable_has_the_expected_length():
+                    expect(iter('foo')).to.have.length(3)
+
+                def it_should_fail_if_actual_iterable_does_not_have_the_expected_length():
+                    actual = iter('foo')
+
+                    with failure(actual, 'to have length 2 but was 3'):
+                        expect(actual).to.have.length(2)
+
+
     with describe('not_to'):
         with describe('equal'):
             def it_should_pass_if_actual_does_not_equal_expected():

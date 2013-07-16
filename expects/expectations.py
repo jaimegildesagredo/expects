@@ -166,10 +166,16 @@ class Have(Expectation):
                 expectation(name, value)
 
     def length(self, expected):
-        value = len(self.actual)
+        value = self.__length(self.actual)
 
         self._assert(value == expected, self.error_message(
             'length {} but was {}'.format(expected, value)))
+
+    def __length(self, collection):
+        try:
+            return len(collection)
+        except TypeError:
+            return sum(1 for i in collection)
 
     def error_message(self, tail):
         return self._parent.error_message('have {}'.format(tail))
