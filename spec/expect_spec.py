@@ -209,6 +209,17 @@ with describe(expect) as _:
                 with failure(_.lst, "to have 'foo'"):
                     expect(_.lst).to.have('bar', 'foo')
 
+            def it_should_pass_if_actual_iterable_has_expected_item():
+                expect(iter(_.lst)).to.have('bar')
+
+            def it_should_pass_if_actual_iterable_has_expected_items():
+                expect(iter(_.lst)).to.have('bar', 'baz')
+
+            def it_should_fail_if_actual_iterable_does_not_have_expected_item():
+                iterable = iter(_.lst)
+                with failure(iterable, "to have 'foo'"):
+                    expect(iterable).to.have('bar', 'foo')
+
             with describe('property'):
                 def it_should_pass_if_actual_has_property():
                     expect(_.obj).to.have.property('bar')
