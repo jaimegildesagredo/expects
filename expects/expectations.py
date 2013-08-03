@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*
 
 import re
+import traceback
 
 from ._compat import with_metaclass
 
@@ -196,11 +197,13 @@ class RaiseError(Expectation):
                 return message == exc_message, error_message(
                     'with message {} but message was {}'.format(repr(message), repr(exc_message)))
             else:
-                return True, error_message('but {} raised'.format(type(exc).__name__))
+                return True, error_message('but {} raised\n\n{}'.format(
+                    type(exc).__name__, traceback.format_exc()))
         except Exception as err:
-            return False, error_message('but {} raised'.format(type(err).__name__))
+            return False, error_message('but {} raised\n\n{}'.format(
+                type(err).__name__, traceback.format_exc()))
         else:
-            return False, error_message('but {} raised'.format(None))
+            return False, error_message('but not raised')
 
     def error_message(self, tail):
         return self._parent.error_message('raise {}'.format(tail))

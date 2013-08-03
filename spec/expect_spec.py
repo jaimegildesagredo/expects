@@ -49,7 +49,7 @@ with describe(expect) as _:
             def it_should_fail_if_actual_does_not_raise_exception():
                 callback = lambda: None
 
-                with failure(callback, 'to raise AttributeError but None raised'):
+                with failure(callback, 'to raise AttributeError but not raised'):
                     expect(callback).to.raise_error(AttributeError)
 
             def it_should_pass_if_actual_raises_expected_exception_with_message():

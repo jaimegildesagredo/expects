@@ -22,6 +22,12 @@ with describe('helpers') as _:
 
             expect(callback).not_to.raise_error(AssertionError)
 
+        def it_should_pass_if_assertion_error_raised_and_matchs_pattern():
+            fail = failure(_.actual, _.pattern)
+
+            with fail:
+                raise AssertionError(failure(_.actual, _.message).message)
+
         def it_should_fail_if_assertion_error_not_raised():
             def callback():
                 with failure(_.actual, _.message):
@@ -40,3 +46,4 @@ with describe('helpers') as _:
         def fixtures():
             _.actual = 'foo'
             _.message = "to be 'bar'"
+            _.pattern = "to be '\w+'"

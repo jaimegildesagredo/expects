@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import re
+
 
 class failure(object):
     def __init__(self, actual, message):
@@ -13,8 +15,13 @@ class failure(object):
             raise AssertionError('Expected AssertionError to be raised')
 
         if exc_type == AssertionError:
-            if str(exc_value) == self.message:
-                return True
+            exc_str = str(exc_value)
 
-            raise AssertionError("Expected error message '{}' to be '{}'".format(
-                exc_value, self.message))
+            if self.message == exc_str:
+                return True
+            elif re.search(self.message, exc_str, re.DOTALL):
+                return True
+            else:
+                raise AssertionError(
+                    "Expected error message '{}' to match '{}'".format(
+                        exc_value, self.message))
