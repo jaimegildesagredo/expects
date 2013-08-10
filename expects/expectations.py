@@ -201,16 +201,31 @@ class RaiseError(Expectation):
             exc_message = str(exc)
 
             if message is not None:
-                return message == exc_message, error_message(
-                    'with message {} but message was {}'.format(repr(message), repr(exc_message)))
+                return (self.__matchs(message, exc_message),
+                        error_message(
+                            'with message {} but message was {}'.format(
+                            repr(message), repr(exc_message))))
+
             else:
-                return True, error_message('but {} raised\n\n{}'.format(
-                    type(exc).__name__, traceback.format_exc()))
+                return (True,
+                        error_message('but {} raised\n\n{}'.format(
+                            type(exc).__name__, traceback.format_exc())))
+
         except Exception as err:
-            return False, error_message('but {} raised\n\n{}'.format(
-                type(err).__name__, traceback.format_exc()))
+            return (False,
+                    error_message('but {} raised\n\n{}'.format(
+                        type(err).__name__, traceback.format_exc())))
+
         else:
             return False, error_message('but not raised')
+
+    def __matchs(self, message, exc_message):
+        if message == exc_message:
+            return True
+        elif re.search(message, exc_message):
+            return True
+
+        return False
 
     def error_message(self, tail):
         return self._parent.error_message('raise {}'.format(tail))

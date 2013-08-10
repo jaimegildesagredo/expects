@@ -15,11 +15,11 @@ class failure(object):
             raise AssertionError('Expected AssertionError to be raised')
 
         if exc_type == AssertionError:
-            exc_str = str(exc_value)
+            exc_message = str(exc_value)
 
-            if self.message == exc_str:
+            if self.message == exc_message:
                 return True
-            elif re.search(self.message, exc_str, re.DOTALL):
+            elif re.search(self.message, exc_message, re.DOTALL):
                 return True
             else:
                 raise AssertionError(

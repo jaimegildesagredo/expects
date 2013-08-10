@@ -52,20 +52,42 @@ with describe(expect) as _:
                 with failure(callback, 'to raise AttributeError but not raised'):
                     expect(callback).to.raise_error(AttributeError)
 
-            def it_should_pass_if_actual_raises_expected_exception_with_message():
-                message = 'Foo error'
-
+            def it_should_pass_if_actual_raises_with_message():
                 def callback():
-                    raise AttributeError(message)
+                    raise AttributeError(_.message)
 
-                expect(callback).to.raise_error(AttributeError, message)
+                expect(callback).to.raise_error(AttributeError, _.message)
 
-            def it_should_fail_if_actual_raises_expected_exception_with_different_message():
+            def it_should_fail_if_actual_raises_with_different_message():
                 def callback():
                     raise AttributeError('bar')
 
                 with failure(callback, "to raise AttributeError with message 'foo' but message was 'bar'"):
                     expect(callback).to.raise_error(AttributeError, 'foo')
+
+            def it_should_pass_if_actual_raises_and_message_matches_pattern():
+                pattern = r'\w+ error'
+
+                def callback():
+                    raise AttributeError(_.message)
+
+                expect(callback).to.raise_error(AttributeError, pattern)
+
+            def it_should_fail_if_actual_raises_but_message_does_not_match_pattern():
+                pattern = r'\W+ error'
+
+                def callback():
+                    raise AttributeError(_.message)
+
+                with failure(callback, "to raise AttributeError with "
+                             "message {} but message was {}"
+                             .format(repr(pattern), repr(_.message))):
+
+                    expect(callback).to.raise_error(AttributeError, pattern)
+
+            @before.each
+            def raise_fixtures():
+                _.message = 'Foo error'
 
         with describe('be'):
             def it_should_pass_if_actual_is_expected():
