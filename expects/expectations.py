@@ -104,8 +104,9 @@ class Be(Expectation):
 
 class Have(Expectation):
     def __call__(self, *args):
+        collection = self.actual if len(args) == 1 else set(self.actual)
         for arg in args:
-            self._assert(arg in self.actual, self.error_message(repr(arg)))
+            self._assert(arg in collection, self.error_message(repr(arg)))
 
     def property(self, *args):
         def error_message(tail):
