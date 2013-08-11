@@ -9,7 +9,7 @@ from spec.fixtures import Foo
 from expects import expect
 
 
-with describe(expect) as _:
+with describe('expect') as _:
     with describe('to'):
         with describe('equal'):
             def it_should_pass_if_actual_equals_expected():
