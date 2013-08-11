@@ -22,11 +22,11 @@ class Expectation(with_metaclass(Builder)):
         return self._parent.actual
 
     @property
-    def negative(self):
-        return self._parent.negative
+    def negated(self):
+        return self._parent.negated
 
     def _assert(self, result, error_message):
-        assert not result if self.negative else result, error_message
+        assert not result if self.negated else result, error_message
 
 
 class Equal(Expectation):
@@ -242,6 +242,6 @@ class To(Expectation):
             'match {}'.format(repr(expected))))
 
     def error_message(self, tail):
-        message = 'not to' if self.negative else 'to'
+        message = 'not to' if self.negated else 'to'
 
         return self._parent.error_message('{} {}'.format(message, tail))
