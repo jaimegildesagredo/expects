@@ -3,7 +3,11 @@
 from .expectations import To
 
 
-class expect(object):
+def expect(actual):
+    return Expect(actual)
+
+
+class Expect(object):
     to = To
 
     def __init__(self, actual):
