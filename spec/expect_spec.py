@@ -242,6 +242,11 @@ with describe('expect') as _:
                 with failure(iterable, "to have 'foo'"):
                     expect(iterable).to.have('bar', 'foo')
 
+            def it_should_pass_if_iterable_of_dicts_has_dict():
+                # issue-8
+
+                expect([{'foo': 1}, 'bar']).to.have({'foo': 1})
+
             with describe('property'):
                 def it_should_pass_if_actual_has_property():
                     expect(_.obj).to.have.property('bar')
