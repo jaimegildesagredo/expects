@@ -5,3 +5,8 @@ Expects
     :target: http://travis-ci.org/jaimegildesagredo/expects
 
 Expectations library for Python.
+
+Changes
+-------
+
+See changes `here <CHANGES.rst>`_.
