@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.1.1 (not released yet!)
+0.1.1 (Ago 20, 2013)
 --------
 
 Bug fixes
