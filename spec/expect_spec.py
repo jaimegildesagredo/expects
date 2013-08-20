@@ -330,6 +330,12 @@ with describe('expect') as _:
                     with failure(_.dct, "to have key 'bar' with value None but was 0"):
                         expect(_.dct).to.have.key('bar', None)
 
+                def it_should_fail_if_actual_is_not_a_dict():
+                    # issue-10
+
+                    with failure(_.str, "to have key 'foo' but not a dict"):
+                        expect(_.str).to.have.key('foo', 0)
+
             with describe('keys'):
                 def it_should_pass_if_actual_has_keys_in_args():
                     expect(_.dct).to.have.keys('bar', 'baz')
@@ -651,6 +657,11 @@ with describe('expect') as _:
                 def it_should_fail_if_actual_has_expected_key_with_value():
                     with failure(_.dct, "not to have key 'bar' with value 0 but was 0"):
                         expect(_.dct).not_to.have.key('bar', 0)
+
+                def it_should_pass_if_actual_is_not_a_dict():
+                    # issue-10
+
+                    expect(_.str).not_to.have.key('foo', 0)
 
             with describe('keys'):
                 def it_should_pass_if_actual_does_not_have_keys_in_args():

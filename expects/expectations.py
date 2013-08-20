@@ -134,6 +134,12 @@ class Have(Expectation):
     def key(self, *args):
         name = args[0]
 
+        if not isinstance(self.actual, dict):
+            self._assert(False, self.error_message(
+                'key {!r} but not a dict'.format(name)))
+
+            return
+
         try:
             expected = args[1]
         except IndexError:
@@ -145,11 +151,13 @@ class Have(Expectation):
                 pass
             else:
                 self._assert(value == expected, self.error_message(
-                    'key {} with value {} but was {}'.format(repr(name), repr(expected), repr(value))))
+                    'key {!r} with value {!r} but was {!r}'.format(
+                        name, expected, value)))
 
                 return
 
-        self._assert(name in self.actual, self.error_message('key {}'.format(repr(name))))
+        self._assert(name in self.actual.keys(),
+                     self.error_message('key {!r}'.format(name)))
 
     def properties(self, *args, **kwargs):
         self._dict_based_expectation(self.property, args, kwargs)
