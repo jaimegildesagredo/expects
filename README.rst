@@ -15,9 +15,9 @@ You can install the last stable release of Expects from PyPI using pip or easy_i
 
     $ pip install expects
 
-    Also you can install the latest sources from Github.
+Also you can install the latest sources from Github.
 
-    .. code-block:: bash
+.. code-block:: bash
 
      $ pip install -e git+git://github.com/jaimegildesagredo/expects.git#egg=expects
 
