@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('have') as _:
+with describe('to.have') as _:
     def it_should_pass_if_actual_has_expected_item():
         expect(_.lst).to.have('bar')
 

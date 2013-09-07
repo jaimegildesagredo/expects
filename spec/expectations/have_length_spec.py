@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('length'):
+with describe('to.have.length'):
     def it_should_pass_if_actual_has_the_expected_length():
         expect('foo').to.have.length(3)
 
