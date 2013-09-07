@@ -2,8 +2,6 @@
 
 """Python 3 and 2 compatibility support module."""
 
-import sys
-
 
 def with_metaclass(meta, *bases):
     """Extracted from:
