@@ -4,7 +4,7 @@ from mamba import describe, before
 
 from spec.fixtures import DefaultExpect, BarExpect
 
-from expects import expect, ExpectFactory
+from expects import expect, ExpectFactory, errors
 
 
 with describe(ExpectFactory) as _:
@@ -35,6 +35,10 @@ with describe(ExpectFactory) as _:
 
         expect(result).to.be.a(BarExpect)
         expect(result).to.have.property('actual', 1)
+
+    def it_should_raise_if_given_expectation_is_not_found():
+        expect(lambda: _.expect(foo=1)).to.raise_error(
+            errors.ExtensionError, "Extension 'foo' not found")
 
     @before.each
     def subject():

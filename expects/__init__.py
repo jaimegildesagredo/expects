@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*
 
+from . import errors
+
 
 class ExpectFactory(object):
     def __init__(self, expectations):
@@ -8,7 +10,11 @@ class ExpectFactory(object):
     def __call__(self, *args, **kwargs):
         expectation, actual = self.__parse_args(args, kwargs)
 
-        return self._expectations[expectation](actual)
+        try:
+            return self._expectations[expectation](actual)
+        except KeyError:
+            raise errors.ExtensionError(
+                'Extension {!r} not found'.format(expectation))
 
     def __parse_args(self, args, kwargs):
         total_args = len(args)
