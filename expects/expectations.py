@@ -28,20 +28,24 @@ class Expectation(with_metaclass(Builder)):
     def _assert(self, result, error_message):
         assert not result if self.negated else result, error_message
 
+    @property
+    def error_message(self):
+        return (self._parent.error_message +
+                '{} '.format(type(self).__name__.lower()))
+
 
 class Equal(Expectation):
     def __call__(self, expected):
-        self._assert(self.actual == expected, self.error_message(repr(expected)))
-
-    def error_message(self, tail):
-        return self._parent.error_message('equal {}'.format(tail))
+        self._assert(self.actual == expected,
+                     self.error_message + repr(expected))
 
 
 class Be(Expectation):
     equal = Equal
 
     def __call__(self, expected):
-        self._assert(self.actual is expected, self.error_message(repr(expected)))
+        self._assert(self.actual is expected,
+                     self.error_message + repr(expected))
 
     def a(self, expected):
         self.__instance_of(expected, 'a')
@@ -50,28 +54,31 @@ class Be(Expectation):
         self.__instance_of(expected, 'an')
 
     def __instance_of(self, expected, article):
-        self._assert(isinstance(self.actual, expected), self.error_message(
-            '{} {} instance'.format(article, expected.__name__)))
+        self._assert(isinstance(self.actual, expected),
+                     self.error_message +
+                        '{} {} instance'.format(article, expected.__name__))
 
     def greater_than(self, expected):
-        self._assert(self.actual > expected, self.error_message(
-            'greater than {}'.format(expected)))
+        self._assert(self.actual > expected,
+                     self.error_message + 'greater than {}'.format(expected))
 
     def greater_or_equal_to(self, expected):
-        self._assert(self.actual >= expected, self.error_message(
-            'greater or equal to {}'.format(expected)))
+        self._assert(self.actual >= expected,
+                     self.error_message +
+                        'greater or equal to {}'.format(expected))
 
     def less_than(self, expected):
-        self._assert(self.actual < expected, self.error_message(
-            'less than {}'.format(expected)))
+        self._assert(self.actual < expected,
+                     self.error_message + 'less than {}'.format(expected))
 
     def less_or_equal_to(self, expected):
-        self._assert(self.actual <= expected, self.error_message(
-            'less or equal to {}'.format(expected)))
+        self._assert(self.actual <= expected,
+                     self.error_message +
+                        'less or equal to {}'.format(expected))
 
     def within(self, start, stop):
-        self._assert(self.actual in range(start, stop), self.error_message(
-            'within {}, {}'.format(start, stop)))
+        self._assert(self.actual in range(start, stop),
+                     self.error_message + 'within {}, {}'.format(start, stop))
 
     @property
     def true(self):
@@ -87,7 +94,7 @@ class Be(Expectation):
 
     @property
     def empty(self):
-        self._assert(self.__is_empty(self.actual), self.error_message('empty'))
+        self._assert(self.__is_empty(self.actual), self.error_message + 'empty')
 
     def __is_empty(self, collection):
         try:
@@ -98,19 +105,16 @@ class Be(Expectation):
             except StopIteration:
                 return True
 
-    def error_message(self, tail):
-        return self._parent.error_message('be {}'.format(tail))
-
 
 class Have(Expectation):
     def __call__(self, *args):
         collection = self.actual if len(args) == 1 else list(self.actual)
         for arg in args:
-            self._assert(arg in collection, self.error_message(repr(arg)))
+            self._assert(arg in collection, self.error_message + repr(arg))
 
     def property(self, *args):
         def error_message(tail):
-            return self.error_message('property {}'.format(tail))
+            return self.error_message + 'property {}'.format(tail)
 
         name = args[0]
 
@@ -124,8 +128,10 @@ class Have(Expectation):
             except AttributeError:
                 pass
             else:
-                self._assert(value == expected, error_message('{} with value {} but was {}'.format(
-                    repr(name), repr(expected), repr(value))))
+                self._assert(
+                    value == expected,
+                    error_message('{!r} with value {!r} but was {!r}'.format(
+                        name, expected, value)))
 
                 return
 
@@ -135,8 +141,9 @@ class Have(Expectation):
         name = args[0]
 
         if not isinstance(self.actual, dict):
-            self._assert(False, self.error_message(
-                'key {!r} but not a dict'.format(name)))
+            self._assert(
+                False,
+                self.error_message + 'key {!r} but not a dict'.format(name))
 
             return
 
@@ -150,14 +157,15 @@ class Have(Expectation):
             except KeyError:
                 pass
             else:
-                self._assert(value == expected, self.error_message(
+                self._assert(
+                    value == expected, self.error_message +
                     'key {!r} with value {!r} but was {!r}'.format(
-                        name, expected, value)))
+                        name, expected, value))
 
                 return
 
         self._assert(name in self.actual.keys(),
-                     self.error_message('key {!r}'.format(name)))
+                     self.error_message + 'key {!r}'.format(name))
 
     def properties(self, *args, **kwargs):
         self._dict_based_expectation(self.property, args, kwargs)
@@ -178,8 +186,9 @@ class Have(Expectation):
     def length(self, expected):
         value = self.__length(self.actual)
 
-        self._assert(value == expected, self.error_message(
-            'length {} but was {}'.format(expected, value)))
+        self._assert(
+            value == expected, self.error_message +
+            'length {} but was {}'.format(expected, value))
 
     def __length(self, collection):
         try:
@@ -187,11 +196,8 @@ class Have(Expectation):
         except TypeError:
             return sum(1 for i in collection)
 
-    def error_message(self, tail):
-        return self._parent.error_message('have {}'.format(tail))
 
-
-class RaiseError(Expectation):
+class Raise(Expectation):
     def __call__(self, expected, message=None):
         assertion = self._build_assertion(expected, message)
 
@@ -200,8 +206,8 @@ class RaiseError(Expectation):
 
     def _build_assertion(self, expected, message):
         def error_message(tail):
-            return self.error_message('{} {}'.format(
-                expected.__name__, tail))
+            return (self.error_message +
+                    '{} {}'.format(expected.__name__, tail))
 
         try:
             self.actual()
@@ -211,8 +217,8 @@ class RaiseError(Expectation):
             if message is not None:
                 return (self.__matchs(message, exc_message),
                         error_message(
-                            'with message {} but message was {}'.format(
-                            repr(message), repr(exc_message))))
+                            'with message {!r} but message was {!r}'.format(
+                                message, exc_message)))
 
             else:
                 return (True,
@@ -235,24 +241,21 @@ class RaiseError(Expectation):
 
         return False
 
-    def error_message(self, tail):
-        return self._parent.error_message('raise {}'.format(tail))
-
 
 class To(Expectation):
     be = Be
     have = Have
     equal = Equal
-    raise_error = RaiseError
+    raise_error = Raise
 
     def match(self, expected, *flags):
-        self._assert(re.match(expected, self.actual, *flags), self.error_message(
-            'match {}'.format(repr(expected))))
+        self._assert(re.match(expected, self.actual, *flags),
+                     self.error_message + 'match {}'.format(repr(expected)))
 
-    def error_message(self, tail):
-        message = 'not to' if self.negated else 'to'
-
-        return self._parent.error_message('{} {}'.format(message, tail))
+    @property
+    def error_message(self):
+        return (self._parent.error_message +
+                '{} '.format('not to' if self.negated else 'to'))
 
 
 class Expect(object):
@@ -267,5 +270,6 @@ class Expect(object):
         self.negated = True
         return self.to
 
-    def error_message(self, tail):
-        return 'Expected {} {}'.format(repr(self.actual), tail)
+    @property
+    def error_message(self):
+        return 'Expected {!r} '.format(self.actual)
