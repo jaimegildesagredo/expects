@@ -14,7 +14,7 @@ setup(
     license='Apache 2.0',
     packages=find_packages(exclude=['spec', 'spec.*']),
     entry_points={
-        'expects.expectations': [
+        'expects.plugins': [
             'default = expects.expectations:Expect'
         ]
     },

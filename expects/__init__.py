@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*
 
+from pkg_resources import iter_entry_points
+
 from . import errors
 
 
 class ExpectFactory(object):
-    def __init__(self, expectations):
-        self._expectations = expectations
+    def __init__(self, plugins):
+        self._plugins = plugins
 
     def __call__(self, *args, **kwargs):
-        expectation, actual = self.__parse_args(args, kwargs)
+        plugin_name, actual = self.__parse_args(args, kwargs)
 
         try:
-            return self._expectations[expectation](actual)
+            return self._plugins[plugin_name](actual)
         except KeyError:
             raise errors.ExtensionError(
-                'Extension {!r} not found'.format(expectation))
+                'Plugin {!r} not found'.format(plugin_name))
 
     def __parse_args(self, args, kwargs):
         total_args = len(args)
@@ -34,18 +36,16 @@ class ExpectFactory(object):
         try:
             actual = args[0]
         except IndexError:
-            expectation, actual = kwargs.popitem()
+            plugin_name, actual = kwargs.popitem()
         else:
-            expectation = 'default'
+            plugin_name = 'default'
 
-        return expectation, actual
+        return plugin_name, actual
 
 
-def _load_expectations():
-    from pkg_resources import iter_entry_points
-
+def _load_plugins():
     return {e.name: e.load() for e in
-            iter_entry_points('expects.expectations')}
+            iter_entry_points('expects.plugins')}
 
 
-expect = ExpectFactory(_load_expectations())
+expect = ExpectFactory(_load_plugins())
