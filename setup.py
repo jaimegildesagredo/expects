@@ -15,7 +15,7 @@ setup(
     packages=find_packages(exclude=['spec', 'spec.*']),
     entry_points={
         'expects.plugins': [
-            'default = expects.expectations:Expect'
+            'default = expects.expects:Expects'
         ]
     },
     classifiers=[

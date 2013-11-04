@@ -3,7 +3,7 @@
 from mamba import describe, context, before
 
 from expects import expect
-from expects.expectations import Expectation
+from expects.expects import Expectation
 
 
 with describe(Expectation) as _:

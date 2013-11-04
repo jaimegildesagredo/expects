@@ -258,7 +258,7 @@ class To(Expectation):
                 '{} '.format('not to' if self.negated else 'to'))
 
 
-class Expect(object):
+class Expects(object):
     to = To
 
     def __init__(self, actual):
