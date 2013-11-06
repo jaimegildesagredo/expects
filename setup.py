@@ -6,7 +6,7 @@ long_description = open('README.rst').read()
 
 setup(
     name='expects',
-    version='0.1.1',
+    version='0.2.0',
     description='Expectations library for Python',
     long_description=long_description,
     author='Jaime Gil de Sagredo Luna',
