@@ -13,8 +13,30 @@ class Builder(type):
         return cls
 
 
-class Expectation(with_metaclass(Builder)):
+class Negable(object):
+    def __init__(self):
+        self.negated = False
+
+    def __getattr__(self, name):
+        if name.startswith('not_') and name != 'not_':
+            expectation_name = name[4:]
+
+            try:
+                value = super(Negable, self).__getattribute__(expectation_name)
+            except AttributeError:
+                pass
+            else:
+                if isinstance(value, Expectation):
+                    value.negated = True
+                    return value
+
+        return super(Negable, self).__getattribute__(name)
+
+
+class Expectation(with_metaclass(Builder, Negable)):
     def __init__(self, parent):
+        super(Expectation, self).__init__()
+
         self._parent = parent
 
     @property
@@ -22,16 +44,30 @@ class Expectation(with_metaclass(Builder)):
         return self._parent.actual
 
     @property
-    def negated(self):
-        return self._parent.negated
-
-    def _assert(self, result, error_message):
-        assert not result if self.negated else result, error_message
-
-    @property
     def error_message(self):
         return (self._parent.error_message +
+                ('not ' if self.negated else '') +
                 '{} '.format(type(self).__name__.lower()))
+
+    def _assert(self, result, error_message):
+        assert not result if self._negated else result, error_message
+
+    @property
+    def _negated(self):
+        times_negated = 0
+
+        if self.negated:
+            times_negated += 1
+
+        parent = self._parent
+
+        while parent is not None:
+            if getattr(parent, 'negated', False):
+                times_negated += 1
+
+            parent = getattr(parent, '_parent', None)
+
+        return bool(times_negated % 2)
 
 
 class Equal(Expectation):
@@ -252,23 +288,14 @@ class To(Expectation):
         self._assert(re.match(expected, self.actual, *flags),
                      self.error_message + 'match {}'.format(repr(expected)))
 
-    @property
-    def error_message(self):
-        return (self._parent.error_message +
-                '{} '.format('not to' if self.negated else 'to'))
 
-
-class Expects(object):
+class Expects(Negable):
     to = To
 
     def __init__(self, actual):
-        self.actual = actual
-        self.negated = False
+        super(Expects, self).__init__()
 
-    @property
-    def not_to(self):
-        self.negated = True
-        return self.to
+        self.actual = actual
 
     @property
     def error_message(self):
