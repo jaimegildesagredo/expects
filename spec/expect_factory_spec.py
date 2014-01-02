@@ -38,7 +38,7 @@ with describe(ExpectFactory) as _:
 
     def it_should_raise_if_given_expectation_is_not_found():
         expect(lambda: _.expect(foo=1)).to.raise_error(
-            errors.ExtensionError, "Plugin 'foo' not found")
+            errors.PluginError, "Plugin 'foo' not found")
 
     @before.each
     def subject():

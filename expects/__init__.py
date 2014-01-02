@@ -15,7 +15,7 @@ class ExpectFactory(object):
         try:
             return self._plugins[plugin_name](actual)
         except KeyError:
-            raise errors.ExtensionError(
+            raise errors.PluginError(
                 'Plugin {!r} not found'.format(plugin_name))
 
     def __parse_args(self, args, kwargs):

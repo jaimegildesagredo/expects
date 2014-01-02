@@ -5,5 +5,5 @@ class ExpectsError(Exception):
     pass
 
 
-class ExtensionError(ExpectsError):
+class PluginError(ExpectsError):
     pass
