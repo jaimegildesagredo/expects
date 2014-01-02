@@ -22,7 +22,7 @@ class ExpectFactory(object):
         total_args = len(args)
         total_kwargs = len(kwargs)
 
-        if total_kwargs > 1 or (total_kwargs >= 1 and total_args >= 1):
+        if total_kwargs > 1 or (total_kwargs == 1 and total_args > 0):
             raise TypeError('expect() got an unexpected keyword argument '
                             '{!r}'.format(kwargs.popitem()[0]))
 
