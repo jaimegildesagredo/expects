@@ -3,155 +3,89 @@
 import re
 import traceback
 
-from ._compat import with_metaclass
+from .expectation import Expectation, Proxy
 
 
-class Builder(type):
-    def __get__(cls, instance, owner):
-        if instance is not None:
-            return cls(instance)
-        return cls
-
-
-class Negable(object):
-    def __init__(self):
-        self.negated = False
-
-    def __getattr__(self, name):
-        if name.startswith('not_') and name != 'not_':
-            expectation_name = name[4:]
-
-            try:
-                value = super(Negable, self).__getattribute__(expectation_name)
-            except AttributeError:
-                pass
-            else:
-                if isinstance(value, Expectation):
-                    value.negated = True
-                    return value
-
-        return super(Negable, self).__getattribute__(name)
-
-
-class Expectation(with_metaclass(Builder, Negable)):
-    def __init__(self, parent):
-        super(Expectation, self).__init__()
-
-        self._parent = parent
+class Expects(Expectation):
+    @property
+    def to(self):
+        return self
 
     @property
-    def actual(self):
-        return self._parent.actual
+    def with_value(self):
+        self._message.append(repr(self._actual))
+        return self
 
     @property
-    def error_message(self):
-        return (self._parent.error_message +
-                ('not ' if self.negated else '') +
-                '{} '.format(type(self).__name__.lower()))
-
-    def _assert(self, result, error_message):
-        assert not result if self._negated else result, error_message
-
-    @property
-    def _negated(self):
-        times_negated = 0
-
-        if self.negated:
-            times_negated += 1
-
-        parent = self._parent
-
-        while parent is not None:
-            if getattr(parent, 'negated', False):
-                times_negated += 1
-
-            parent = getattr(parent, '_parent', None)
-
-        return bool(times_negated % 2)
-
-
-class Equal(Expectation):
-    def __call__(self, expected):
-        self._assert(self.actual == expected,
-                     self.error_message + repr(expected))
-
-
-class Be(Expectation):
-    equal = Equal
-
-    def __call__(self, expected):
-        self._assert(self.actual is expected,
-                     self.error_message + repr(expected))
-
-    def a(self, expected):
-        self.__instance_of(expected, 'a')
-
-    def an(self, expected):
-        self.__instance_of(expected, 'an')
-
-    def __instance_of(self, expected, article):
-        self._assert(isinstance(self.actual, expected),
-                     self.error_message +
-                        '{} {} instance'.format(article, expected.__name__))
-
-    def greater_than(self, expected):
-        self._assert(self.actual > expected,
-                     self.error_message + 'greater than {}'.format(expected))
-
-    def greater_or_equal_to(self, expected):
-        self._assert(self.actual >= expected,
-                     self.error_message +
-                        'greater or equal to {}'.format(expected))
-
-    def less_than(self, expected):
-        self._assert(self.actual < expected,
-                     self.error_message + 'less than {}'.format(expected))
-
-    def less_or_equal_to(self, expected):
-        self._assert(self.actual <= expected,
-                     self.error_message +
-                        'less or equal to {}'.format(expected))
-
-    def within(self, start, stop):
-        self._assert(self.actual in range(start, stop),
-                     self.error_message + 'within {}, {}'.format(start, stop))
+    def be(self):
+        return _Be(self)
 
     @property
     def true(self):
-        self(True)
+        self._message.pop()
+        self.__be(True)
+
+    def __be(self, value):
+        return _Be(self)(value)
 
     @property
     def false(self):
-        self(False)
+        self._message.pop()
+        self.__be(False)
 
     @property
     def none(self):
-        self(None)
+        self._message.pop()
+        self.__be(None)
 
     @property
     def empty(self):
-        self._assert(self.__is_empty(self.actual), self.error_message + 'empty')
+        self._assert(self.__is_empty)
 
-    def __is_empty(self, collection):
+    @property
+    def __is_empty(self):
         try:
-            return len(collection) == 0
+            return len(self._actual) == 0
         except TypeError:
             try:
-                next(collection)
+                next(self._actual)
             except StopIteration:
                 return True
 
+    def equal(self, expected):
+        self._assert(self._actual == expected, repr(expected))
 
-class Have(Expectation):
-    def __call__(self, *args):
-        collection = self.actual if len(args) == 1 else list(self.actual)
-        for arg in args:
-            self._assert(arg in collection, self.error_message + repr(arg))
+    def a(self, expected):
+        return self.__instance_of(expected)
+
+    def an(self, expected):
+        return self.__instance_of(expected)
+
+    def __instance_of(self, expected):
+        self._assert(isinstance(self._actual, expected),
+                     expected.__name__, 'instance')
+
+    def greater_than(self, expected):
+        self._assert(self._actual > expected, expected)
+
+    def greater_or_equal_to(self, expected):
+        self._assert(self._actual >= expected, expected)
+
+    def less_than(self, expected):
+        self._assert(self._actual < expected, expected)
+
+    def less_or_equal_to(self, expected):
+        self._assert(self._actual <= expected, expected)
+
+    def within(self, start, stop):
+        self._assert(self._actual in range(start, stop),
+                     '{}, {}'.format(start, stop))
+
+    @property
+    def have(self):
+        return _Have(self)
 
     def property(self, *args):
-        def error_message(tail):
-            return self.error_message + 'property {}'.format(tail)
-
         name = args[0]
 
         try:
@@ -160,26 +94,23 @@ class Have(Expectation):
             pass
         else:
             try:
-                value = getattr(self.actual, name)
+                value = getattr(self._actual, name)
             except AttributeError:
                 pass
             else:
-                self._assert(
-                    value == expected,
-                    error_message('{!r} with value {!r} but was {!r}'.format(
-                        name, expected, value)))
+                self._assert(value == expected,
+                             '{!r} with value {!r} but was {!r}'.format(
+                                 name, expected, value))
 
                 return
 
-        self._assert(hasattr(self.actual, name), error_message(repr(name)))
+        self._assert(hasattr(self._actual, name), repr(name))
 
     def key(self, *args):
         name = args[0]
 
-        if not isinstance(self.actual, dict):
-            self._assert(
-                False,
-                self.error_message + 'key {!r} but not a dict'.format(name))
+        if not isinstance(self._actual, dict):
+            self._assert(False, '{!r} but not a dict'.format(name))
 
             return
 
@@ -189,24 +120,26 @@ class Have(Expectation):
             pass
         else:
             try:
-                value = self.actual[name]
+                value = self._actual[name]
             except KeyError:
                 pass
             else:
-                self._assert(
-                    value == expected, self.error_message +
-                    'key {!r} with value {!r} but was {!r}'.format(
-                        name, expected, value))
+                self._assert(value == expected,
+                             '{!r} with value {!r} but was {!r}'.format(
+                                 name, expected, value))
 
                 return
 
-        self._assert(name in self.actual.keys(),
-                     self.error_message + 'key {!r}'.format(name))
+        self._assert(name in self._actual.keys(), repr(name))
 
     def properties(self, *args, **kwargs):
+        self._message.pop()
+
         self._dict_based_expectation(self.property, args, kwargs)
 
     def keys(self, *args, **kwargs):
+        self._message.pop()
+
         self._dict_based_expectation(self.key, args, kwargs)
 
     def _dict_based_expectation(self, expectation, args, kwargs):
@@ -220,11 +153,10 @@ class Have(Expectation):
                 expectation(name, value)
 
     def length(self, expected):
-        value = self.__length(self.actual)
+        value = self.__length(self._actual)
 
-        self._assert(
-            value == expected, self.error_message +
-            'length {} but was {}'.format(expected, value))
+        self._assert(value == expected,
+                     '{} but was {}'.format(expected, value))
 
     def __length(self, collection):
         try:
@@ -232,44 +164,42 @@ class Have(Expectation):
         except TypeError:
             return sum(1 for i in collection)
 
+    def raise_error(self, expected, message=None):
+        self._message.pop()  # Removes the trailing 'error'
 
-class Raise(Expectation):
-    def __call__(self, expected, message=None):
         assertion = self._build_assertion(expected, message)
 
         if assertion is not None:
             self._assert(*assertion)
 
     def _build_assertion(self, expected, message):
-        def error_message(tail):
-            return (self.error_message +
-                    '{} {}'.format(expected.__name__, tail))
-
         try:
-            self.actual()
+            self._actual()
         except expected as exc:
             exc_message = str(exc)
 
             if message is not None:
-                return (self.__matchs(message, exc_message),
-                        error_message(
-                            'with message {!r} but message was {!r}'.format(
-                                message, exc_message)))
+                return (self.__matchs_exception(message, exc_message),
+                        expected.__name__,
+                        'with message {!r} but message was {!r}'.format(
+                            message, exc_message))
 
             else:
                 return (True,
-                        error_message('but {} raised\n\n{}'.format(
-                            type(exc).__name__, traceback.format_exc())))
+                        expected.__name__,
+                        'but {} raised\n\n{}'.format(type(exc).__name__,
+                                                     traceback.format_exc()))
 
         except Exception as err:
             return (False,
-                    error_message('but {} raised\n\n{}'.format(
-                        type(err).__name__, traceback.format_exc())))
+                    expected.__name__,
+                    'but {} raised\n\n{}'.format(type(err).__name__,
+                                                 traceback.format_exc()))
 
         else:
-            return False, error_message('but not raised')
+            return False, expected.__name__, 'but not raised'
 
-    def __matchs(self, message, exc_message):
+    def __matchs_exception(self, message, exc_message):
         if message == exc_message:
             return True
         elif re.search(message, exc_message):
@@ -277,26 +207,21 @@ class Raise(Expectation):
 
         return False
 
-
-class To(Expectation):
-    be = Be
-    have = Have
-    equal = Equal
-    raise_error = Raise
-
     def match(self, expected, *flags):
-        self._assert(re.match(expected, self.actual, *flags),
-                     self.error_message + 'match {}'.format(repr(expected)))
+        self._assert(self.__match(expected, flags), repr(expected))
+
+    def __match(self, expected, flags):
+        return True if re.match(expected, self._actual, *flags) is not None else False
 
 
-class Expects(Negable):
-    to = To
+class _Have(Proxy):
+    def __call__(self, *args):
+        collection = self._actual if len(args) == 1 else list(self._actual)
 
-    def __init__(self, actual):
-        super(Expects, self).__init__()
+        for arg in args:
+            self._assert(arg in collection, repr(arg))
 
-        self.actual = actual
 
-    @property
-    def error_message(self):
-        return 'Expected {!r} '.format(self.actual)
+class _Be(Proxy):
+    def __call__(self, expected):
+        self._assert(self._actual is expected, repr(expected))

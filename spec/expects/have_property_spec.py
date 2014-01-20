@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*
+# -*- coding: utf-8 -*-
 
 from mamba import describe, context, before
 
@@ -19,7 +19,7 @@ with describe('to.have.property') as _:
         with failure(_.obj, "to have property 'foo'"):
             expect(_.obj).to.have.property('foo')
 
-    def it_should_fail_if_actual_does_not_have_property_with_value():
+    def it_should_fail_if_actual_hasnt_property_with_value():
         with failure(_.obj, "to have property 'foo'"):
             expect(_.obj).to.have.property('foo', 0)
 

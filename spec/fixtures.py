@@ -7,8 +7,9 @@ class Foo(object):
 
 
 class _Expect(object):
-    def __init__(self, actual):
+    def __init__(self, actual, *message):
         self.actual = actual
+        self.message = list(message)
 
 
 class DefaultExpect(_Expect):

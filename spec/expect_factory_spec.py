@@ -4,7 +4,8 @@ from mamba import describe, before
 
 from spec.fixtures import DefaultExpect, BarExpect
 
-from expects import expect, ExpectFactory, errors
+from expects import expect, errors
+from expects.factory import ExpectFactory
 
 
 with describe(ExpectFactory) as _:
@@ -30,11 +31,23 @@ with describe(ExpectFactory) as _:
         expect(result).to.be.a(DefaultExpect)
         expect(result).to.have.property('actual', 1)
 
+    def it_should_return_default_expectation_with_initial_message():
+        result = _.expect(1)
+
+        expect(result).to.have.property('message', ['Expected', repr(1)])
+
     def it_should_return_given_expectation_instance_if_passed_kwarg():
         result = _.expect(bar=1)
 
         expect(result).to.be.a(BarExpect)
         expect(result).to.have.property('actual', 1)
+
+    def it_should_return_given_expectation_with_message_and_plugin_name():
+        result = _.expect(bar=1)
+
+        expect(result).to.have.property('actual', 1)
+        expect(result).to.have.property('message',
+                                        ['Expected', 'bar', repr(1)])
 
     def it_should_raise_if_given_expectation_is_not_found():
         expect(lambda: _.expect(foo=1)).to.raise_error(
