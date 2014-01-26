@@ -106,6 +106,13 @@ class Expects(Expectation):
 
         self._assert(hasattr(self._actual, name), repr(name))
 
+        try:
+            message = list(self._message)
+            message.append(repr(name))
+            return Expects(getattr(self._actual, name), *message)
+        except AttributeError:
+            pass
+
     def key(self, *args):
         name = args[0]
 
@@ -131,6 +138,13 @@ class Expects(Expectation):
                 return
 
         self._assert(name in self._actual.keys(), repr(name))
+
+        try:
+            message = list(self._message)
+            message.append(repr(name))
+            return Expects(self._actual[name], *message)
+        except KeyError:
+            pass
 
     def properties(self, *args, **kwargs):
         self._message.pop()

@@ -49,6 +49,24 @@ with describe('to.have.property') as _:
             with failure(_.obj, "not to have property 'bar' with value 0 but was 0"):
                 expect(_.obj).not_to.have.property('bar', 0)
 
+    with context('#chain'):
+        def it_should_pass_if_actual_has_property_with_value_equal():
+            expect(_.obj).to.have.property('bar').with_value.equal(0)
+
+        def it_should_pass_if_actual_has_property_with_value_not_equal():
+            expect(_.obj).to.have.property('bar').with_value.not_equal(1)
+
+        def it_should_fail_if_actual_has_property_without_value_equal():
+            with failure(_.obj, "to have property 'bar' with value 0 equal 1"):
+                expect(_.obj).to.have.property('bar').with_value.equal(1)
+
+        def it_should_fail_if_actual_has_property_without_value_not_equal():
+            with failure(_.obj, "to have property 'bar' with value 0 not equal 0"):
+                expect(_.obj).to.have.property('bar').with_value.not_equal(0)
+
+        def it_should_return_none_if_value_passed():
+            expect(expect(_.obj).to.have.property('bar', 0)).to.be.none
+
     @before.each
     def fixtures():
         _.obj = Foo()

@@ -59,6 +59,21 @@ with describe('to.have.key') as _:
 
             expect(_.str).not_to.have.key('foo', 0)
 
+    with context('#chain'):
+        def it_should_pass_if_actual_has_key_with_value_equal():
+            expect(_.dct).to.have.key('bar').with_value.equal(0)
+
+        def it_should_pass_if_actual_has_key_with_value_not_equal():
+            expect(_.dct).to.have.key('bar').with_value.not_equal(1)
+
+        def it_should_fail_if_actual_has_key_without_value_equal():
+            with failure(_.dct, "to have key 'bar' with value 0 equal 1"):
+                expect(_.dct).to.have.key('bar').with_value.equal(1)
+
+        def it_should_fail_if_actual_has_key_without_value_not_equal():
+            with failure(_.dct, "to have key 'bar' with value 0 not equal 0"):
+                expect(_.dct).to.have.key('bar').with_value.not_equal(0)
+
     @before.all
     def fixtures():
         _.dct = {'bar': 0, 'baz': 1}
