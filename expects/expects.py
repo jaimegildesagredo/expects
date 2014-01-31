@@ -8,6 +8,11 @@ from .expectation import Expectation, Proxy
 
 class Expects(Expectation):
     @property
+    def only(self):
+        self._flags['only'] = True
+        return self
+
+    @property
     def to(self):
         return self
 
@@ -232,8 +237,31 @@ class _Have(Proxy):
     def __call__(self, *args):
         collection = self._actual if len(args) == 1 else list(self._actual)
 
-        for arg in args:
-            self._assert(arg in collection, repr(arg))
+        if self._flags.get('only'):
+            for arg in args:
+                self._assert(arg in collection,
+                             self.__only_have_expected(args))
+
+            self._assert(len(self._actual) == len(args),
+                         self.__only_have_expected(args))
+
+        else:
+            for arg in args:
+                self._assert(arg in collection, repr(arg))
+
+    def __only_have_expected(self, args):
+        result = ''
+
+        total = len(args)
+        for i, arg in enumerate(args):
+            result += repr(arg)
+
+            if i + 2 == total:
+                result += ' and '
+            elif i + 1 != total:
+                result += ', '
+        return result
+
 
 
 class _Be(Proxy):

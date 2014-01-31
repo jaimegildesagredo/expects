@@ -8,6 +8,7 @@ class Expectation(object):
         self._actual = actual
         self._message = list(message)
         self._negated = False
+        self._flags = {}
 
     def __getattribute__(self, name):
         if name.startswith('_') or name.startswith('not__'):
