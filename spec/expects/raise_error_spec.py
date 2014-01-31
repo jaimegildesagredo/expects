@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('to.raise_error') as _:
+with describe('raise_error') as _:
     def it_should_pass_if_actual_raises_expected_exception():
         def callback():
             raise AttributeError()

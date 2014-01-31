@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('to.equal'):
+with describe('equal'):
     def it_should_pass_if_actual_equals_expected():
         expect(1).to.equal(1)
 

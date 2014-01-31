@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('to.be.within'):
+with describe('within'):
     def it_should_pass_if_actual_is_within_expected_range():
         expect(5).to.be.within(4, 7)
 

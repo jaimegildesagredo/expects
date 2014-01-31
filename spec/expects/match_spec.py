@@ -9,7 +9,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('to.match') as _:
+with describe('match') as _:
     def it_should_pass_if_actual_matches_expected_regexp():
         expect(_.str).to.match(r'My \w+ string')
 

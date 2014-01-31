@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('to.be'):
+with describe('be'):
     def it_should_pass_if_actual_is_expected():
         value = 1
         expect(value).to.be(value)
