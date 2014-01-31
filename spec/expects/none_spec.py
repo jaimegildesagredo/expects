@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('to.be.none'):
+with describe('none'):
     def it_should_pass_if_actual_is_none():
         expect(None).to.be.none
 

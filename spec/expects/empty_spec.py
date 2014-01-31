@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('to.be.empty'):
+with describe('empty'):
     def it_should_pass_if_actual_is_empty():
         expect('').to.be.empty
 

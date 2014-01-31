@@ -8,7 +8,7 @@ from spec.fixtures import Foo
 from expects import expect
 
 
-with describe('to.have.properties') as _:
+with describe('properties') as _:
     def it_should_pass_if_actual_has_properties_in_args():
         expect(_.obj).to.have.properties('bar', 'baz')
 

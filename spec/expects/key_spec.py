@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('to.have.key') as _:
+with describe('key') as _:
     def it_should_pass_if_actual_has_expected_key():
         expect(_.dct).to.have.key('bar')
 

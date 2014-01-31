@@ -7,7 +7,7 @@ from spec.helpers import failure
 from expects import expect
 
 
-with describe('to.have.keys') as _:
+with describe('keys') as _:
     def it_should_pass_if_actual_has_keys_in_args():
         expect(_.dct).to.have.keys('bar', 'baz')
 
