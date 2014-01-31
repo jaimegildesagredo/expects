@@ -19,6 +19,6 @@ with describe('false'):
         def it_should_pass_if_actual_is_not_false():
             expect(True).not_to.be.false
 
-        def it_should_fail_if_actual_is_false_():
+        def it_should_fail_if_actual_is_false():
             with failure(False, 'not to be False'):
                 expect(False).not_to.be.false
