@@ -11,7 +11,7 @@ install:
  - tar xvf dist/expects-*.tar.gz -C tmp
  - python tmp/expects-*/setup.py install
 
- - pip install -r requirements-devel.txt --use-mirrors --upgrade
+ - pip install -r requirements-devel.txt
 
 script:
  - PYTHONPATH=$PYTHONPATH:. mamba
