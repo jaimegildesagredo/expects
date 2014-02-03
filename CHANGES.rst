@@ -4,6 +4,11 @@ Changes
 0.2.0 (Not released yet)
 ------------------------
 
+Backwards-incompatible
+^^^^^^^^^^^^^^^^^^^^^^
+
+* The `greater_than`, `greater_or_equal_to`, `less_than` and `less_or_equal_to` expectations are renamed to `above`, `above_or_equal`, `below` and `below_or_equal`.
+
 0.1.1 (Ago 20, 2013)
 --------------------
 

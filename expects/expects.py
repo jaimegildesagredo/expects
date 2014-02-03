@@ -70,16 +70,16 @@ class Expects(Expectation):
         self._assert(isinstance(self._actual, expected),
                      expected.__name__, 'instance')
 
-    def greater_than(self, expected):
+    def above(self, expected):
         self._assert(self._actual > expected, expected)
 
-    def greater_or_equal_to(self, expected):
+    def above_or_equal(self, expected):
         self._assert(self._actual >= expected, expected)
 
-    def less_than(self, expected):
+    def below(self, expected):
         self._assert(self._actual < expected, expected)
 
-    def less_or_equal_to(self, expected):
+    def below_or_equal(self, expected):
         self._assert(self._actual <= expected, expected)
 
     def within(self, start, stop):
