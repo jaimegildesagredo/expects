@@ -1,0 +1,4 @@
+Expects
+=======
+
+.. include:: examples.rst
