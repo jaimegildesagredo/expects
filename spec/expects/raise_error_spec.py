@@ -22,8 +22,10 @@ with describe('raise_error') as _:
             expect(callback).to.raise_error(AttributeError)
 
     def it_should_fail_if_actual_does_not_raise_exception():
+        callback = lambda: None
+
         with failure(callback, 'to raise AttributeError but not raised'):
-            expect(lambda: None).to.raise_error(AttributeError)
+            expect(callback).to.raise_error(AttributeError)
 
     def it_should_pass_if_actual_raises_with_message():
         def callback():
