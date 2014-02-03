@@ -14,6 +14,7 @@ a
     expect(obj).not_to.be.a(Bar)
     expect(obj).to.be.a(Bar)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to be a Bar instance
 
@@ -21,6 +22,7 @@ a
 
     expect(obj).not_to.be.a(object)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to be a object instance
 
@@ -28,6 +30,7 @@ a
 
     expect(obj).not_to.be.a(Foo)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to be a Foo instance
 
@@ -40,6 +43,7 @@ above
     expect(1).not_to.be.above(4)
     expect(1).to.be.above(4)
 .. admonition:: Failure
+    :class: error
 
     Expected 1 to be above 4
 
@@ -47,6 +51,7 @@ above
 
     expect(5).not_to.be.above(4)
 .. admonition:: Failure
+    :class: error
 
     Expected 5 not to be above 4
 
@@ -60,6 +65,7 @@ above_or_equal
     expect(1).not_to.be.above_or_equal(4)
     expect(1).to.be.above_or_equal(4)
 .. admonition:: Failure
+    :class: error
 
     Expected 1 to be above or equal 4
 
@@ -67,6 +73,7 @@ above_or_equal
 
     expect(5).not_to.be.above_or_equal(4)
 .. admonition:: Failure
+    :class: error
 
     Expected 5 not to be above or equal 4
 
@@ -74,6 +81,7 @@ above_or_equal
 
     expect(5).not_to.be.above_or_equal(5)
 .. admonition:: Failure
+    :class: error
 
     Expected 5 not to be above or equal 5
 
@@ -92,6 +100,7 @@ an
     expect(obj).not_to.be.an(Object)
     expect(obj).to.be.an(Object)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to be an Object instance
 
@@ -99,6 +108,7 @@ an
 
     expect(obj).not_to.be.an(object)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to be an object instance
 
@@ -113,6 +123,7 @@ be
     expect(1).not_to.be(2)
     expect(1).to.be(2)
 .. admonition:: Failure
+    :class: error
 
     Expected 1 to be 2
 
@@ -120,6 +131,7 @@ be
 
     expect(value).not_to.be(value)
 .. admonition:: Failure
+    :class: error
 
     Expected 1 not to be 1
 
@@ -132,6 +144,7 @@ below
     expect(4).not_to.be.below(1)
     expect(4).to.be.below(1)
 .. admonition:: Failure
+    :class: error
 
     Expected 4 to be below 1
 
@@ -139,6 +152,7 @@ below
 
     expect(1).not_to.be.below(4)
 .. admonition:: Failure
+    :class: error
 
     Expected 1 not to be below 4
 
@@ -152,6 +166,7 @@ below_or_equal
     expect(4).not_to.be.below_or_equal(1)
     expect(4).to.be.below_or_equal(1)
 .. admonition:: Failure
+    :class: error
 
     Expected 4 to be below or equal 1
 
@@ -159,6 +174,7 @@ below_or_equal
 
     expect(1).not_to.be.below_or_equal(4)
 .. admonition:: Failure
+    :class: error
 
     Expected 1 not to be below or equal 4
 
@@ -166,6 +182,7 @@ below_or_equal
 
     expect(5).not_to.be.below_or_equal(5)
 .. admonition:: Failure
+    :class: error
 
     Expected 5 not to be below or equal 5
 
@@ -179,6 +196,7 @@ empty
     expect('foo').not_to.be.empty
     expect('foo').to.be.empty
 .. admonition:: Failure
+    :class: error
 
     Expected 'foo' to be empty
 
@@ -186,6 +204,7 @@ empty
 
     expect(iter('foo')).to.be.empty
 .. admonition:: Failure
+    :class: error
 
     Expected <str_iterator object at 0x7fd4832d6950> to be empty
 
@@ -193,6 +212,7 @@ empty
 
     expect('').not_to.be.empty
 .. admonition:: Failure
+    :class: error
 
     Expected '' not to be empty
 
@@ -205,6 +225,7 @@ equal
     expect(1).not_to.equal(2)
     expect(1).to.equal(2)
 .. admonition:: Failure
+    :class: error
 
     Expected 1 to equal 2
 
@@ -212,6 +233,7 @@ equal
 
     expect(1).not_to.equal(1)
 .. admonition:: Failure
+    :class: error
 
     Expected 1 not to equal 1
 
@@ -224,6 +246,7 @@ false
     expect(True).not_to.be.false
     expect(True).to.be.false
 .. admonition:: Failure
+    :class: error
 
     Expected True to be False
 
@@ -231,6 +254,7 @@ false
 
     expect(False).not_to.be.false
 .. admonition:: Failure
+    :class: error
 
     Expected False not to be False
 
@@ -253,6 +277,7 @@ have
     expect(lst).to.only.have('bar', 'baz')
     expect(lst).to.have('bar', 'foo')
 .. admonition:: Failure
+    :class: error
 
     Expected ['bar', 'baz'] to have 'foo'
 
@@ -260,6 +285,7 @@ have
 
     expect(itr).to.have('bar', 'foo')
 .. admonition:: Failure
+    :class: error
 
     Expected <listiterator object at 0x7ff289cb4310> to have 'foo'
 
@@ -267,6 +293,7 @@ have
 
     expect(lst).not_to.have('bar', 'foo')
 .. admonition:: Failure
+    :class: error
 
     Expected ['bar', 'baz'] not to have 'bar'
 
@@ -274,6 +301,7 @@ have
 
     expect(lst).to.only.have('foo')
 .. admonition:: Failure
+    :class: error
 
     Expected ['bar', 'baz'] to only have 'foo'
 
@@ -281,6 +309,7 @@ have
 
     expect(lst).to.only.have('foo', 'fuu')
 .. admonition:: Failure
+    :class: error
 
     Expected ['bar', 'baz'] to only have 'foo' and 'fuu'
 
@@ -288,6 +317,7 @@ have
 
     expect(lst).to.only.have('bar')
 .. admonition:: Failure
+    :class: error
 
     Expected ['bar', 'baz'] to only have 'bar'
 
@@ -295,6 +325,7 @@ have
 
     expect(lst).to.only.have('bar', 'baz')
 .. admonition:: Failure
+    :class: error
 
     Expected ['bar', 'baz'] to only have 'bar' and 'baz'
 
@@ -302,6 +333,7 @@ have
 
     expect(lst).to.only.have('bar', 'baz', 'foo')
 .. admonition:: Failure
+    :class: error
 
     Expected ['bar', 'baz'] to only have 'bar', 'baz' and 'foo'
 
@@ -320,6 +352,7 @@ key
     expect({'bar': 0, 'baz': 1}).to.have.key('bar').with_value.not_equal(1)
     expect({'bar': 0, 'baz': 1}).to.have.key('foo')
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'foo'
 
@@ -327,6 +360,7 @@ key
 
     expect({'bar': 0, 'baz': 1}).to.have.key('foo', 0)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'foo'
 
@@ -334,6 +368,7 @@ key
 
     expect({'bar': 0, 'baz': 1}).to.have.key('bar', 1)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 1 but was 0
 
@@ -341,6 +376,7 @@ key
 
     expect({'bar': 0, 'baz': 1}).to.have.key('bar', None)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'bar' with value None but was 0
 
@@ -348,6 +384,7 @@ key
 
     expect('My foo string').to.have.key('foo', 0)
 .. admonition:: Failure
+    :class: error
 
     Expected 'My foo string' to have key 'foo' but not a dict
 
@@ -355,6 +392,7 @@ key
 
     expect({'bar': 0, 'baz': 1}).not_to.have.key('bar')
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} not to have key 'bar'
 
@@ -362,6 +400,7 @@ key
 
     expect({'bar': 0, 'baz': 1}).not_to.have.key('bar', 0)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} not to have key 'bar' with value 0 but was 0
 
@@ -369,6 +408,7 @@ key
 
     expect({'bar': 0, 'baz': 1}).to.have.key('bar').with_value.equal(1)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 0 equal 1
 
@@ -376,6 +416,7 @@ key
 
     expect({'bar': 0, 'baz': 1}).to.have.key('bar').with_value.not_equal(0)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 0 not equal 0
 
@@ -395,6 +436,7 @@ keys
     expect({'bar': 0, 'baz': 1}).not_to.have.keys({'foo': 0, 'bar': 1})
     expect({'bar': 0, 'baz': 1}).to.have.keys('bar', 'foo')
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'foo'
 
@@ -402,6 +444,7 @@ keys
 
     expect({'bar': 0, 'baz': 1}).to.have.keys(bar=0, foo=1)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'foo'
 
@@ -409,6 +452,7 @@ keys
 
     expect({'bar': 0, 'baz': 1}).to.have.keys(bar=1, baz=1)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 1 but was 0
 
@@ -416,6 +460,7 @@ keys
 
     expect({'bar': 0, 'baz': 1}).to.have.keys('foo', bar=0)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'foo'
 
@@ -423,6 +468,7 @@ keys
 
     expect({'bar': 0, 'baz': 1}).to.have.keys('baz', bar=1)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 1 but was 0
 
@@ -430,6 +476,7 @@ keys
 
     expect({'bar': 0, 'baz': 1}).to.have.keys({'bar': 1, 'baz': 1})
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 1 but was 0
 
@@ -437,6 +484,7 @@ keys
 
     expect({'bar': 0, 'baz': 1}).not_to.have.keys('foo', 'bar')
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} not to have key 'bar'
 
@@ -444,6 +492,7 @@ keys
 
     expect({'bar': 0, 'baz': 1}).not_to.have.keys(baz=0, bar=0)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} not to have key 'bar' with value 0 but was 0
 
@@ -451,6 +500,7 @@ keys
 
     expect({'bar': 0, 'baz': 1}).not_to.have.keys('bar', baz=0)
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} not to have key 'bar'
 
@@ -458,6 +508,7 @@ keys
 
     expect({'bar': 0, 'baz': 1}).not_to.have.keys({'bar': 0, 'foo': 1})
 .. admonition:: Failure
+    :class: error
 
     Expected {'bar': 0, 'baz': 1} not to have key 'bar' with value 0 but was 0
 
@@ -471,6 +522,7 @@ length
     expect('foo').not_to.have.length(2)
     expect('foo').to.have.length(2)
 .. admonition:: Failure
+    :class: error
 
     Expected 'foo' to have length 2 but was 3
 
@@ -478,6 +530,7 @@ length
 
     expect(iter('foo')).to.have.length(2)
 .. admonition:: Failure
+    :class: error
 
     Expected <str_iterator object at 0x7fd4832d6950> to have length 2 but was 3
 
@@ -485,6 +538,7 @@ length
 
     expect('foo').not_to.have.length(3)
 .. admonition:: Failure
+    :class: error
 
     Expected 'foo' not to have length 3 but was 3
 
@@ -501,6 +555,7 @@ match
     expect(str_).not_to.match(r'My \W+ string', re.I)
     expect(str_).to.match(pattern)
 .. admonition:: Failure
+    :class: error
 
     Expected 'My foo string' to match r'My \\W+ string'
 
@@ -508,6 +563,7 @@ match
 
     expect(str_).not_to.match(r'My \w+ string')
 .. admonition:: Failure
+    :class: error
 
     Expected 'My foo string' not to match r'My \\w+ string'
 
@@ -520,6 +576,7 @@ none
     expect('foo').not_to.be.none
     expect(True).to.be.none
 .. admonition:: Failure
+    :class: error
 
     Expected True to be None
 
@@ -527,6 +584,7 @@ none
 
     expect(None).not_to.be.none
 .. admonition:: Failure
+    :class: error
 
     Expected None not to be None
 
@@ -552,6 +610,7 @@ properties
     expect(obj).not_to.have.properties({'foo': 0, 'bar': 1})
     expect(obj).to.have.properties('bar', 'foo')
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
 
@@ -559,6 +618,7 @@ properties
 
     expect(obj).to.have.properties(bar=0, foo=1)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
 
@@ -566,6 +626,7 @@ properties
 
     expect(obj).to.have.properties(bar=1, baz=1)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 1 but was 0
 
@@ -573,6 +634,7 @@ properties
 
     expect(obj).to.have.properties('foo', bar=0)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
 
@@ -580,6 +642,7 @@ properties
 
     expect(obj).to.have.properties('baz', bar=1)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 1 but was 0
 
@@ -587,6 +650,7 @@ properties
 
     expect(obj).to.have.properties({'bar': 1, 'baz': 1})
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 1 but was 0
 
@@ -594,6 +658,7 @@ properties
 
     expect(obj).not_to.have.properties('foo', 'bar')
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to have property 'bar'
 
@@ -601,6 +666,7 @@ properties
 
     expect(obj).not_to.have.properties(baz=0, bar=0)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to have property 'bar' with value 0 but was 0
 
@@ -608,6 +674,7 @@ properties
 
     expect(obj).not_to.have.properties('bar', baz=0)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to have property 'bar'
 
@@ -615,6 +682,7 @@ properties
 
     expect(obj).not_to.have.properties('foo', bar=0)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to have property 'bar' with value 0 but was 0
 
@@ -622,6 +690,7 @@ properties
 
     expect(obj).not_to.have.properties({'bar': 0, 'foo': 1})
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to have property 'bar' with value 0 but was 0
 
@@ -646,6 +715,7 @@ property
     expect(expect(obj).to.have.property('bar', 0)).to.be.none
     expect(obj).to.have.property('foo')
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
 
@@ -653,6 +723,7 @@ property
 
     expect(obj).to.have.property('foo', 0)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
 
@@ -660,6 +731,7 @@ property
 
     expect(obj).to.have.property('bar', 1)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 1 but was 0
 
@@ -667,6 +739,7 @@ property
 
     expect(obj).to.have.property('bar', None)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value None but was 0
 
@@ -674,6 +747,7 @@ property
 
     expect(obj).not_to.have.property('bar')
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to have property 'bar'
 
@@ -681,6 +755,7 @@ property
 
     expect(obj).not_to.have.property('bar', 0)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> not to have property 'bar' with value 0 but was 0
 
@@ -688,6 +763,7 @@ property
 
     expect(obj).to.have.property('bar').with_value.equal(1)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 0 equal 1
 
@@ -695,6 +771,7 @@ property
 
     expect(obj).to.have.property('bar').with_value.not_equal(0)
 .. admonition:: Failure
+    :class: error
 
     Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 0 not equal 0
 
@@ -715,6 +792,7 @@ raise_error
 
     expect(callback).to.raise_error(AttributeError)
 .. admonition:: Failure
+    :class: error
 
     Expected <function callback at 0x7fe70cb103b0> to raise AttributeError but KeyError raised
 
@@ -722,6 +800,7 @@ raise_error
 
     expect(lambda: None).to.raise_error(AttributeError)
 .. admonition:: Failure
+    :class: error
 
     Expected <function <lambda> at 0x7f3e670863b0> to raise AttributeError but not raised
 
@@ -732,6 +811,7 @@ raise_error
 
     expect(callback).to.raise_error(AttributeError, 'foo')
 .. admonition:: Failure
+    :class: error
 
     Expected callback to raise AttributeError with message 'foo' but message was 'bar'
 
@@ -744,6 +824,7 @@ true
     expect(False).not_to.be.true
     expect(False).to.be.true
 .. admonition:: Failure
+    :class: error
 
     Expected False to be True
 
@@ -751,6 +832,7 @@ true
 
     expect(True).not_to.be.true
 .. admonition:: Failure
+    :class: error
 
     Expected True not to be True
 
@@ -763,6 +845,7 @@ within
     expect(1).not_to.be.within(4, 7)
     expect(1).to.be.within(4, 7)
 .. admonition:: Failure
+    :class: error
 
     Expected 1 to be within 4, 7
 
@@ -770,6 +853,7 @@ within
 
     expect(5).not_to.be.within(4, 7)
 .. admonition:: Failure
+    :class: error
 
     Expected 5 not to be within 4, 7
 
