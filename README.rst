@@ -34,4 +34,4 @@ To run the Expects specs you should install the development requirements and the
 Changes
 -------
 
-See changes `here <https://github.com/jaimegildesagredo/expects/blob/master/CHANGES.rst>`_.
+See changes `here <https://expects.readthedocs.org/en/latest/changes.html>`_.
