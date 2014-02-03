@@ -2,7 +2,7 @@
 
 from mamba import describe, before
 
-from .fixtures import Foo
+from spec.fixtures import Foo
 
 from expects import expect
 from expects.expectation import Proxy

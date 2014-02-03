@@ -1,1 +1,1 @@
--e git+git://github.com/jaimegildesagredo/mamba.git@allow-relative-imports-in-spec#egg=mamba
+mamba==0.6

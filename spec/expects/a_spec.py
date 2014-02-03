@@ -2,8 +2,8 @@
 
 from mamba import describe, context, before
 
-from ..helpers import failure
-from ..fixtures import Foo
+from spec.helpers import failure
+from spec.fixtures import Foo
 
 from expects import expect
 

@@ -4,7 +4,7 @@ import re
 
 from mamba import describe, context, before
 
-from ..helpers import failure
+from spec.helpers import failure
 
 from expects import expect
 
