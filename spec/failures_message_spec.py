@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 
 from mamba import describe
-from spec.helpers import failure
+from .helpers import failure
 
 from expects import expect
 

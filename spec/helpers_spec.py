@@ -3,7 +3,7 @@
 from mamba import describe, before
 from expects import expect
 
-from spec.helpers import failure
+from .helpers import failure
 
 
 with describe('helpers') as _:

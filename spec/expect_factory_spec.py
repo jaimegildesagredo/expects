@@ -2,7 +2,7 @@
 
 from mamba import describe, before
 
-from spec.fixtures import DefaultExpect, BarExpect
+from .fixtures import DefaultExpect, BarExpect
 
 from expects import expect, errors
 from expects.factory import ExpectFactory

@@ -2,7 +2,7 @@
 
 from mamba import describe, context, before
 
-from spec.helpers import failure
+from ..helpers import failure
 
 from expects import expect
 
