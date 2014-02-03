@@ -19,7 +19,7 @@ Bug fixes
 * `to.have.key` weird behavior when actual is not a `dict` (`Issue #10 <https://github.com/jaimegildesagredo/expects/issues/10>`_).
 
 0.1.0 (Ago 11, 2013)
--------------------
+--------------------
 
 Highlights
 ^^^^^^^^^^
