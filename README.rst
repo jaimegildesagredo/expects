@@ -31,7 +31,17 @@ To run the Expects specs you should install the development requirements and the
     $ pip install -r requirements-devel.txt
     $ mamba
 
+License
+-------
+
+Expects is released under the `Apache2 license <http://www.apache.org/licenses/LICENSE-2.0.html>`_.
+
 Changes
 -------
 
 See changes `here <https://expects.readthedocs.org/en/latest/changes.html>`_.
+
+Documentation
+-------------
+
+Expects docs are hosted on `Read The Docs <https://expects.readthedocs.org>`_.
