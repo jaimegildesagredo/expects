@@ -26,7 +26,7 @@ Just import the ``expect`` callable and start writing test expectations.
 
     expect(lambda: foo).to.raise_error(NameError)
 
-You can see all the *builtin* expectations with lots of examples `here <http://expects.readthedocs.org/en/latest/expects.html>`_.
+You can see all the *builtin* expectations with lots of examples `here <http://expects.readthedocs.org/en/latest/reference.html>`_.
 
 Installation
 ------------
