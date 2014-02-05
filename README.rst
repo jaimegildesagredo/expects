@@ -61,7 +61,7 @@ Expects is released under the `Apache2 license <http://www.apache.org/licenses/L
 Changes
 -------
 
-See changes `here <https://expects.readthedocs.org/en/latest/changes.html>`_.
+See `Changes  <https://expects.readthedocs.org/en/latest/changes.html>`_.
 
 Documentation
 -------------
