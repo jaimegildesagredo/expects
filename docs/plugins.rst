@@ -34,7 +34,7 @@ Let's start writing our plugin callable::
             self.actual = actual
             self.message = message
 
-When the plugin has been registered and we call ``expect(my_plugin='foo')`` the resulting object will the the same as if we instantiate the ``MyPlugin`` class as follows::
+When the plugin has been registered and we call ``expect(my_plugin='foo')`` the resulting object will the be same as if we instantiate the ``MyPlugin`` class as follows::
 
     MyPlugin('foo', 'Expected', 'my_plugin')
 
@@ -45,7 +45,7 @@ Now that we have our initial plugin class we need to register it so we can use i
 
         entry_points={
             'expects.plugins': [
-                'my_plugin = my_plugin_module:MyPlugin
+                'my_plugin = my_plugin_module:MyPlugin'
             ]
         }
     )
