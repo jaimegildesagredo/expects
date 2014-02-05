@@ -7,7 +7,7 @@ long_description = open('README.rst').read()
 setup(
     name='expects',
     version='0.2.0',
-    description='Expectations library for Python',
+    description='Expressive and extensible TDD/BDD expectations library for Python',
     long_description=long_description,
     url='https://github.com/jaimegildesagredo/expects',
     author='Jaime Gil de Sagredo Luna',
