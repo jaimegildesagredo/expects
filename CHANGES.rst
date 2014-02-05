@@ -7,7 +7,7 @@ Changes
 Highlights
 ^^^^^^^^^^
 
-* Added initial plugins support.
+* Added initial plugins support. See `plugins docs <http://expects.readthedocs.org/en/0.2.0/plugins.html>`_ for more info.
 * The ``key`` and ``property`` expectations now return a new ``Expects`` object that can be used to chain expectations.
 * Now every expectation part can be prefixed with ``not_`` in order to negate an expectation. Ex: ``expect('foo').not_to.be.empty`` is the same than ``expect('foo').to.not_be.empty``.
 * Added the ``only.have`` expectation to test that the subject *only* has the given items.
