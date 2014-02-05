@@ -1,4 +1,4 @@
-Expects
-=======
+Reference
+=========
 
 .. include:: examples.rst

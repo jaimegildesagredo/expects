@@ -45,7 +45,7 @@ Contents
    :maxdepth: 2
 
    install
-   expects
+   reference
    changes
 
 
