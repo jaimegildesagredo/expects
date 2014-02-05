@@ -9,6 +9,7 @@ setup(
     version='0.2.0',
     description='Expectations library for Python',
     long_description=long_description,
+    url='https://github.com/jaimegildesagredo/expects',
     author='Jaime Gil de Sagredo Luna',
     author_email='jaimegildesagredo@gmail.com',
     license='Apache 2.0',
