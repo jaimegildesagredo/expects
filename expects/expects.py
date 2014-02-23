@@ -4,6 +4,7 @@ import re
 import traceback
 
 from .expectation import Expectation, Proxy
+from . import matchers
 
 
 class Expects(Expectation):
@@ -126,23 +127,7 @@ class Expects(Expectation):
 
             return
 
-        try:
-            expected = args[1]
-        except IndexError:
-            pass
-        else:
-            try:
-                value = self._actual[name]
-            except KeyError:
-                pass
-            else:
-                self._assert(value == expected,
-                             '{!r} with value {!r} but was {!r}'.format(
-                                 name, expected, value))
-
-                return
-
-        self._assert(name in self._actual.keys(), repr(name))
+        self._assert(*matchers.key(self._actual, *args))
 
         try:
             message = list(self._message)
