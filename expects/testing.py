@@ -5,7 +5,7 @@ import re
 
 class failure(object):
     def __init__(self, actual, message):
-        self.message = 'Expected {} {}'.format(repr(actual), message)
+        self._message = '{!r} {}'.format(actual, message)
 
     def __enter__(self):
         pass
