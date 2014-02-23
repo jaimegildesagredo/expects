@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*
 
 
-def key(actual, *args):
-    name = args[0]
+def key(actual, name, *args):
+    # TODO(jaimegildesagredo): It'd nice to add unit tests
 
     try:
-        expected = args[1]
+        expected_value = args[0]
     except IndexError:
         pass
     else:
@@ -15,7 +15,9 @@ def key(actual, *args):
             pass
         else:
             return (
-                value == expected,
-                '{!r} with value {!r} but was {!r}'.format(name, expected, value))
+                value == expected_value,
+                '{!r} with value {!r} but was {!r}'.format(
+                    name, expected_value, value)
+            )
 
-    return name in actual.keys(), repr(name)
+    return name in actual, repr(name)

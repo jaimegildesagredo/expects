@@ -119,15 +119,13 @@ class Expects(Expectation):
         except AttributeError:
             pass
 
-    def key(self, *args):
-        name = args[0]
-
+    def key(self, name, *args):
         if not isinstance(self._actual, dict):
             self._assert(False, '{!r} but not a dict'.format(name))
 
             return
 
-        self._assert(*matchers.key(self._actual, *args))
+        self._assert(*matchers.key(self._actual, name, *args))
 
         try:
             message = list(self._message)
