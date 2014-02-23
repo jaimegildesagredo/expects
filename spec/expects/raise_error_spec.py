@@ -2,9 +2,8 @@
 
 from mamba import describe, context, before
 
-from spec.helpers import failure
-
 from expects import expect
+from expects.testing import failure
 
 
 with describe('raise_error') as _:

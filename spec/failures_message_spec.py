@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*
 
 from mamba import describe
-from spec.helpers import failure
 
 from expects import expect
+from expects.testing import failure
 
 
 with describe('expect failures') as _:

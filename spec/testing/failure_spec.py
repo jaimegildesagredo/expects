@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from mamba import describe, before
+
 from expects import expect
+from expects.testing import failure
 
-from spec.helpers import failure
 
-
-with describe('helpers') as _:
+with describe('testing') as _:
     with describe('failure'):
         def it_should_have_failure_message():
             message = failure(_.actual, _.message).message
