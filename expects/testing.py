@@ -14,14 +14,18 @@ class failure(object):
         if exc_type is None:
             raise AssertionError('Expected AssertionError to be raised')
 
-        if exc_type == AssertionError:
-            exc_message = str(exc_value)
+        if exc_type != AssertionError:
+            raise AssertionError(
+                'Expected AssertionError to be raised but {} raised'.format(
+                    exc_type))
 
-            if self.message == exc_message:
-                return True
-            elif re.search(self.message, exc_message, re.DOTALL):
-                return True
-            else:
-                raise AssertionError(
-                    "Expected error message '{}' to match '{}'".format(
-                        exc_value, self.message))
+        exc_message = str(exc_value)
+
+        if (self._message in exc_message or
+            re.search(self._message, exc_message, re.DOTALL)):
+
+            return True
+        else:
+            raise AssertionError(
+                "Expected error message '{}' to match '{}'".format(
+                    exc_value, self._message))

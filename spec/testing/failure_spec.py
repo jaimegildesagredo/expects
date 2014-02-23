@@ -43,6 +43,13 @@ with describe('testing') as _:
 
             expect(callback).to.raise_error(AssertionError)
 
+        def it_should_fail_if_another_exception_raised():
+            def callback():
+                with failure(_.actual, _.message):
+                    raise KeyError()
+
+            expect(callback).to.raise_error(AssertionError)
+
         @before.each
         def fixtures():
             _.actual = 'foo'
