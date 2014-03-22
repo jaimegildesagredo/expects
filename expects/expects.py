@@ -2,6 +2,7 @@
 
 import re
 import traceback
+import collections
 
 from .expectation import Expectation, Proxy
 from . import matchers
@@ -218,9 +219,12 @@ class Expects(Expectation):
 
 class _Have(Proxy):
     def __call__(self, *args):
-        collection = self._actual if len(args) == 1 else list(self._actual)
+        if isinstance(self._actual, collections.Iterator):
+            collection = list(self._actual)
+        else:
+            collection = self._actual
 
-        if self._flags.get('only'):
+        if self._flags.get('only', False):
             for arg in args:
                 self._assert(arg in collection,
                              self.__only_have_expected(args))
