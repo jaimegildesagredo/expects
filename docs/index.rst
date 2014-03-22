@@ -48,6 +48,7 @@ Contents
    install
    reference
    plugins
+   testing
    changes
 
 
