@@ -18,6 +18,7 @@ deploy:
   provider: pypi
   on:
     tags: true
+    python: 3.3
     repo: jaimegildesagredo/expects
   user: jaimegildesagredo
   password:
