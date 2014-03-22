@@ -4,7 +4,7 @@ Plugins
 Introduction
 ------------
 
-**Expects** is extensible via *plugins*. In fact, the `builtin expectations <reference.html>`_ is a plugin (the default one). Each plugin consists of a *name* and a *callable object* which is the plugin itself.
+**Expects** is extensible via *plugins*. In fact, the `builtin assertions <reference.html>`_ is a plugin (the default one). Each plugin consists of a *name* and a *callable object* which is the plugin itself.
 
 To use an especific plugin we should call ``expect`` with the plugin name and the subject value as a keyword argument. Doing this will return the result of calling the plugin callable. For example, a *request* plugin would look like this::
 
@@ -20,7 +20,7 @@ Will be the same that::
 
 .. note::
 
-    Clarify that the second option is the prefered way for using the *builtin* expectations (or default plugin).
+    Clarify that the second option is the prefered way for using the *builtin* assertions (or default plugin).
 
 Writing plugins
 ---------------
@@ -50,7 +50,7 @@ Now that we have our initial plugin class we need to register it so we can use i
         }
     )
 
-Then we just need to install our plugin via setuptools and import ``expect`` to start writing expectations with it::
+Then we just need to install our plugin via setuptools and import ``expect`` to start writing assertions with it::
 
     from expects import expect
 

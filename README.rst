@@ -4,12 +4,12 @@ Expects
 .. image:: https://secure.travis-ci.org/jaimegildesagredo/expects.png?branch=master
     :target: http://travis-ci.org/jaimegildesagredo/expects
 
-**Expects** is an *expressive* and *extensible* TDD/BDD expectations library for Python.
+**Expects** is an *expressive* and *extensible* TDD/BDD assertion library for Python.
 
 Usage
 -----
 
-Just import the ``expect`` callable and start writing test expectations.
+Just import the ``expect`` callable and start writing test assertions.
 
 .. code-block:: python
 
@@ -26,7 +26,7 @@ Just import the ``expect`` callable and start writing test expectations.
 
     expect(lambda: foo).to.raise_error(NameError)
 
-You can see all the *builtin* expectations with lots of examples `here <http://expects.readthedocs.org/en/latest/reference.html>`_.
+You can see all the *builtin* assertions with lots of examples `here <http://expects.readthedocs.org/en/latest/reference.html>`_.
 
 Installation
 ------------
