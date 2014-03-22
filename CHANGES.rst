@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.2.1 (not released yet)
+------------------------
+
+Bug fixes
+^^^^^^^^^
+
+* `to.have` and `to.only.have` now work properly when actual is a string.
+
 0.2.0 (Feb 5, 2014)
 -------------------
 
