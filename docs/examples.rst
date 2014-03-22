@@ -325,6 +325,10 @@ have
 
     expect(iter(['bar', 'baz'])).to.have('bar', 'baz')
 
+    expect('My foo string').to.have('foo')
+
+    expect('My foo string').to.have('foo', 'string')
+
     expect(['bar', 'baz']).not_to.have('foo')
 
     expect(['bar', 'baz']).not_to.have('foo', 'foobar')
@@ -332,6 +336,10 @@ have
     expect(['bar']).to.only.have('bar')
 
     expect(['bar', 'baz']).to.only.have('bar', 'baz')
+
+    expect('My foo string').to.only.have('My foo string')
+
+    expect('My foo string').to.only.have('My foo', ' string')
 
     expect(['bar', 'baz']).to.have('bar', 'foo')
 
@@ -402,6 +410,15 @@ have
     :class: error
 
     Expected ['bar', 'baz'] to only have 'bar', 'baz' and 'foo'
+
+.. code-block:: python
+
+    expect('My foo string').to.only.have('foo')
+
+.. admonition:: Failure
+    :class: error
+
+    Expected 'My foo string' to only have 'foo'
 
 key
 ---
