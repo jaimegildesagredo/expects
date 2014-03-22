@@ -1,17 +1,23 @@
 language: python
-
 python:
- - 2.7
- - 3.3
- - pypy
+  - 2.7
+  - 3.3
+  - pypy
 
 install:
- - python setup.py sdist
- - mkdir tmp
- - tar xvf dist/expects-*.tar.gz -C tmp
- - python tmp/expects-*/setup.py install
-
- - pip install -r requirements-devel.txt
+  - python setup.py sdist
+  - mkdir tmp
+  - tar xvf dist/expects-*.tar.gz -C tmp
+  - python tmp/expects-*/setup.py install
+  - pip install -r requirements-devel.txt
 
 script:
- - PYTHONPATH=$PYTHONPATH:. mamba
+  - PYTHONPATH=$PYTHONPATH:. mamba
+deploy:
+  provider: pypi
+  on:
+    tags: true
+  user:
+    secure: "Gf4F3GWG/9xw7ruAqwmvla3FlcCmI20z88jtynyRWSMFSaoZRGj27fVlkBSbOI93uPGSCyg4rHK4GLD+ZNQO8eiN48wRI1L4Z41AK3jpZry/YmqpVjdUYZ2VgPomzVEYxFb4vykJXN64abYDveQ9s/h2MG2gRS+r6lRhHIH147I="
+  password:
+    secure: "EGBNerWJdUFIwLQUiH2z/zH27LR4fhtQ+6Ay5Q3ZKVIOQ5YpCyDFQUklNuDToD+KlEx4ZfogbL3yZHtE0E5CMO18p6R8gm4OoT75ni0qcgBeaW8xZbDAjg1mHSBvFjGhPMF7ixrh51kmmcOxRn9kHMOehMzLIokpunIh3zUScZk="
