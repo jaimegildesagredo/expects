@@ -5,7 +5,7 @@ import traceback
 import collections
 
 from .expectation import Expectation, Proxy
-from . import matchers
+from . import matchers, _compat
 
 
 class Expects(Expectation):
@@ -229,7 +229,12 @@ class _Have(Proxy):
                 self._assert(arg in collection,
                              self.__only_have_expected(args))
 
-            self._assert(len(self._actual) == len(args),
+            if isinstance(self._actual, _compat.string_types):
+                args_length = len(''.join(args))
+            else:
+                args_length = len(args)
+
+            self._assert(len(self._actual) == args_length,
                          self.__only_have_expected(args))
 
         else:

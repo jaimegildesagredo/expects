@@ -54,7 +54,13 @@ with describe('have') as _:
             expect(['bar']).to.only.have('bar')
 
         def it_should_pass_if_list_only_has_expected_items():
-            expect(_.lst).to.only.have('bar', 'baz')
+            expect(_.lst).to.only.have(*_.lst)
+
+        def it_should_pass_if_string_only_contains_string():
+            expect(_.str).to.only.have(_.str)
+
+        def it_should_pass_if_string_only_contains_strings():
+            expect(_.str).to.only.have('My foo', ' string')
 
         def it_should_fail_if_list_does_not_have_expected_item_():
             with failure(_.lst, "to only have 'foo'"):
@@ -79,6 +85,10 @@ with describe('have') as _:
 
             with failure(_.lst, "to only have 'bar', 'baz' and 'foo'"):
                 expect(_.lst).to.only.have('bar', 'baz', 'foo')
+
+        def it_should_fail_if_string_does_not_only_contain_string():
+            with failure(_.str, "to only have 'foo'"):
+                expect(_.str).to.only.have('foo')
 
     @before.each
     def fixtures():
