@@ -33,10 +33,10 @@ with describe('have') as _:
             expect(_.itr).to.have('bar', 'foo')
 
     def it_should_pass_if_string_contains_string():
-        expect(_.str).to.have('Lorem')
+        expect(_.str).to.have('foo')
 
     def it_should_pass_if_string_contains_strings():
-        expect(_.str).to.have('Lorem', 'ipsum')
+        expect(_.str).to.have('foo', 'string')
 
     with context('#negated'):
         def it_should_pass_if_list_does_not_have_expected_item():
@@ -84,4 +84,4 @@ with describe('have') as _:
     def fixtures():
         _.lst = ['bar', 'baz']
         _.itr = iter(_.lst)
-        _.str = 'Lorem ipsum'
+        _.str = 'My foo string'
