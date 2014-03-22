@@ -13,6 +13,7 @@ install:
 
 script:
   - PYTHONPATH=$PYTHONPATH:. mamba
+
 deploy:
   provider: pypi
   on:
