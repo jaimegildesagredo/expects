@@ -4,6 +4,12 @@ Changes
 0.2.1 (not released yet)
 ------------------------
 
+Highlights
+^^^^^^^^^^
+
+* Added a `matchers` module and the `key` matcher.
+* Added a `testing` module with the `failure` contextmanager.
+
 Bug fixes
 ^^^^^^^^^
 
