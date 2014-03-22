@@ -18,8 +18,8 @@ deploy:
   provider: pypi
   on:
     tags: true
-    python: 3.3
     repo: jaimegildesagredo/expects
+    all_branches: true
   user: jaimegildesagredo
   password:
     secure: "EGBNerWJdUFIwLQUiH2z/zH27LR4fhtQ+6Ay5Q3ZKVIOQ5YpCyDFQUklNuDToD+KlEx4ZfogbL3yZHtE0E5CMO18p6R8gm4OoT75ni0qcgBeaW8xZbDAjg1mHSBvFjGhPMF7ixrh51kmmcOxRn9kHMOehMzLIokpunIh3zUScZk="
