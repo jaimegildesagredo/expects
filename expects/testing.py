@@ -6,6 +6,7 @@ expects `plugins <plugins.html>`_.
 """
 
 import re
+import traceback
 
 
 class failure(object):
@@ -49,8 +50,10 @@ class failure(object):
 
         if exc_type != AssertionError:
             raise AssertionError(
-                'Expected AssertionError to be raised but {} raised'.format(
-                    exc_type))
+                'Expected AssertionError to be raised but {} raised.'
+                '\n\n{}'.format(exc_type.__name__,
+                                _format_exception(exc_type, exc_value, exc_tb))
+            )
 
         exc_message = str(exc_value)
 
@@ -58,7 +61,11 @@ class failure(object):
             re.search(self._message, exc_message, re.DOTALL)):
 
             return True
-        else:
-            raise AssertionError(
-                "Expected error message '{}' to match '{}'".format(
-                    exc_value, self._message))
+
+        raise AssertionError(
+            "Expected error message '{}' to match '{}'".format(
+                exc_value, self._message))
+
+
+def _format_exception(exc_type, exc_value, exc_tb):
+    return ''.join(traceback.format_exception(exc_type, exc_value, exc_tb))
