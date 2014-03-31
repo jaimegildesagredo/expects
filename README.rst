@@ -1,7 +1,7 @@
 Expects
 =======
 
-.. image:: https://secure.travis-ci.org/jaimegildesagredo/expects.png?branch=master
+.. image:: https://secure.travis-ci.org/jaimegildesagredo/expects.svg?branch=master
     :target: http://travis-ci.org/jaimegildesagredo/expects
 
 **Expects** is an *expressive* and *extensible* TDD/BDD assertion library for Python.
