@@ -50,7 +50,7 @@ To run the Expects specs you should install the development requirements and the
 
 .. code-block:: bash
 
-    $ pip install -r requirements-devel.txt
+    $ pip install -r test-requirements.txt
     $ mamba
 
 License

@@ -1,2 +1,1 @@
 mamba==0.6
-sphinx

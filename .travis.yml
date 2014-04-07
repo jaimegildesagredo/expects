@@ -9,7 +9,7 @@ install:
   - mkdir tmp
   - tar xvf dist/expects-*.tar.gz -C tmp
   - python tmp/expects-*/setup.py install
-  - pip install -r requirements-devel.txt
+  - pip install -r test-requirements.txt
 
 script:
   - PYTHONPATH=$PYTHONPATH:. mamba
