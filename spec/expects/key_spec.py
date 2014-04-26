@@ -73,7 +73,26 @@ with describe('key') as _:
             with failure(_.dct, "to have key 'bar' with value 0 not equal 0"):
                 expect(_.dct).to.have.key('bar').with_value.not_equal(0)
 
-    @before.all
+    with describe('only'):
+        def it_should_pass_if_dict_only_has_key():
+            _.dct = {'bar': 0}
+
+            expect(_.dct).to.only.have.key('bar')
+
+        def it_should_pass_if_dict_only_has_key_with_value():
+            _.dct = {'bar': 0}
+
+            expect(_.dct).to.only.have.key('bar', 0)
+
+        def it_should_fail_if_dict_does_not_only_have_key():
+            with failure(_.dct, "to only have key 'bar'"):
+                expect(_.dct).to.only.have.key('bar')
+
+        def it_should_fail_if_dict_does_not_only_have_key_with_value():
+            with failure(_.dct, "to only have key 'bar' with value 0"):
+                expect(_.dct).to.only.have.key('bar', 0)
+
+    @before.each
     def fixtures():
         _.dct = {'bar': 0, 'baz': 1}
         _.str = 'My foo string'

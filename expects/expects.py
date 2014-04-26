@@ -101,7 +101,11 @@ class Expects(Expectation):
 
             return
 
-        self._assert(*matchers.key(self._actual, name, *args))
+        truth, message = matchers.key(self._actual, name, *args)
+        self._assert(truth, message)
+
+        if self._flags.get('only', False):
+            self._assert(len(self._actual) == 1, message)
 
         try:
             message = list(self._message)
@@ -116,9 +120,52 @@ class Expects(Expectation):
         self._dict_based_expectation(self.property, args, kwargs)
 
     def keys(self, *args, **kwargs):
-        self._message.pop()
+        if self._flags.get('only', False):
+            self._assert(len(self._actual) == self._dict_based_length(args, kwargs), self._only_keys_expected(args, kwargs))
 
-        self._dict_based_expectation(self.key, args, kwargs)
+        self._message[-1] = 'key'
+
+        def expectation(name, *args):
+            self._assert(*matchers.key(self._actual, name, *args))
+
+        self._dict_based_expectation(expectation, args, kwargs)
+
+    def _only_keys_expected(self, args, kwargs):
+        total = 0
+        has_args = False
+
+        try:
+            kwargs = dict(*args, **kwargs)
+        except (TypeError, ValueError):
+            total += len(args)
+        finally:
+            total += len(kwargs)
+
+        result = ''
+
+        for i, arg in enumerate(list(args) + kwargs.items()):
+            if isinstance(arg, tuple):
+                result += '{!r} with value {!r}'.format(arg[0], arg[1])
+            else:
+                result += repr(arg)
+
+            if i + 2 == total:
+                result += ' and '
+            elif i + 1 != total:
+                result += ', '
+        return result
+
+    def _dict_based_length(self, args, kwargs):
+        length = 0
+
+        try:
+            kwargs = dict(*args, **kwargs)
+        except (TypeError, ValueError):
+            length += len(args)
+        finally:
+            length += len(kwargs)
+
+        return length
 
     def _dict_based_expectation(self, expectation, args, kwargs):
         try:
