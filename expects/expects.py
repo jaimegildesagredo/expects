@@ -173,45 +173,53 @@ class Expects(Expectation):
         except TypeError:
             return sum(1 for i in collection)
 
-    def raise_error(self, expected, message=None):
+    def raise_error(self, exception, *args):
         self._message.pop()  # Removes the trailing 'error'
 
-        assertion = self._build_assertion(expected, message)
+        assertion = self._build_assertion(exception, args)
 
         if assertion is not None:
             self._assert(*assertion)
 
-    def _build_assertion(self, expected, message):
+    def _build_assertion(self, exception, args):
         try:
             self._actual()
-        except expected as exc:
+        except exception as exc:
+            exc_args = exc.args
             exc_message = str(exc)
 
-            if message is not None:
-                return (self.__matchs_exception(message, exc_message),
-                        expected.__name__,
-                        'with message {!r} but message was {!r}'.format(
-                            message, exc_message))
+            if len(args) != 0:
+                value = args[0]
 
+                if isinstance(value, _compat.string_types):
+                    return (self.__matchs_exception(value, exc_message),
+                            exception.__name__,
+                            'with message {!r} but message was {!r}'.format(
+                                value, exc_message))
+                else:
+                    return (value == exc_args[0],
+                            exception.__name__,
+                            'with arg {!r} but args were {!r}'.format(
+                                value, exc_args))
             else:
                 return (True,
-                        expected.__name__,
+                        exception.__name__,
                         'but {} raised\n\n{}'.format(type(exc).__name__,
                                                      traceback.format_exc()))
 
         except Exception as err:
             return (False,
-                    expected.__name__,
+                    exception.__name__,
                     'but {} raised\n\n{}'.format(type(err).__name__,
                                                  traceback.format_exc()))
 
         else:
-            return False, expected.__name__, 'but not raised'
+            return False, exception.__name__, 'but not raised'
 
     def __matchs_exception(self, message, exc_message):
         if message == exc_message:
             return True
-        elif re.search(message, exc_message):
+        elif isinstance(message, str) and re.search(message, exc_message):
             return True
 
         return False
