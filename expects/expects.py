@@ -143,7 +143,7 @@ class Expects(Expectation):
 
         result = ''
 
-        for i, arg in enumerate(list(args) + kwargs.items()):
+        for i, arg in enumerate(sorted(list(args) + kwargs.items())):
             if isinstance(arg, tuple):
                 result += '{!r} with value {!r}'.format(arg[0], arg[1])
             else:
