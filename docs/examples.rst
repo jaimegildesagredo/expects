@@ -954,6 +954,11 @@ raise_error
     expect(callback).to.raise_error(AttributeError, r'error \w+')
 
     def callback():
+        raise AttributeError(2)
+
+    expect(callback).to.raise_error(AttributeError, 2)
+
+    def callback():
         raise KeyError()
 
     expect(callback).to.raise_error(AttributeError)
