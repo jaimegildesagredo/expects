@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.2.2 (May 20, 2014)
+--------------------
+
+Bug fixes
+^^^^^^^^^
+
+* `to.raise_error` now works with a non-string object as second arg. See docs for `examples <file:///home/jaimegildesagredo/projects/jaimegildesagredo/expects/docs/_build/html/reference.html#raise-error>`_.
+
 0.2.1 (Mar 22, 2014)
 --------------------
 
