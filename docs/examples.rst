@@ -485,6 +485,8 @@ key
 
     expect({'bar': 0, 'baz': 1}).to.have.key('bar').with_value.not_equal(1)
 
+    expect({'bar': 0}).to.only.have.key('bar')
+
     expect({'bar': 0, 'baz': 1}).to.have.key('foo')
 
 .. admonition:: Failure
@@ -564,6 +566,13 @@ key
 
     Expected ``{'bar': 0, 'baz': 1}`` to have key ``'bar'`` with value ``0`` not equal ``0``
 
+    expect({'bar': 0, 'baz': 1}).to.only.have.key('bar')
+
+.. admonition:: Failure
+    :class: error
+
+    Expected {'bar': 0, 'baz': 1} to only have key 'bar'
+
 keys
 ----
 
@@ -586,6 +595,10 @@ keys
     expect({'bar': 0, 'baz': 1}).not_to.have.keys({'foo': 0, 'foobar': 1})
 
     expect({'bar': 0, 'baz': 1}).not_to.have.keys({'foo': 0, 'bar': 1})
+
+    expect({'bar': 0, 'baz': 1}).to.only.have.keys('bar', 'baz')
+
+    expect({'bar': 0, 'baz': 1}).to.only.have.keys(bar=0, baz=1)
 
     expect({'bar': 0, 'baz': 1}).to.have.keys('bar', 'foo')
 
