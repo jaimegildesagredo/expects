@@ -49,12 +49,6 @@ class Expects(Expectation):
     def empty(self):
         assertions.Empty(self._assert)(self._actual)
 
-    def start_with(self, value):
-        self._assert(self._actual.startswith(value))
-
-    def end_with(self, value):
-        self._assert(self._actual.endswith(valye))
-
     def equal(self, expected):
         self._assert(self._actual == expected, repr(expected))
 
