@@ -53,14 +53,13 @@ class Expects(Expectation):
         self._assert(self._actual == expected, repr(expected))
 
     def a(self, expected):
-        return self.__instance_of(expected)
+        self.__instance_of(expected)
 
     def an(self, expected):
-        return self.__instance_of(expected)
+        self.__instance_of(expected)
 
     def __instance_of(self, expected):
-        self._assert(isinstance(self._actual, expected),
-                     expected.__name__, 'instance')
+        return assertions.Instance(self._assert)(self._actual, expected)
 
     def above(self, expected):
         self._assert(self._actual > expected, expected)

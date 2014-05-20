@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*
 
 
-class Empty(object):
+class Assertion(object):
     def __init__(self, assert_):
         self._assert = assert_
 
+
+class Empty(Assertion):
     def __call__(self, value):
         self._assert(self._is_empty(value))
 
@@ -16,3 +18,9 @@ class Empty(object):
                 next(value)
             except StopIteration:
                 return True
+
+
+class Instance(Assertion):
+    def __call__(self, value, expected):
+        self._assert(isinstance(value, expected),
+                     expected.__name__, 'instance')
