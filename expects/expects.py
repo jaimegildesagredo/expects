@@ -5,7 +5,7 @@ import traceback
 import collections
 
 from .expectation import Expectation, Proxy
-from . import matchers, _compat
+from . import matchers, assertions, _compat
 
 
 class Expects(Expectation):
@@ -47,17 +47,7 @@ class Expects(Expectation):
 
     @property
     def empty(self):
-        self._assert(self.__is_empty)
-
-    @property
-    def __is_empty(self):
-        try:
-            return len(self._actual) == 0
-        except TypeError:
-            try:
-                next(self._actual)
-            except StopIteration:
-                return True
+        assertions.Empty(self._assert)(self._actual)
 
     def start_with(self, value):
         self._assert(self._actual.startswith(value))
