@@ -86,6 +86,10 @@ with describe('keys') as _:
         def it_should_pass_if_dict_has_keys_with_values():
             expect(_.dct).to.only.have.keys(bar=0, baz=1)
 
+        def it_should_fail_if_dict_does_not_have_keys():
+            with failure(_.dct, "to have key 'foo'"):
+                expect(_.dct).to.only.have.keys('foo', 'fuu')
+
         def it_should_fail_if_dict_does_not_only_have_keys():
             _.dct['foo'] = 2
 
