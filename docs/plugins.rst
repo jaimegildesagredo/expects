@@ -38,7 +38,7 @@ When the plugin has been registered and we call ``expect(my_plugin='foo')`` the 
 
     MyPlugin('foo', 'Expected', 'my_plugin')
 
-Now that we have our initial plugin class we need to register it so we can use it with the ``expect(my_plugin=...)`` syntax. To to that we should use `setuptools to distribute <http://pythonhosted.org//setuptools/setuptools.html#basic-use>`_ our plugin and add the following `entry point <http://pythonhosted.org//setuptools/setuptools.html#entry-points>`_ to the ``setup.py`` file::
+Now that we have our initial plugin class we need to register it so we can use it with the ``expect(my_plugin=...)`` syntax. To do that we should use `setuptools to distribute <http://pythonhosted.org//setuptools/setuptools.html#basic-use>`_ our plugin and add the following `entry point <http://pythonhosted.org//setuptools/setuptools.html#entry-points>`_ to the ``setup.py`` file::
 
     setup(
         [...]
