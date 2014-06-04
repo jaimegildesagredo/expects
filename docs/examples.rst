@@ -261,6 +261,22 @@ empty
 
     Expected '' not to be empty
 
+end_with
+--------
+
+.. code-block:: python
+
+    expect('My foo string').to.end_with('tring')
+
+    expect('My foo string').to.not_end_with('My foo')
+
+    expect('My foo string').to.end_with('My fo')
+
+.. admonition:: Failure
+    :class: error
+
+    Expected 'My foo string' to end with 'My fo'
+
 equal
 -----
 
@@ -988,6 +1004,22 @@ raise_error
     :class: error
 
     Expected <function callback at 0x7fe70cb103b0> to raise AttributeError with message 'foo' but message was 'bar'
+
+start_with
+----------
+
+.. code-block:: python
+
+    expect('My foo string').to.start_with('My foo')
+
+    expect('My foo string').to.not_start_with('tring')
+
+    expect('My foo string').to.start_with('tring')
+
+.. admonition:: Failure
+    :class: error
+
+    Expected 'My foo string' to start with 'tring'
 
 true
 ----
