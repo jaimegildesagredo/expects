@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.2.3 (Jun 4, 2014)
+-------------------
+
+Highlights
+^^^^^^^^^^
+
+* Added the `start_with <file:///home/jaimegildesagredo/projects/jaimegildesagredo/expects/docs/_build/html/reference.html#end-with>_` and `end_with <file:///home/jaimegildesagredo/projects/jaimegildesagredo/expects/docs/_build/html/reference.html#start-with>_` assertions. `GH-14 <https://github.com/jaimegildesagredo/expects/issues/14>_`.
+
 0.2.2 (May 20, 2014)
 --------------------
 
