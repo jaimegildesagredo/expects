@@ -25,7 +25,7 @@ Will be the same that::
 Writing plugins
 ---------------
 
-As said above, a *plugin* consists of a *name* and a *callable object* that should return the plugin instance. The name will be the name that we give it when we register the plugin (see below). The callable object, which can be a class or a function that returns an object, should receive the *subject* of the expectation as the first positional argument. Also it should receive a set of positional arguments that will be the initial failure message parts.
+As said above, a *plugin* consists of a *name* and a *callable object* that should return the plugin instance. The name will be the used to register the plugin (see below). The callable object, which can be a class or a function that returns an object, should receive the *subject* of the expectation as the first positional argument. Also it should receive a set of positional arguments that will be the initial failure message parts.
 
 Let's start writing our plugin callable::
 
