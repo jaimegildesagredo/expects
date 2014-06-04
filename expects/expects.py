@@ -82,26 +82,12 @@ class Expects(Expectation):
         return _Have(self)
 
     def property(self, *args):
+        assertions.Property(self._assert)(self._actual, *args)
+
+        if len(args) > 1:
+            return
+
         name = args[0]
-
-        try:
-            expected = args[1]
-        except IndexError:
-            pass
-        else:
-            try:
-                value = getattr(self._actual, name)
-            except AttributeError:
-                pass
-            else:
-                self._assert(value == expected,
-                             '{!r} with value {!r} but was {!r}'.format(
-                                 name, expected, value))
-
-                return
-
-        self._assert(hasattr(self._actual, name), repr(name))
-
         try:
             message = list(self._message)
             message.append(repr(name))
