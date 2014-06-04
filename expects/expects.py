@@ -199,6 +199,9 @@ class Expects(Expectation):
     def __match(self, expected, flags):
         return True if re.match(expected, self._actual, *flags) is not None else False
 
+    def start_with(self, value):
+        self._assert(self._actual.startswith(value), repr(value))
+
 
 class _Have(Proxy):
     def __call__(self, *args):
@@ -236,7 +239,6 @@ class _Have(Proxy):
             elif i + 1 != total:
                 result += ', '
         return result
-
 
 
 class _Be(Proxy):
