@@ -1,8 +1,17 @@
 Expects
 =======
 
+.. image:: http://img.shields.io/pypi/v/expects.svg
+    :target: https://pypi.python.org/pypi/expects
+    :alt: Latest version
+
+.. image:: http://img.shields.io/pypi/dm/expects.svg
+    :target: https://pypi.python.org/pypi/expects
+    :alt: Number of PyPI downloads
+
 .. image:: https://secure.travis-ci.org/jaimegildesagredo/expects.svg?branch=master
     :target: http://travis-ci.org/jaimegildesagredo/expects
+    :alt: Build status
 
 **Expects** is an *expressive* and *extensible* TDD/BDD assertion library for Python.
 
