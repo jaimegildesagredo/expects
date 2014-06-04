@@ -202,6 +202,9 @@ class Expects(Expectation):
     def start_with(self, value):
         self._assert(self._actual.startswith(value), repr(value))
 
+    def end_with(self, value):
+        self._assert(self._actual.endswith(value), repr(value))
+
 
 class _Have(Proxy):
     def __call__(self, *args):
