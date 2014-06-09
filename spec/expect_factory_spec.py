@@ -2,7 +2,7 @@
 
 from mamba import describe, before
 
-from expects import expect, errors
+from expects import expect, errors, _compat
 from expects.factory import ExpectFactory
 
 
@@ -68,9 +68,15 @@ with describe(ExpectFactory) as _:
                 'bar': BarExpect
             },
             type_plugins={
-                '__builtin__.object': TypeExpect
+                _plugin_id_for_object(): TypeExpect
             }
         )
+
+
+def _plugin_id_for_object():
+    package = '__builtin__' if _compat.IS_PY2 else 'builtin'
+
+    return package + '.' + 'object'
 
 
 class _Expect(object):
