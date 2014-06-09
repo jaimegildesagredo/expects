@@ -74,7 +74,7 @@ with describe(ExpectFactory) as _:
 
 
 def _plugin_id_for_object():
-    package = '__builtin__' if _compat.IS_PY2 else 'builtin'
+    package = '__builtin__' if _compat.IS_PY2 else 'builtins'
 
     return package + '.' + 'object'
 
