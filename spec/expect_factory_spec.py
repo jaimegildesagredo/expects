@@ -23,31 +23,31 @@ with describe(ExpectFactory) as _:
         expect(lambda: _.expect()).to.raise_error(TypeError,
             'expect() takes 1 required positional argument')
 
-    def it_should_return_default_expectation_instance_if_passed_arg():
+    def it_should_return_default_plugin_instance_if_passed_arg():
         result = _.expect(1)
 
         expect(result).to.be.a(DefaultExpect)
         expect(result).to.have.property('actual', 1)
 
-    def it_should_return_default_expectation_with_initial_message():
+    def it_should_return_default_plugin_with_initial_message():
         result = _.expect(1)
 
         expect(result).to.have.property('message', ['Expected', repr(1)])
 
-    def it_should_return_given_expectation_instance_if_passed_kwarg():
+    def it_should_return_named_plugin_instance_if_passed_kwarg():
         result = _.expect(bar=1)
 
         expect(result).to.be.a(BarExpect)
         expect(result).to.have.property('actual', 1)
 
-    def it_should_return_given_expectation_with_message_and_plugin_name():
+    def it_should_return_named_plugin_with_message_and_plugin_name():
         result = _.expect(bar=1)
 
         expect(result).to.have.property('actual', 1)
         expect(result).to.have.property('message',
                                         ['Expected', 'bar', repr(1)])
 
-    def it_should_raise_if_given_expectation_is_not_found():
+    def it_should_raise_if_named_plugin_is_not_found():
         expect(lambda: _.expect(foo=1)).to.raise_error(
             errors.PluginError, "Plugin 'foo' not found")
 
