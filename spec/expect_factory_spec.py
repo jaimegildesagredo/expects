@@ -2,8 +2,6 @@
 
 from mamba import describe, before
 
-from spec.fixtures import DefaultExpect, BarExpect
-
 from expects import expect, errors
 from expects.factory import ExpectFactory
 
@@ -59,3 +57,17 @@ with describe(ExpectFactory) as _:
             'default': DefaultExpect,
             'bar': BarExpect
         })
+
+
+class _Expect(object):
+    def __init__(self, actual, *message):
+        self.actual = actual
+        self.message = list(message)
+
+
+class DefaultExpect(_Expect):
+    pass
+
+
+class BarExpect(_Expect):
+    pass
