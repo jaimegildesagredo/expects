@@ -51,12 +51,26 @@ with describe(ExpectFactory) as _:
         expect(lambda: _.expect(foo=1)).to.raise_error(
             errors.PluginError, "Plugin 'foo' not found")
 
+    def it_should_return_type_plugin_instance_if_passed_object_of_its_type():
+        actual = object()
+
+        instance = _.expect(actual)
+
+        expect(instance).to.be.a(TypeExpect)
+        expect(instance).to.have.property('actual', actual)
+        expect(instance).to.have.property('message', ['Expected', repr(actual)])
+
     @before.each
     def subject():
-        _.expect = ExpectFactory({
-            'default': DefaultExpect,
-            'bar': BarExpect
-        })
+        _.expect = ExpectFactory(
+            named_plugins={
+                'default': DefaultExpect,
+                'bar': BarExpect
+            },
+            type_plugins={
+                '__builtin__.object': TypeExpect
+            }
+        )
 
 
 class _Expect(object):
@@ -70,4 +84,8 @@ class DefaultExpect(_Expect):
 
 
 class BarExpect(_Expect):
+    pass
+
+
+class TypeExpect(_Expect):
     pass

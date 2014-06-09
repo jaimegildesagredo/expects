@@ -4,14 +4,21 @@ from . import errors
 
 
 class ExpectFactory(object):
-    def __init__(self, plugins):
-        self._plugins = plugins
+    def __init__(self, named_plugins, type_plugins):
+        self._named_plugins = named_plugins
+        self._type_plugins = type_plugins
 
     def __call__(self, *args, **kwargs):
         plugin_name, actual = self.__parse_args(args, kwargs)
 
+        if plugin_name == 'default':
+            type_plugin = self._type_plugins.get(self.__type_name(actual))
+
+            if type_plugin is not None:
+                return type_plugin(actual, *self.__message(plugin_name, actual))
+
         try:
-            return self._plugins[plugin_name](
+            return self._named_plugins[plugin_name](
                 actual, *self.__message(plugin_name, actual))
         except KeyError:
             raise errors.PluginError(
@@ -50,3 +57,7 @@ class ExpectFactory(object):
         message.append(repr(actual))
 
         return message
+
+    def __type_name(self, obj):
+        obj_type = type(obj)
+        return obj_type.__module__ + '.' + obj_type.__name__
