@@ -28,8 +28,10 @@ Just import the ``expect`` callable and start writing test assertions.
 
     expect(False).not_to.be.true
 
-    expect({'name': 'Jack', 'email': 'jack@example.com'}).to.have.key('name') \
-                                                         .with_value.match('\w+')
+    expect({
+        'name': 'Jack',
+        'email': 'jack@example.com'
+    }).to.have.key('name').with_value.match('\w+')
 
     expect(str).to.have.property('split')
 
