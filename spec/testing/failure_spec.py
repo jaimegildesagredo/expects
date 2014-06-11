@@ -28,6 +28,10 @@ with describe('failure') as _:
 
         expect(callback).not_to.raise_error(AssertionError)
 
+    def it_should_pass_if_assertion_error_raised_and_only_message_matches():
+        with failure(_.pattern):
+            raise AssertionError('Expected {!r} {}'.format(_.actual, _.message))
+
     def it_should_fail_if_assertion_error_not_raised():
         def callback():
             with failure(_.actual, _.message):
