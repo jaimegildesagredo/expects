@@ -7,7 +7,7 @@ Changes
 Highlights
 ^^^^^^^^^^
 
-* The `start_with <http://expects.readthedocs.org/en/0.3.0/reference.html#start-with>`_ and `end_with <http://expects.readthedocs.org/en/0.3.0/reference.html#end-with>`_ assertions now support lists, iterators and ordered dicts. `GH-16 <https://github.com/jaimegildesagredo/expects/issues/16>`_.
+* The `start_with <http://expects.readthedocs.org/en/v0.3.0/reference.html#start-with>`_ and `end_with <http://expects.readthedocs.org/en/v0.3.0/reference.html#end-with>`_ assertions now support lists, iterators and ordered dicts. `GH-16 <https://github.com/jaimegildesagredo/expects/issues/16>`_.
 
 0.2.3 (Jun 4, 2014)
 -------------------
@@ -15,7 +15,7 @@ Highlights
 Highlights
 ^^^^^^^^^^
 
-* Added the `start_with <http://expects.readthedocs.org/en/0.2.3/reference.html#start-with>`_ and `end_with <http://expects.readthedocs.org/en/0.2.3/#end-with>`_ assertions. `GH-14 <https://github.com/jaimegildesagredo/expects/issues/14>`_.
+* Added the `start_with <http://expects.readthedocs.org/en/v0.2.3/reference.html#start-with>`_ and `end_with <http://expects.readthedocs.org/en/v0.2.3/#end-with>`_ assertions. `GH-14 <https://github.com/jaimegildesagredo/expects/issues/14>`_.
 
 0.2.2 (May 20, 2014)
 --------------------
