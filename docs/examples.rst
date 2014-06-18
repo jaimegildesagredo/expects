@@ -21,7 +21,7 @@ a
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to be a Bar instance
+    Expected ``<Foo object at 0x7ff289cb4310>`` to be a ``Bar`` instance
 
 .. code-block:: python
 
@@ -30,7 +30,7 @@ a
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to be a object instance
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to be a ``object`` instance
 
 .. code-block:: python
 
@@ -39,7 +39,7 @@ a
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to be a Foo instance
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to be a ``Foo`` instance
 
 above
 -----
@@ -55,7 +55,7 @@ above
 .. admonition:: Failure
     :class: error
 
-    Expected 1 to be above 4
+    Expected ``1`` to be above ``4``
 
 .. code-block:: python
 
@@ -64,7 +64,7 @@ above
 .. admonition:: Failure
     :class: error
 
-    Expected 5 not to be above 4
+    Expected ``5`` not to be above ``4``
 
 above_or_equal
 --------------
@@ -82,7 +82,7 @@ above_or_equal
 .. admonition:: Failure
     :class: error
 
-    Expected 1 to be above or equal 4
+    Expected ``1`` to be above or equal ``4``
 
 .. code-block:: python
 
@@ -91,7 +91,7 @@ above_or_equal
 .. admonition:: Failure
     :class: error
 
-    Expected 5 not to be above or equal 4
+    Expected ``5`` not to be above or equal ``4``
 
 .. code-block:: python
 
@@ -100,7 +100,7 @@ above_or_equal
 .. admonition:: Failure
     :class: error
 
-    Expected 5 not to be above or equal 5
+    Expected ``5`` not to be above or equal ``5``
 
 an
 --
@@ -123,7 +123,7 @@ an
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to be an Object instance
+    Expected ``<Foo object at 0x7ff289cb4310>`` to be an ``Object`` instance
 
 .. code-block:: python
 
@@ -132,7 +132,7 @@ an
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to be an object instance
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to be an ``object`` instance
 
 be
 --
@@ -153,7 +153,7 @@ be
 .. admonition:: Failure
     :class: error
 
-    Expected 1 to be 2
+    Expected ``1`` to be ``2``
 
 .. code-block:: python
 
@@ -162,7 +162,7 @@ be
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to be <Foo object at 0x7ff289cb4310>
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to be ``<Foo object at 0x7ff289cb4310>``
 
 below
 -----
@@ -178,7 +178,7 @@ below
 .. admonition:: Failure
     :class: error
 
-    Expected 4 to be below 1
+    Expected ``4`` to be below ``1``
 
 .. code-block:: python
 
@@ -187,7 +187,7 @@ below
 .. admonition:: Failure
     :class: error
 
-    Expected 1 not to be below 4
+    Expected ``1`` not to be below ``4``
 
 below_or_equal
 --------------
@@ -205,7 +205,7 @@ below_or_equal
 .. admonition:: Failure
     :class: error
 
-    Expected 4 to be below or equal 1
+    Expected ``4`` to be below or equal ``1``
 
 .. code-block:: python
 
@@ -214,7 +214,7 @@ below_or_equal
 .. admonition:: Failure
     :class: error
 
-    Expected 1 not to be below or equal 4
+    Expected ``1`` not to be below or equal ``4``
 
 .. code-block:: python
 
@@ -223,7 +223,7 @@ below_or_equal
 .. admonition:: Failure
     :class: error
 
-    Expected 5 not to be below or equal 5
+    Expected ``5`` not to be below or equal ``5``
 
 empty
 -----
@@ -241,7 +241,7 @@ empty
 .. admonition:: Failure
     :class: error
 
-    Expected 'foo' to be empty
+    Expected ``'foo'`` to be empty
 
 .. code-block:: python
 
@@ -250,7 +250,7 @@ empty
 .. admonition:: Failure
     :class: error
 
-    Expected <str_iterator object at 0x7fd4832d6950> to be empty
+    Expected ``<str_iterator object at 0x7fd4832d6950>`` to be empty
 
 .. code-block:: python
 
@@ -259,7 +259,7 @@ empty
 .. admonition:: Failure
     :class: error
 
-    Expected '' not to be empty
+    Expected ``''`` not to be empty
 
 end_with
 --------
@@ -285,7 +285,7 @@ end_with
 .. admonition:: Failure
     :class: error
 
-    Expected 'My foo string' to end with 'My fo'
+    Expected ``'My foo string'`` to end with ``'My fo'``
 
 .. code-block:: python
 
@@ -294,7 +294,7 @@ end_with
 .. admonition:: Failure
     :class: error
 
-    Expected [1, 2, 3] to end with 3 and 3
+    Expected ``[1, 2, 3]`` to end with ``3`` and ``3``
 
 .. code-block:: python
 
@@ -303,7 +303,7 @@ end_with
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to end with 'baz' and 'bar' but it does not have ordered keys
+    Expected ``{'bar': 0, 'baz': 1}`` to end with ``'baz'`` and ``'bar'`` but it does not have ordered keys
 
 equal
 -----
@@ -319,7 +319,7 @@ equal
 .. admonition:: Failure
     :class: error
 
-    Expected 1 to equal 2
+    Expected ``1`` to equal ``2``
 
 .. code-block:: python
 
@@ -328,7 +328,7 @@ equal
 .. admonition:: Failure
     :class: error
 
-    Expected 1 not to equal 1
+    Expected ``1`` not to equal ``1``
 
 false
 -----
@@ -344,7 +344,7 @@ false
 .. admonition:: Failure
     :class: error
 
-    Expected True to be False
+    Expected ``True`` to be ``False``
 
 .. code-block:: python
 
@@ -352,7 +352,7 @@ false
 .. admonition:: Failure
     :class: error
 
-    Expected False not to be False
+    Expected ``False`` not to be ``False``
 
 have
 ----
@@ -390,7 +390,7 @@ have
 .. admonition:: Failure
     :class: error
 
-    Expected ['bar', 'baz'] to have 'foo'
+    Expected ``['bar', 'baz']`` to have ``'foo'``
 
 .. code-block:: python
 
@@ -399,7 +399,7 @@ have
 .. admonition:: Failure
     :class: error
 
-    Expected <listiterator object at 0x7ff289cb4310> to have 'foo'
+    Expected ``<listiterator object at 0x7ff289cb4310>`` to have ``'foo'``
 
 .. code-block:: python
 
@@ -408,7 +408,7 @@ have
 .. admonition:: Failure
     :class: error
 
-    Expected ['bar', 'baz'] not to have 'bar'
+    Expected ``['bar', 'baz']`` not to have ``'bar'``
 
 .. code-block:: python
 
@@ -417,7 +417,7 @@ have
 .. admonition:: Failure
     :class: error
 
-    Expected ['bar', 'baz'] to only have 'foo'
+    Expected ``['bar', 'baz']`` to only have ``'foo'``
 
 .. code-block:: python
 
@@ -426,7 +426,7 @@ have
 .. admonition:: Failure
     :class: error
 
-    Expected ['bar', 'baz'] to only have 'foo' and 'fuu'
+    Expected ``['bar', 'baz']`` to only have ``'foo'`` and ``'fuu'``
 
 .. code-block:: python
 
@@ -435,7 +435,7 @@ have
 .. admonition:: Failure
     :class: error
 
-    Expected ['bar', 'baz'] to only have 'bar'
+    Expected ``['bar', 'baz']`` to only have ``'bar'``
 
 .. code-block:: python
 
@@ -444,7 +444,7 @@ have
 .. admonition:: Failure
     :class: error
 
-    Expected ['bar', 'baz'] to only have 'bar' and 'baz'
+    Expected ``['bar', 'baz']`` to only have ``'bar'`` and ``'baz'``
 
 .. code-block:: python
 
@@ -453,7 +453,7 @@ have
 .. admonition:: Failure
     :class: error
 
-    Expected ['bar', 'baz'] to only have 'bar', 'baz' and 'foo'
+    Expected ``['bar', 'baz']`` to only have ``'bar'``, ``'baz'`` and ``'foo'``
 
 .. code-block:: python
 
@@ -462,7 +462,7 @@ have
 .. admonition:: Failure
     :class: error
 
-    Expected 'My foo string' to only have 'foo'
+    Expected ``'My foo string'`` to only have ``'foo'``
 
 key
 ---
@@ -490,7 +490,7 @@ key
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'foo'
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'foo'``
 
 .. code-block:: python
 
@@ -499,7 +499,7 @@ key
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'foo'
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'foo'``
 
 .. code-block:: python
 
@@ -508,7 +508,7 @@ key
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 1 but was 0
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'bar'`` with value ``1 ``but was ``0``
 
 .. code-block:: python
 
@@ -517,7 +517,7 @@ key
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'bar' with value None but was 0
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'bar'`` with value ``None`` but was ``0``
 
 .. code-block:: python
 
@@ -526,7 +526,7 @@ key
 .. admonition:: Failure
     :class: error
 
-    Expected 'My foo string' to have key 'foo' but not a dict
+    Expected ``'My foo string'`` to have key ``'foo'`` but not a ``dict``
 
 .. code-block:: python
 
@@ -535,7 +535,7 @@ key
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} not to have key 'bar'
+    Expected ``{'bar': 0, 'baz': 1}`` not to have key ``'bar'``
 
 .. code-block:: python
 
@@ -544,7 +544,7 @@ key
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} not to have key 'bar' with value 0 but was 0
+    Expected ``{'bar': 0, 'baz': 1}`` not to have key ``'bar'`` with value ``0`` but was ``0``
 
 .. code-block:: python
 
@@ -553,7 +553,7 @@ key
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 0 equal 1
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'bar'`` with value ``0`` equal ``1``
 
 .. code-block:: python
 
@@ -562,7 +562,7 @@ key
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 0 not equal 0
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'bar'`` with value ``0`` not equal ``0``
 
 keys
 ----
@@ -592,7 +592,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'foo'
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'foo'``
 
 .. code-block:: python
 
@@ -601,7 +601,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'foo'
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'foo'``
 
 .. code-block:: python
 
@@ -610,7 +610,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 1 but was 0
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'bar'`` with value ``1`` but was ``0``
 
 .. code-block:: python
 
@@ -619,7 +619,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'foo'
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'foo'``
 
 .. code-block:: python
 
@@ -628,7 +628,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 1 but was 0
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'bar'`` with value ``1`` but was ``0``
 
 .. code-block:: python
 
@@ -637,7 +637,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to have key 'bar' with value 1 but was 0
+    Expected ``{'bar': 0, 'baz': 1}`` to have key ``'bar'`` with value ``1`` but was ``0``
 
 .. code-block:: python
 
@@ -646,7 +646,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} not to have key 'bar'
+    Expected ``{'bar': 0, 'baz': 1}`` not to have key ``'bar'``
 
 .. code-block:: python
 
@@ -655,7 +655,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} not to have key 'bar' with value 0 but was 0
+    Expected ``{'bar': 0, 'baz': 1}`` not to have key ``'bar'`` with value ``0`` but was ``0``
 
 .. code-block:: python
 
@@ -664,7 +664,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} not to have key 'bar'
+    Expected ``{'bar': 0, 'baz': 1}`` not to have key ``'bar'``
 
 .. code-block:: python
 
@@ -673,7 +673,7 @@ keys
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} not to have key 'bar' with value 0 but was 0
+    Expected ``{'bar': 0, 'baz': 1}`` not to have key ``'bar'`` with value ``0`` but was ``0``
 
 length
 ------
@@ -691,7 +691,7 @@ length
 .. admonition:: Failure
     :class: error
 
-    Expected 'foo' to have length 2 but was 3
+    Expected ``'foo'`` to have length ``2`` but was ``3``
 
 .. code-block:: python
 
@@ -700,7 +700,7 @@ length
 .. admonition:: Failure
     :class: error
 
-    Expected <str_iterator object at 0x7fd4832d6950> to have length 2 but was 3
+    Expected ``<str_iterator object at 0x7fd4832d6950>`` to have length ``2`` but was ``3``
 
 .. code-block:: python
 
@@ -709,7 +709,7 @@ length
 .. admonition:: Failure
     :class: error
 
-    Expected 'foo' not to have length 3 but was 3
+    Expected ``'foo'`` not to have length ``3`` but was ``3``
 
 match
 -----
@@ -728,7 +728,7 @@ match
 .. admonition:: Failure
     :class: error
 
-    Expected 'My foo string' to match r'My \\W+ string'
+    Expected ``'My foo string'`` to match ``r'My \\W+ string'``
 
 .. code-block:: python
 
@@ -737,7 +737,7 @@ match
 .. admonition:: Failure
     :class: error
 
-    Expected 'My foo string' not to match r'My \\w+ string'
+    Expected ``'My foo string'`` not to match ``r'My \\w+ string'``
 
 none
 ----
@@ -753,7 +753,7 @@ none
 .. admonition:: Failure
     :class: error
 
-    Expected True to be None
+    Expected ``True`` to be ``None``
 
 .. code-block:: python
 
@@ -762,7 +762,7 @@ none
 .. admonition:: Failure
     :class: error
 
-    Expected None not to be None
+    Expected ``None`` not to be ``None``
 
 properties
 ----------
@@ -797,7 +797,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'foo'``
 
 .. code-block:: python
 
@@ -806,7 +806,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'foo'``
 
 .. code-block:: python
 
@@ -815,7 +815,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 1 but was 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'bar'`` with value ``1`` but was ``0``
 
 .. code-block:: python
 
@@ -824,7 +824,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'foo'``
 
 .. code-block:: python
 
@@ -833,7 +833,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 1 but was 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'bar'`` with value ``1`` but was ``0``
 
 .. code-block:: python
 
@@ -842,7 +842,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 1 but was 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property 'bar' with value ``1`` but was ``0``
 
 .. code-block:: python
 
@@ -851,7 +851,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to have property 'bar'
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to have property ``'bar'``
 
 .. code-block:: python
 
@@ -860,7 +860,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to have property 'bar' with value 0 but was 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to have property ``'bar'`` with value ``0`` but was ``0``
 
 .. code-block:: python
 
@@ -869,7 +869,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to have property 'bar'
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to have property ``'bar'``
 
 .. code-block:: python
 
@@ -878,7 +878,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to have property 'bar' with value 0 but was 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to have property ``'bar'`` with value ``0`` but was ``0``
 
 .. code-block:: python
 
@@ -887,7 +887,7 @@ properties
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to have property 'bar' with value 0 but was 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to have property ``'bar'`` with value ``0`` but was ``0``
 
 property
 --------
@@ -918,7 +918,7 @@ property
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'foo'``
 
 .. code-block:: python
 
@@ -927,7 +927,7 @@ property
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'foo'
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'foo'``
 
 .. code-block:: python
 
@@ -936,7 +936,7 @@ property
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 1 but was 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'bar'`` with value ``1`` but was ``0``
 
 .. code-block:: python
 
@@ -945,7 +945,7 @@ property
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value None but was 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'bar'`` with value ``None`` but was ``0``
 
 .. code-block:: python
 
@@ -954,7 +954,7 @@ property
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to have property 'bar'
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to have property ``'bar'``
 
 .. code-block:: python
 
@@ -963,7 +963,7 @@ property
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> not to have property 'bar' with value 0 but was 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to have property ``'bar'`` with value ``0`` but was ``0``
 
 .. code-block:: python
 
@@ -972,7 +972,7 @@ property
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 0 equal 1
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'bar'`` with value ``0`` equal ``1``
 
 .. code-block:: python
 
@@ -981,7 +981,7 @@ property
 .. admonition:: Failure
     :class: error
 
-    Expected <Foo object at 0x7ff289cb4310> to have property 'bar' with value 0 not equal 0
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'bar'`` with value ``0`` not equal ``0``
 
 raise_error
 -----------
@@ -1010,7 +1010,7 @@ raise_error
 .. admonition:: Failure
     :class: error
 
-    Expected <function callback at 0x7fe70cb103b0> to raise AttributeError but KeyError raised
+    Expected ``<function callback at 0x7fe70cb103b0>`` to raise ``AttributeError`` but ``KeyError`` raised
 
 .. code-block:: python
 
@@ -1019,7 +1019,7 @@ raise_error
 .. admonition:: Failure
     :class: error
 
-    Expected <function <lambda> at 0x7f3e670863b0> to raise AttributeError but not raised
+    Expected ``<function <lambda> at 0x7f3e670863b0>`` to raise ``AttributeError`` but not raised
 
 .. code-block:: python
 
@@ -1031,7 +1031,7 @@ raise_error
 .. admonition:: Failure
     :class: error
 
-    Expected <function callback at 0x7fe70cb103b0> to raise AttributeError with message 'foo' but message was 'bar'
+    Expected ``<function callback at 0x7fe70cb103b0>`` to raise ``AttributeError`` with message ``'foo'`` but message was ``'bar'``
 
 start_with
 ----------
@@ -1059,7 +1059,7 @@ start_with
 .. admonition:: Failure
     :class: error
 
-    Expected 'My foo string' to start with 'tring'
+    Expected ``'My foo string'`` to start with ``'tring'``
 
 .. code-block:: python
 
@@ -1068,7 +1068,7 @@ start_with
 .. admonition:: Failure
     :class: error
 
-    Expected [1, 2, 3] to start with 2
+    Expected ``[1, 2, 3]`` to start with ``2``
 
 .. code-block:: python
 
@@ -1077,7 +1077,7 @@ start_with
 .. admonition:: Failure
     :class: error
 
-    Expected [1, 2, 3] to start with 2 and 3
+    Expected ``[1, 2, 3]`` to start with ``2`` and ``3``
 
 .. code-block:: python
 
@@ -1086,7 +1086,7 @@ start_with
 .. admonition:: Failure
     :class: error
 
-    Expected [1, 2, 3] to start with 1 and 1
+    Expected ``[1, 2, 3]`` to start with ``1`` and ``1``
 
 .. code-block:: python
 
@@ -1095,7 +1095,7 @@ start_with
 .. admonition:: Failure
     :class: error
 
-    Expected {'bar': 0, 'baz': 1} to start with 'bar' and 'baz' but it does not have ordered keys
+    Expected ``{'bar': 0, 'baz': 1}`` to start with ``'bar'`` and ``'baz'`` but it does not have ordered keys
 
 true
 ----
@@ -1111,7 +1111,7 @@ true
 .. admonition:: Failure
     :class: error
 
-    Expected False to be True
+    Expected ``False`` to be ``True``
 
 .. code-block:: python
 
@@ -1120,7 +1120,7 @@ true
 .. admonition:: Failure
     :class: error
 
-    Expected True not to be True
+    Expected ``True`` not to be ``True``
 
 within
 ------
@@ -1136,7 +1136,7 @@ within
 .. admonition:: Failure
     :class: error
 
-    Expected 1 to be within 4, 7
+    Expected ``1`` to be within ``4, 7``
 
 .. code-block:: python
 
@@ -1145,5 +1145,5 @@ within
 .. admonition:: Failure
     :class: error
 
-    Expected 5 not to be within 4, 7
+    Expected ``5`` not to be within ``4, 7``
 
