@@ -15,8 +15,8 @@ with describe('start_with') as self:
     def fixtures():
         self.str = 'My foo string'
         self.lst = [1, 2, 3]
-        self.dct = {'foo': 0, 'bar': 1}
-        self.ordered_dct = OrderedDict([('foo', 0), ('bar', 1)])
+        self.dct = {'bar': 0, 'baz': 1}
+        self.ordered_dct = OrderedDict([('bar', 0), ('baz', 1)])
 
     def it_should_pass_if_string_starts_with_string():
         expect(self.str).to.start_with(self.str[:5])
