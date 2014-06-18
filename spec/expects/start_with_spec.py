@@ -58,7 +58,7 @@ with describe('start_with') as self:
             expect(self.lst).to.start_with(*expected_args)
 
     def it_should_fail_if_actual_is_a_dict():
-        expected_args = self.dct.keys()[:2]
+        expected_args = list(self.dct.keys())[:2]
 
         with failure('to start with {!r} and {!r} '
                      'but it does not have ordered keys'.format(*expected_args)):
@@ -78,7 +78,7 @@ with describe('start_with') as self:
             expect(self.lst).not_to.start_with(*expected_args)
 
         def it_should_fail_if_actual_is_a_dict_():
-            expected_args = self.dct.keys()[:2]
+            expected_args = list(self.dct.keys())[:2]
 
             with failure('to start with {!r} and {!r} '
                          'but it does not have ordered keys'.format(*expected_args)):
