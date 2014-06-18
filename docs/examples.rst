@@ -270,12 +270,40 @@ end_with
 
     expect('My foo string').to.not_end_with('My foo')
 
+    expect([1, 2, 3]).to.end_with(3)
+
+    expect([1, 2, 3]).to.end_with(3, 2)
+
+    expect(OrderedDict([('bar', 0), ('baz', 1)])).to.end_with('baz', 'bar')
+
+    expect([1, 2, 3]).to.not_end_with(1, 2)
+
+    expect([1, 2, 3]).not_to.end_with(3, 3)
+
     expect('My foo string').to.end_with('My fo')
 
 .. admonition:: Failure
     :class: error
 
     Expected 'My foo string' to end with 'My fo'
+
+.. code-block:: python
+
+    expect([1, 2, 3]).to.end_with(3, 3)
+
+.. admonition:: Failure
+    :class: error
+
+    Expected [1, 2, 3] to end with 3 and 3
+
+.. code-block:: python
+
+    expect({'bar': 0, 'baz': 1}).to.end_with('baz', 'bar')
+
+.. admonition:: Failure
+    :class: error
+
+    Expected {'bar': 0, 'baz': 1} to end with 'baz' and 'bar' but it does not have ordered keys
 
 equal
 -----
@@ -1014,12 +1042,60 @@ start_with
 
     expect('My foo string').to.not_start_with('tring')
 
+    expect([1, 2, 3]).to.start_with(1)
+
+    expect([1, 2, 3]).to.start_with(1, 2)
+
+    expect(OrderedDict([('bar', 0), ('baz', 1)])).to.start_with('bar', 'baz')
+
+    expect(iter([1, 2, 3])).to.start_with(1, 2)
+
+    expect([1, 2, 3]).to.not_start_with(2, 3)
+
+    expect([1, 2, 3]).not_to.start_with(1, 1)
+
     expect('My foo string').to.start_with('tring')
 
 .. admonition:: Failure
     :class: error
 
     Expected 'My foo string' to start with 'tring'
+
+.. code-block:: python
+
+    expect([1, 2, 3]).to.start_with(2)
+
+.. admonition:: Failure
+    :class: error
+
+    Expected [1, 2, 3] to start with 2
+
+.. code-block:: python
+
+    expect([1, 2, 3]).to.start_with(2, 3)
+
+.. admonition:: Failure
+    :class: error
+
+    Expected [1, 2, 3] to start with 2 and 3
+
+.. code-block:: python
+
+    expect([1, 2, 3]).to.start_with(1, 1)
+
+.. admonition:: Failure
+    :class: error
+
+    Expected [1, 2, 3] to start with 1 and 1
+
+.. code-block:: python
+
+    expect({'bar': 0, 'baz': 1}).to.start_with('bar', 'baz')
+
+.. admonition:: Failure
+    :class: error
+
+    Expected {'bar': 0, 'baz': 1} to start with 'bar' and 'baz' but it does not have ordered keys
 
 true
 ----
