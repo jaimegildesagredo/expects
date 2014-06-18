@@ -70,7 +70,7 @@ with describe('start_with') as self:
             expect(self.str).to.not_start_with(self.str[5:])
 
         def it_should_pass_if_list_does_not_start_with_args():
-            expect(self.lst).to.not_start_with(self.lst[:2])
+            expect(self.lst).to.not_start_with(*self.lst[2:])
 
         def it_should_pass_if_list_starts_with_first_arg_but_not_second():
             expected_args = self.lst[0], self.lst[0]
