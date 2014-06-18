@@ -215,8 +215,20 @@ class Expects(Expectation):
                          list(self._actual)[:len(args)],
                          plain_enumerate(args))
 
-    def end_with(self, value):
-        self._assert(self._actual.endswith(value), repr(value))
+    def end_with(self, *args):
+        if isinstance(self._actual, _compat.string_types):
+            value = args[0]
+            self._assert(self._actual.endswith(value), repr(value))
+        elif (isinstance(self._actual, collections.Mapping) and
+              not isinstance(self._actual, collections.OrderedDict)):
+
+            self._assert(self._negated,
+                         plain_enumerate(args),
+                         'but it does not have ordered keys')
+        else:
+            self._assert(list(args) ==
+                         list(reversed(list(self._actual)[-len(args):])),
+                         plain_enumerate(args))
 
 
 class _Have(Proxy):
