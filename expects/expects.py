@@ -199,8 +199,21 @@ class Expects(Expectation):
     def __match(self, expected, flags):
         return True if re.match(expected, self._actual, *flags) is not None else False
 
-    def start_with(self, value):
-        self._assert(self._actual.startswith(value), repr(value))
+    def start_with(self, *args):
+        if isinstance(self._actual, _compat.string_types):
+            value = args[0]
+            self._assert(self._actual.startswith(value), repr(value))
+
+        elif (isinstance(self._actual, collections.Mapping) and
+              not isinstance(self._actual, collections.OrderedDict)):
+
+            self._assert(self._negated,
+                         plain_enumerate(args),
+                         'but it does not have ordered keys')
+        else:
+            self._assert(list(args) ==
+                         list(self._actual)[:len(args)],
+                         plain_enumerate(args))
 
     def end_with(self, value):
         self._assert(self._actual.endswith(value), repr(value))
@@ -231,17 +244,21 @@ class _Have(Proxy):
                 self._assert(arg in collection, repr(arg))
 
     def __only_have_expected(self, args):
-        result = ''
+        return plain_enumerate(args)
 
-        total = len(args)
-        for i, arg in enumerate(args):
-            result += repr(arg)
 
-            if i + 2 == total:
-                result += ' and '
-            elif i + 1 != total:
-                result += ', '
-        return result
+def plain_enumerate(args):
+    result = ''
+
+    total = len(args)
+    for i, arg in enumerate(args):
+        result += repr(arg)
+
+        if i + 2 == total:
+            result += ' and '
+        elif i + 1 != total:
+            result += ', '
+    return result
 
 
 class _Be(Proxy):
