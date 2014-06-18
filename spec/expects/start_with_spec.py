@@ -7,6 +7,8 @@ from mamba import describe, context, before
 from expects import expect
 from expects.testing import failure
 
+IRRELEVANT_ARGS = (1, 2)
+
 
 with describe('start_with') as self:
     @before.each
@@ -58,12 +60,10 @@ with describe('start_with') as self:
             expect(self.lst).to.start_with(*expected_args)
 
     def it_should_fail_if_actual_is_a_dict():
-        expected_args = list(self.dct.keys())[:2]
-
         with failure('to start with {!r} and {!r} '
-                     'but it does not have ordered keys'.format(*expected_args)):
+                     'but it does not have ordered keys'.format(*IRRELEVANT_ARGS)):
 
-            expect(self.dct).to.start_with(*expected_args)
+            expect(self.dct).to.start_with(*IRRELEVANT_ARGS)
 
     with context('#negated'):
         def it_should_pass_if_string_does_not_start_with_string():
@@ -78,9 +78,7 @@ with describe('start_with') as self:
             expect(self.lst).not_to.start_with(*expected_args)
 
         def it_should_fail_if_actual_is_a_dict_():
-            expected_args = list(self.dct.keys())[:2]
-
             with failure('to start with {!r} and {!r} '
-                         'but it does not have ordered keys'.format(*expected_args)):
+                         'but it does not have ordered keys'.format(*IRRELEVANT_ARGS)):
 
-                expect(self.dct).not_to.start_with(*expected_args)
+                expect(self.dct).not_to.start_with(*IRRELEVANT_ARGS)
