@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.3.0 (Not released yet)
+------------------------
+
+Highlights
+^^^^^^^^^^
+
+* The `start_with <file:///home/jaimegildesagredo/projects/jaimegildesagredo/expects/docs/_build/html/reference.html#end-with>`_ and `end_with <file:///home/jaimegildesagredo/projects/jaimegildesagredo/expects/docs/_build/html/reference.html#start-with>`_ assertions now support lists, iterators and ordered dicts. `GH-16 <https://github.com/jaimegildesagredo/expects/issues/16>`_.
+
 0.2.3 (Jun 4, 2014)
 -------------------
 
