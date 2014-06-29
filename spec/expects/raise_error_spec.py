@@ -7,6 +7,9 @@ from expects.testing import failure
 
 NON_STRING_VALUE = 1
 STRING_VALUE = 'a string'
+UNICODE_VALUE = u'an unicode value'
+UNICODE_PATTERN = u'unicode'
+
 
 with describe('raise_error') as _:
     def it_should_pass_if_actual_raises_expected_exception():
@@ -47,6 +50,14 @@ with describe('raise_error') as _:
             raise AttributeError(NON_STRING_VALUE)
 
         expect(callback).to.raise_error(AttributeError, NON_STRING_VALUE)
+
+    def it_should_pass_if_actual_raises_and_message_matches_unicode_pattern():
+        # https://github.com/jaimegildesagredo/expects/issues/17
+
+        def callback():
+            raise AttributeError(UNICODE_VALUE)
+
+        expect(callback).to.raise_error(AttributeError, UNICODE_PATTERN)
 
     def it_should_fail_if_actual_raises_with_different_message():
         def callback():

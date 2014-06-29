@@ -188,7 +188,10 @@ class Expects(Expectation):
     def __matchs_exception(self, message, exc_message):
         if message == exc_message:
             return True
-        elif isinstance(message, str) and re.search(message, exc_message):
+
+        elif (isinstance(message, _compat.string_types) and
+              re.search(message, exc_message)):
+
             return True
 
         return False
