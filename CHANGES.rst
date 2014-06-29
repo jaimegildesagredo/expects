@@ -9,6 +9,11 @@ Highlights
 
 * The `start_with <http://expects.readthedocs.org/en/v0.3.0/reference.html#start-with>`_ and `end_with <http://expects.readthedocs.org/en/v0.3.0/reference.html#end-with>`_ assertions now support lists, iterators and ordered dicts. `GH-16 <https://github.com/jaimegildesagredo/expects/issues/16>`_.
 
+Bug fixes
+^^^^^^^^^
+
+* Fixes a regression in the ``raise_error`` assertion introduced in v0.2.2 which caused some tests to fail. See `GH-17 <https://github.com/jaimegildesagredo/expects/issues/17>`_ for more info.
+
 0.2.3 (Jun 4, 2014)
 -------------------
 
