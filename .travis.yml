@@ -11,4 +11,4 @@ install:
   - pip install -r test-requirements.txt
 
 script:
-  - PYTHONPATH=$PYTHONPATH:. mamba
+  - PYTHONPATH=$PYTHONPATH:. mamba -s 0.0001
