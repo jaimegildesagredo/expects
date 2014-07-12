@@ -9,26 +9,26 @@ from expects.testing import failure
 
 
 with describe('an') as _:
-    def it_should_pass_if_actual_is_an_instance_of_the_expected_class_():
-        expect(_.obj).to.be.an(object)
+    def it_should_pass_if_object_is_an_instance_of_the_expected_class_():
+        expect(_.obj).to.be(an(object))
 
-    def it_should_fail_if_actual_is_not_an_instance_of_the_expected_class_():
+    def it_should_fail_if_object_is_not_an_instance_of_the_expected_class_():
         class Object(object):
             pass
 
-        with failure(_.obj, 'to be an Object instance'):
-            expect(_.obj).to.be.an(Object)
+        with failure(''):
+            expect(_.obj).to.be(an(Object))
 
     with context('#negated'):
-        def it_should_pass_if_actual_is_not_an_instance_of_the_expected_class_():
+        def it_should_pass_if_object_is_not_an_instance_of_the_expected_class_():
             class Object(object):
                 pass
 
-            expect(_.obj).not_to.be.an(Object)
+            expect(_.obj).not_to.be(an(Object))
 
-        def it_should_fail_if_actual_is_an_instance_of_the_expected_class_():
-            with failure(_.obj, 'not to be an object instance'):
-                expect(_.obj).not_to.be.an(object)
+        def it_should_fail_if_object_is_an_instance_of_the_expected_class_():
+            with failure(''):
+                expect(_.obj).not_to.be(an(object))
 
     @before.each
     def fixtures():
