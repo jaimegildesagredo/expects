@@ -30,7 +30,7 @@ class Expectation(object):
         self._setup_matchers()
 
     def _setup_matchers(self):
-        self._locals_before = dict(self._frame.f_globals)
+        self._globals_before = dict(self._frame.f_globals)
         self._frame.f_globals.update(self._matchers)
 
     def __call__(self, matcher):
@@ -49,7 +49,7 @@ class Expectation(object):
         for key in dict(self._frame.f_globals):
             del self._frame.f_globals[key]
 
-        self._frame.f_globals.update(self._locals_before)
+        self._frame.f_globals.update(self._globals_before)
 
     @property
     def not_to(self):
