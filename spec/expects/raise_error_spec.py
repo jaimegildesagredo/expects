@@ -35,25 +35,11 @@ with describe('raise_error') as _:
 
         expect(callback).to(raise_error(AttributeError, _.message))
 
-    def it_should_pass_if_callable_raises_and_message_matches_pattern():
-        def callback():
-            raise AttributeError(_.message)
-
-        expect(callback).to(raise_error(AttributeError, r'\w+ error'))
-
     def it_should_pass_if_callable_raises_with_non_string_value():
         def callback():
             raise AttributeError(NON_STRING_VALUE)
 
         expect(callback).to(raise_error(AttributeError, NON_STRING_VALUE))
-
-    def it_should_pass_if_callable_raises_and_message_matches_unicode_pattern():
-        # https://github.com/jaimegildesagredo/expects/issues/17
-
-        def callback():
-            raise AttributeError(UNICODE_VALUE)
-
-        expect(callback).to(raise_error(AttributeError, UNICODE_PATTERN))
 
     def it_should_fail_if_callable_raises_with_different_message():
         def callback():
@@ -62,19 +48,11 @@ with describe('raise_error') as _:
         with failure(''):
             expect(callback).to(raise_error(AttributeError, 'foo'))
 
-    def it_should_fail_if_callable_raises_but_message_does_not_match_pattern():
-        def callback():
-            raise AttributeError(_.message)
-
-        with failure(''):
-            expect(callback).to(raise_error(AttributeError, r'\W+ error'))
-
     def it_should_fail_if_callable_does_not_raise_with_none():
         def callback():
             raise AttributeError(_.message)
 
         with failure(''):
-
             expect(callback).to(raise_error(AttributeError, None))
 
     def it_should_fail_if_callable_does_not_raise_with_non_string_value():
@@ -113,6 +91,20 @@ with describe('raise_error') as _:
 
             with failure(''):
                 expect(callback).not_to(raise_error(AttributeError, _.message))
+
+    with context('#combined'):
+        def it_should_pass_if_callable_raises_exception_and_message_matches():
+            def callback():
+                raise AttributeError(_.message)
+
+            expect(callback).to(raise_error(AttributeError, match(r'Foo \w+')))
+
+        def it_should_fail_if_callable_raises_but_message_does_not_match():
+            def callback():
+                raise AttributeError(_.message)
+
+            with failure(''):
+                expect(callback).to(raise_error(AttributeError, match(r'\d+')))
 
     @before.each
     def fixtures():

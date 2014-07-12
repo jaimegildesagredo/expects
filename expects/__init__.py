@@ -74,7 +74,7 @@ def _registered_matchers():
         'match': Match(),
         'start_with': StartWith(),
         'end_with': EndWith(),
-        'raise_error': Raise()
+        'raise_error': RaiseError()
     }
 
 
@@ -380,7 +380,7 @@ class IsNone(Matcher):
         return subject is None
 
 
-class Raise(Matcher):
+class RaiseError(Matcher):
     def _initialize(self, expected, *args):
         self._expected = expected
         self._args = args
@@ -389,16 +389,13 @@ class Raise(Matcher):
         try:
             subject()
         except self._expected as exc:
-            exc_args = exc.args
-            exc_message = str(exc)
-
             if len(self._args) != 0:
-                value = self._args[0]
+                value, expected_value = exc.args[0], self._args[0]
 
-                if isinstance(value, _compat.string_types):
-                    return self.__matchs_exception(value, exc_message)
-                else:
-                    return value == exc_args[0]
+                if hasattr(expected_value, '_match'):
+                    return expected_value._match(value)
+
+                return value == expected_value
             else:
                 return True
 
@@ -406,17 +403,6 @@ class Raise(Matcher):
             return False
         else:
             return False
-
-    def __matchs_exception(self, message, exc_message):
-        if message == exc_message:
-            return True
-
-        elif (isinstance(message, _compat.string_types) and
-              re.search(message, exc_message)):
-
-            return True
-
-        return False
 
 
 class WithIn(Matcher):
