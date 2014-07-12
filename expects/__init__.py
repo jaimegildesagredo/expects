@@ -64,12 +64,13 @@ def _registered_matchers():
         'be_true': IsTrue(),
         'be_false': IsFalse(),
         'be_none': IsNone(),
-        'have': Contains(),
         'have_length': Length(),
         'have_property': Property(),
         'have_properties': Properties(),
         'have_key': Key(),
         'have_keys': Keys(),
+        'contain': Contains(),
+        'contain_only': ContainsOnly(),
         'match': Match(),
         'start_with': StartWith(),
         'end_with': EndWith(),
@@ -313,10 +314,6 @@ class EndWith(Matcher):
 
 
 class Contains(Matcher):
-    def __init__(self):
-        super(Contains, self).__init__()
-        self._flags = {}
-
     def _initialize(self, *args):
         self._args = args
 
@@ -326,29 +323,33 @@ class Contains(Matcher):
         else:
             collection = subject
 
-        if self._flags.get('only', False):
-            for arg in self._args:
-                if arg not in collection:
-                    return False
-
-            if isinstance(subject, _compat.string_types):
-                args_length = len(''.join(self._args))
-            else:
-                args_length = len(self._args)
-
-            return len(subject) == args_length
-
-        else:
-            for arg in self._args:
-                if arg not in collection:
-                    return False
+        for arg in self._args:
+            if arg not in collection:
+                return False
 
         return True
 
-    @property
-    def only(self):
-        self._flags['only'] = True
-        return self
+
+class ContainsOnly(Matcher):
+    def _initialize(self, *args):
+        self._args = args
+
+    def _match(self, subject):
+        if isinstance(subject, collections.Iterator):
+            collection = list(subject)
+        else:
+            collection = subject
+
+        for arg in self._args:
+            if arg not in collection:
+                return False
+
+        if isinstance(subject, _compat.string_types):
+            args_length = len(''.join(self._args))
+        else:
+            args_length = len(self._args)
+
+        return len(subject) == args_length
 
 
 class Length(Matcher):
