@@ -14,11 +14,6 @@ setup(
     author_email='jaimegildesagredo@gmail.com',
     license='Apache 2.0',
     packages=find_packages(exclude=['spec', 'spec.*']),
-    entry_points={
-        'expects.plugins': [
-            'default = expects.expects:Expects'
-        ]
-    },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
