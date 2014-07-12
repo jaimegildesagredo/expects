@@ -25,9 +25,20 @@ class Expectation(object):
         self._globals_before = dict(self._frame.f_globals)
         self._frame.f_globals.update(self._matchers)
 
-    def __call__(self, matcher):
+    def to(self, matcher):
         self._teardown_matchers()
         self._assert(matcher)
+
+    @property
+    def not_to(self):
+        self._negated = True
+        return self.to
+
+    def _teardown_matchers(self):
+        for key in dict(self._frame.f_globals):
+            del self._frame.f_globals[key]
+
+        self._frame.f_globals.update(self._globals_before)
 
     def _assert(self, matcher):
         truth = matcher._match(self._subject)
@@ -37,49 +48,32 @@ class Expectation(object):
 
         assert truth
 
-    def _teardown_matchers(self):
-        for key in dict(self._frame.f_globals):
-            del self._frame.f_globals[key]
-
-        self._frame.f_globals.update(self._globals_before)
-
-    @property
-    def not_to(self):
-        self._negated = True
-        return self
-
-    def __getattr__(self, name):
-        try:
-            return super(Expectation, self).__getattribute__(name)
-        except AttributeError:
-            return self
-
 
 def _registered_matchers():
     return {
-        'be': Be(),
-        'true': IsTrue(),
-        'false': IsFalse(),
-        'property': Property(),
         'equal': Equal(),
-        'properties': Properties(),
-        'key': Key(),
-        'keys': Keys(),
-        'above': Above(),
-        'above_or_equal': AboveOrEqual(),
-        'below': Below(),
-        'below_or_equal': BelowOrEqual(),
-        'a': InstanceOf(),
-        'an': InstanceOf(),
-        'empty': Empty(),
+        'be': Be(),
+        'be_above': Above(),
+        'be_above_or_equal': AboveOrEqual(),
+        'be_below': Below(),
+        'be_below_or_equal': BelowOrEqual(),
+        'be_within': WithIn(),
+        'be_a': InstanceOf(),
+        'be_an': InstanceOf(),
+        'be_empty': Empty(),
+        'be_true': IsTrue(),
+        'be_false': IsFalse(),
+        'be_none': IsNone(),
+        'have': Contains(),
+        'have_length': Length(),
+        'have_property': Property(),
+        'have_properties': Properties(),
+        'have_key': Key(),
+        'have_keys': Keys(),
+        'match': Match(),
         'start_with': StartWith(),
         'end_with': EndWith(),
-        'have': Contains(),
-        'length': Length(),
-        'match': Match(),
-        'none': IsNone(),
-        'raise_error': Raise(),
-        'within': WithIn()
+        'raise_error': Raise()
     }
 
 

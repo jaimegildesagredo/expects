@@ -8,54 +8,54 @@ from expects import expect
 from expects.testing import failure
 
 
-with describe('property') as _:
+with describe('have_property') as _:
     def it_should_pass_if_object_has_property():
-        expect(_.obj).to.have(property('bar'))
+        expect(_.obj).to(have_property('bar'))
 
     def it_should_pass_if_object_has_property_with_value():
-        expect(_.obj).to.have(property('bar', 0))
+        expect(_.obj).to(have_property('bar', 0))
 
     def it_should_fail_if_object_does_not_have_property():
         with failure(''):
-            expect(_.obj).to.have(property('foo'))
+            expect(_.obj).to(have_property('foo'))
 
     def it_should_fail_if_object_hasnt_property_with_value():
         with failure(''):
-            expect(_.obj).to.have(property('foo', 0))
+            expect(_.obj).to(have_property('foo', 0))
 
     def it_should_fail_if_object_has_property_without_value():
         with failure(''):
-            expect(_.obj).to.have(property('bar', 1))
+            expect(_.obj).to(have_property('bar', 1))
 
     def it_should_fail_if_object_has_property_without_none_value():
         with failure(''):
-            expect(_.obj).to.have(property('bar', None))
+            expect(_.obj).to(have_property('bar', None))
 
     with context('#negated'):
         def it_should_pass_if_object_does_not_have_property():
-            expect(_.obj).not_to.have(property('foo'))
+            expect(_.obj).not_to(have_property('foo'))
 
         def it_should_pass_if_object_does_not_have_property_with_value():
-            expect(_.obj).not_to.have(property('foo', 0))
+            expect(_.obj).not_to(have_property('foo', 0))
 
         def it_should_pass_if_object_has_property_without_value():
-            expect(_.obj).not_to.have(property('bar', 1))
+            expect(_.obj).not_to(have_property('bar', 1))
 
         def it_should_fail_if_object_has_property():
             with failure(''):
-                expect(_.obj).not_to.have(property('bar'))
+                expect(_.obj).not_to(have_property('bar'))
 
         def it_should_fail_if_object_has_property_with_value():
             with failure(''):
-                expect(_.obj).not_to.have(property('bar', 0))
+                expect(_.obj).not_to(have_property('bar', 0))
 
     with context('#composition'):
         def it_should_pass_if_object_has_property_with_value_equal():
-            expect(_.obj).to.have(property('bar', equal(0)))
+            expect(_.obj).to(have_property('bar', equal(0)))
 
         def it_should_fail_if_object_has_property_without_value_equal():
             with failure(''):
-                expect(_.obj).to.have(property('bar', equal(1)))
+                expect(_.obj).to(have_property('bar', equal(1)))
 
     @before.each
     def fixtures():
