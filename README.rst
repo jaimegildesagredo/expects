@@ -24,18 +24,18 @@ Just import the ``expect`` callable and start writing test assertions.
 
     from expects import expect
 
-    expect([]).to.be.empty
+    expect([]).to(be_empty)
 
-    expect(False).not_to.be.true
+    expect(False).not_to(be_true)
 
     expect({
         'name': 'Jack',
         'email': 'jack@example.com'
-    }).to.have.key('name').with_value.match('\w+')
+    }).to(have_key('name', match('\w+')))
 
-    expect(str).to.have.property('split')
+    expect(str).to(have_property('split'))
 
-    expect(lambda: foo).to.raise_error(NameError)
+    expect(lambda: foo).to(raise_error(NameError))
 
 You can see all the *builtin* assertions with lots of examples `here <http://expects.readthedocs.org/en/latest/reference.html>`_.
 
