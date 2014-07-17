@@ -90,14 +90,6 @@ class Matcher(object):
         self._initialize(*args, **kwargs)
         return self
 
-
-class Equal(Matcher):
-    def _initialize(self, expected):
-        self._expected = expected
-
-    def _match(self, subject):
-        return subject == self._expected
-
     def _failure_message(self, subject):
         return 'Expected {subject!r} to {description}'.format(
             subject=subject, description=self._description)
@@ -105,6 +97,14 @@ class Equal(Matcher):
     def _failure_message_negated(self, subject):
         return 'Expected {subject!r} not to {description}'.format(
             subject=subject, description=self._description)
+
+
+class Equal(Matcher):
+    def _initialize(self, expected):
+        self._expected = expected
+
+    def _match(self, subject):
+        return subject == self._expected
 
     @property
     def _description(self):
@@ -118,35 +118,27 @@ class Be(Matcher):
     def _match(self, subject):
         return subject is self._expected
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be {expected!r}'.format(
-            subject=subject, expected=self._expected)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be {expected!r}'.format(
-            subject=subject, expected=self._expected)
+    @property
+    def _description(self):
+        return 'be {expected!r}'.format(expected=self._expected)
 
 
-class IsTrue(object):
+class IsTrue(Matcher):
     def _match(self, subject):
         return subject is True
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be true'.format(subject=subject)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be true'.format(subject=subject)
+    @property
+    def _description(self):
+        return 'be true'
 
 
-class IsFalse(object):
+class IsFalse(Matcher):
     def _match(self, subject):
         return subject is False
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be false'.format(subject=subject)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be false'.format(subject=subject)
+    @property
+    def _description(self):
+        return 'be false'
 
 
 class Property(Matcher):
@@ -155,6 +147,8 @@ class Property(Matcher):
         self._args = args
 
     def _match(self, subject):
+        self._subject = subject
+
         if self._args:
             try:
                 value = getattr(subject, self._name)
@@ -170,29 +164,23 @@ class Property(Matcher):
 
         return hasattr(subject, self._name)
 
-    def _failure_message(self, subject):
+    @property
+    def _description(self):
         if not self._args:
-            message = 'Expected {subject!r} to have property {expected!r}'.format(
-                subject=subject, expected=self._name)
-        else:
-            expected_value = self._args[0]
-            if isinstance(expected_value, Matcher):
-                message = 'Expected {subject!r} to have property {expected!r} with value {expected_value}'.format(subject=subject, expected=self._name, expected_value=expected_value._description)
-            else:
-                message = 'Expected {subject!r} to have property {expected!r} with value {expected_value!r}'.format(subject=subject, expected=self._name, expected_value=expected_value)
+            return 'have property {expected!r}'.format(expected=self._name)
 
-        if isinstance(subject, str):
+        expected_value = self._args[0]
+        if isinstance(expected_value, Matcher):
+            message = 'have property {expected!r} with value {expected_value}'.format(
+                expected=self._name, expected_value=expected_value._description)
+        else:
+            message = 'have property {expected!r} with value {expected_value!r}'.format(
+                expected=self._name, expected_value=expected_value)
+
+        if isinstance(self._subject, _compat.string_types):
             message += ' but is not a dict'
 
         return message
-
-    def _failure_message_negated(self, subject):
-        if not self._args:
-            return 'Expected {subject!r} not to have property {expected!r}'.format(
-                subject=subject, expected=self._name)
-
-        return 'Expected {subject!r} not to have property {expected!r} with value {value!r}'.format(
-            subject=subject, expected=self._name, value=self._args[0])
 
 
 class Properties(Matcher):
@@ -233,11 +221,12 @@ class Properties(Matcher):
 
         return hasattr(subject, name)
 
-    def _failure_message(self, subject):
+    @property
+    def _description(self):
         if self._missing:
             if len(self._missing) == 2:
-                return 'Expected {!r} to have property {!r} with value {!r}'.format(subject, *self._missing)
-            return 'Expected {!r} to have property {!r}'.format(subject, self._missing[0])
+                return 'have property {!r} with value {!r}'.format(*self._missing)
+            return 'have property {!r}'.format(self._missing[0])
 
 
 class Key(Matcher):
@@ -246,6 +235,8 @@ class Key(Matcher):
         self._args = args
 
     def _match(self, subject):
+        self._subject = subject
+
         if isinstance(subject, str):
             return False
 
@@ -264,29 +255,21 @@ class Key(Matcher):
 
         return self._name in subject
 
-    def _failure_message(self, subject):
+    @property
+    def _description(self):
         if not self._args:
-            message = 'Expected {subject!r} to have key {expected!r}'.format(
-                subject=subject, expected=self._name)
-        else:
-            expected_value = self._args[0]
-            if isinstance(expected_value, Matcher):
-                message = 'Expected {subject!r} to have key {expected!r} with value {expected_value}'.format(subject=subject, expected=self._name, expected_value=expected_value._description)
-            else:
-                message = 'Expected {subject!r} to have key {expected!r} with value {expected_value!r}'.format(subject=subject, expected=self._name, expected_value=expected_value)
+            return 'have key {expected!r}'.format(expected=self._name)
 
-        if isinstance(subject, str):
+        expected_value = self._args[0]
+        if isinstance(expected_value, Matcher):
+            message = 'have key {expected!r} with value {expected_value}'.format(expected=self._name, expected_value=expected_value._description)
+        else:
+            message = 'have key {expected!r} with value {expected_value!r}'.format(expected=self._name, expected_value=expected_value)
+
+        if isinstance(self._subject, _compat.string_types):
             message += ' but is not a dict'
 
         return message
-
-    def _failure_message_negated(self, subject):
-        if not self._args:
-            return 'Expected {subject!r} not to have key {expected!r}'.format(
-                subject=subject, expected=self._name)
-
-        return 'Expected {subject!r} not to have key {expected!r} with value {value!r}'.format(
-            subject=subject, expected=self._name, value=self._args[0])
 
 
 class Keys(Matcher):
@@ -327,14 +310,15 @@ class Keys(Matcher):
 
         return name in subject
 
-    def _failure_message(self, subject):
+    @property
+    def _description(self):
         if self._missing:
             if len(self._missing) == 2:
-                message = 'Expected {!r} to have key {!r} with value {!r}'
+                message = 'have key {!r} with value {!r}'
             else:
-                message = 'Expected {!r} to have key {!r}'
+                message = 'have key {!r}'
 
-            return message.format(subject, *self._missing)
+            return message.format(*self._missing)
 
 
 class Above(Matcher):
@@ -344,13 +328,9 @@ class Above(Matcher):
     def _match(self, subject):
         return subject > self._expected
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be above {expected!r}'.format(
-            subject=subject, expected=self._expected)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be above {expected!r}'.format(
-            subject=subject, expected=self._expected)
+    @property
+    def _description(self):
+        return 'be above {expected!r}'.format(expected=self._expected)
 
 
 class AboveOrEqual(Matcher):
@@ -360,13 +340,9 @@ class AboveOrEqual(Matcher):
     def _match(self, subject):
         return subject >= self._expected
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be above or equal {expected!r}'.format(
-            subject=subject, expected=self._expected)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be above or equal {expected!r}'.format(
-            subject=subject, expected=self._expected)
+    @property
+    def _description(self):
+        return 'be above or equal {expected!r}'.format(expected=self._expected)
 
 
 class Below(Matcher):
@@ -376,13 +352,9 @@ class Below(Matcher):
     def _match(self, subject):
         return subject < self._expected
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be below {expected!r}'.format(
-            subject=subject, expected=self._expected)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be below {expected!r}'.format(
-            subject=subject, expected=self._expected)
+    @property
+    def _description(self):
+        return 'be below {expected!r}'.format(expected=self._expected)
 
 
 class BelowOrEqual(Matcher):
@@ -392,13 +364,9 @@ class BelowOrEqual(Matcher):
     def _match(self, subject):
         return subject <= self._expected
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be below or equal {expected!r}'.format(
-            subject=subject, expected=self._expected)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be below or equal {expected!r}'.format(
-            subject=subject, expected=self._expected)
+    @property
+    def _description(self):
+        return 'be below or equal {expected!r}'.format(expected=self._expected)
 
 
 class InstanceOf(Matcher):
@@ -408,13 +376,9 @@ class InstanceOf(Matcher):
     def _match(self, subject):
         return isinstance(subject, self._expected)
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be an instance of {expected.__name__}'.format(
-            subject=subject, expected=self._expected)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be an instance of {expected.__name__}'.format(
-            subject=subject, expected=self._expected)
+    @property
+    def _description(self):
+        return 'be an instance of {expected.__name__}'.format(expected=self._expected)
 
 
 class Empty(Matcher):
@@ -427,11 +391,9 @@ class Empty(Matcher):
             except StopIteration:
                 return True
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be empty'.format(subject=subject)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be empty'.format(subject=subject)
+    @property
+    def _description(self):
+        return 'be empty'
 
 
 class StartWith(Matcher):
@@ -449,13 +411,9 @@ class StartWith(Matcher):
         else:
             return list(self._args) == list(subject)[:len(self._args)]
 
-    def _failure_message(self, subject):
-        if isinstance(subject, _compat.string_types):
-            return 'Expected {subject!r} to start with {expected!r}'.format(
-                subject=subject, expected=self._args[0])
-
-        return 'Expected {subject!r} to start with {expected}'.format(
-            subject=subject, expected=plain_enumerate(self._args))
+    @property
+    def _description(self):
+        return 'start with {expected}'.format(expected=plain_enumerate(self._args))
 
 
 class EndWith(Matcher):
@@ -474,13 +432,9 @@ class EndWith(Matcher):
             return (list(self._args) ==
                     list(reversed(list(subject)[-len(self._args):])))
 
-    def _failure_message(self, subject):
-        if isinstance(subject, _compat.string_types):
-            return 'Expected {subject!r} to end with {expected!r}'.format(
-                subject=subject, expected=self._args[0])
-
-        return 'Expected {subject!r} to end with {expected}'.format(
-            subject=subject, expected=plain_enumerate(self._args))
+    @property
+    def _description(self):
+        return 'end with {expected}'.format(expected=plain_enumerate(self._args))
 
 
 class Contains(Matcher):
@@ -499,9 +453,9 @@ class Contains(Matcher):
 
         return True
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to contain {expected}'.format(
-            subject=subject, expected=plain_enumerate(self._args))
+    @property
+    def _description(self):
+        return 'contain {expected}'.format(expected=plain_enumerate(self._args))
 
 
 class ContainsOnly(Matcher):
@@ -525,9 +479,9 @@ class ContainsOnly(Matcher):
 
         return len(subject) == args_length
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to contain only {expected}'.format(
-            subject=subject, expected=plain_enumerate(self._args))
+    @property
+    def _description(self):
+        return 'contain only {expected}'.format(expected=plain_enumerate(self._args))
 
 
 def plain_enumerate(args):
@@ -557,13 +511,9 @@ class Length(Matcher):
         except TypeError:
             return sum(1 for i in collection)
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to have length {expected}'.format(
-            subject=subject, expected=self._expected)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to have length {expected}'.format(
-            subject=subject, expected=self._expected)
+    @property
+    def _description(self):
+        return 'have length {expected}'.format(expected=self._expected)
 
 
 class Match(Matcher):
@@ -573,14 +523,6 @@ class Match(Matcher):
 
     def _match(self, subject):
         return True if re.match(self._expected, subject, *self._args) is not None else False
-
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to {description}'.format(
-            subject=subject, description=self._description)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to {description}'.format(
-            subject=subject, description=self._description)
 
     @property
     def _description(self):
@@ -592,11 +534,9 @@ class IsNone(Matcher):
     def _match(self, subject):
         return subject is None
 
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to be none'.format(subject=subject)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to be none'.format(subject=subject)
+    @property
+    def _description(self):
+        return 'be none'
 
 
 class RaiseError(Matcher):
@@ -679,14 +619,6 @@ class WithIn(Matcher):
 
     def _match(self, subject):
         return subject in range(self._start, self._stop)
-
-    def _failure_message(self, subject):
-        return 'Expected {subject!r} to {description}'.format(
-            subject=subject, description=self._description)
-
-    def _failure_message_negated(self, subject):
-        return 'Expected {subject!r} not to {description}'.format(
-            subject=subject, description=self._description)
 
     @property
     def _description(self):
