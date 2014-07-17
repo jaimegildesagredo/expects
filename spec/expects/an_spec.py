@@ -16,7 +16,7 @@ with describe('be_an') as _:
         class Object(object):
             pass
 
-        with failure(''):
+        with failure('to be an instance of Object'):
             expect(_.obj).to(be_an(Object))
 
     with context('#negated'):
@@ -27,7 +27,7 @@ with describe('be_an') as _:
             expect(_.obj).not_to(be_an(Object))
 
         def it_should_fail_if_object_is_an_instance_of_the_expected_class_():
-            with failure(''):
+            with failure('not to be an instance of object'):
                 expect(_.obj).not_to(be_an(object))
 
     @before.each

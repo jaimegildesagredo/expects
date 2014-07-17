@@ -20,31 +20,31 @@ with describe('contain_only') as _:
         expect(_.str).to(contain_only('My foo', ' string'))
 
     def it_should_fail_if_list_does_not_contain_expected_item_():
-        with failure(''):
+        with failure("to contain only 'foo'"):
             expect(_.lst).to(contain_only('foo'))
 
     def it_should_fail_if_list_does_not_contain_expected_items():
-        with failure(''):
+        with failure("to contain only 'foo' and 'fuu'"):
             expect(_.lst).to(contain_only('foo', 'fuu'))
 
     def it_should_fail_if_list_not_only_has_expected_item():
-        with failure(''):
+        with failure("to contain only 'bar'"):
             expect(_.lst).to(contain_only('bar'))
 
     def it_should_fail_if_list_not_only_has_two_expected_items():
         _.lst.append('foo')
 
-        with failure(''):
+        with failure("to contain only 'bar' and 'baz'"):
             expect(_.lst).to(contain_only('bar', 'baz'))
 
     def it_should_fail_if_list_not_only_has_three_expected_items():
         _.lst.extend(['foo', 'fuu'])
 
-        with failure(''):
+        with failure("to contain only 'bar', 'baz' and 'foo'"):
             expect(_.lst).to(contain_only('bar', 'baz', 'foo'))
 
     def it_should_fail_if_string_does_not_only_contain_string():
-        with failure(''):
+        with failure("to contain only 'foo'"):
             expect(_.str).to(contain_only('foo'))
 
     @before.each

@@ -16,7 +16,7 @@ with describe('match') as _:
         expect(_.str).to(match(r'my [A-Z]+ strinG', re.I))
 
     def it_should_fail_if_string_does_not_match_expected_regexp():
-        with failure(''):
+        with failure("to match 'My \\\\W+ string'"):
             expect(_.str).to(match(r'My \W+ string'))
 
     with context('#negated'):
@@ -27,7 +27,7 @@ with describe('match') as _:
             expect(_.str).not_to(match(r'My \W+ string', re.I))
 
         def it_should_fail_if_string_matches_expected_regexp():
-            with failure(''):
+            with failure("not to match 'My \\\\w+ string'"):
                 expect(_.str).not_to(match(r'My \w+ string'))
 
     @before.all

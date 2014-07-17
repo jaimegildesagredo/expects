@@ -14,11 +14,11 @@ with describe('be_empty'):
         expect(iter('')).to(be_empty)
 
     def it_should_fail_if_string_is_not_empty():
-        with failure(''):
+        with failure("Expected 'foo' to be empty"):
             expect('foo').to(be_empty)
 
     def it_should_fail_if_actual_is_a_non_empty_iterable():
-        with failure(''):
+        with failure('to be empty'):
             expect(iter('foo')).to(be_empty)
 
     with context('#negated'):
@@ -26,5 +26,5 @@ with describe('be_empty'):
             expect('foo').not_to(be_empty)
 
         def it_should_fail_if_actual_is_empty():
-            with failure(''):
+            with failure("Expected '' not to be empty"):
                 expect('').not_to(be_empty)

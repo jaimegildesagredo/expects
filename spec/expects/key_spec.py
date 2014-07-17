@@ -14,25 +14,25 @@ with describe('have_key') as _:
         expect(_.dct).to(have_key('bar', 0))
 
     def it_should_fail_if_actual_does_not_have_expected_key():
-        with failure(''):
+        with failure("to have key 'foo'"):
             expect(_.dct).to(have_key('foo'))
 
     def it_should_fail_if_actual_does_not_have_key_with_value():
-        with failure(''):
+        with failure("to have key 'foo' with value 0"):
             expect(_.dct).to(have_key('foo', 0))
 
     def it_should_fail_if_actual_has_key_without_expected_value():
-        with failure(''):
+        with failure("to have key 'bar' with value 1"):
             expect(_.dct).to(have_key('bar', 1))
 
     def it_should_fail_if_actual_has_key_without_none_value():
-        with failure(''):
+        with failure("to have key 'bar' with value None"):
             expect(_.dct).to(have_key('bar', None))
 
     def it_should_fail_if_actual_is_not_a_dict():
         # issue-10
 
-        with failure(''):
+        with failure("to have key 'foo' with value 0 but is not a dict"):
             expect(_.str).to(have_key('foo', 0))
 
     with context('#negated'):
@@ -46,11 +46,11 @@ with describe('have_key') as _:
             expect(_.dct).not_to(have_key('bar', 1))
 
         def it_should_fail_if_actual_has_expected_key():
-            with failure(''):
+            with failure("not to have key 'bar'"):
                 expect(_.dct).not_to(have_key('bar'))
 
         def it_should_fail_if_actual_has_expected_key_with_value():
-            with failure(''):
+            with failure("not to have key 'bar' with value 0"):
                 expect(_.dct).not_to(have_key('bar', 0))
 
         def it_should_pass_if_actual_is_not_a_dict():
@@ -63,7 +63,7 @@ with describe('have_key') as _:
             expect(_.dct).to(have_key('bar', equal(0)))
 
         def it_should_fail_if_actual_has_key_without_value_equal():
-            with failure(''):
+            with failure("to have key 'bar' with value equal 1"):
                 expect(_.dct).to(have_key('bar', equal(1)))
 
     @before.all

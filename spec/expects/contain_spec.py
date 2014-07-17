@@ -25,11 +25,11 @@ with describe('contain') as _:
         expect(_.itr).to(contain('bar', 'baz'))
 
     def it_should_fail_if_list_does_not_contain_expected_item():
-        with failure(''):
+        with failure("to contain 'bar' and 'foo'"):
             expect(_.lst).to(contain('bar', 'foo'))
 
     def it_should_fail_if_iterable_does_not_contain_expected_item():
-        with failure(''):
+        with failure("to contain 'bar' and 'foo'"):
             expect(_.itr).to(contain('bar', 'foo'))
 
     def it_should_pass_if_string_contains_string():

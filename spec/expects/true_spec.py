@@ -11,7 +11,7 @@ with describe('be_true'):
         expect(True).to(be_true)
 
     def it_should_fail_if_object_is_false():
-        with failure(''):
+        with failure('Expected False to be true'):
             expect(False).to(be_true)
 
     with context('#negated'):
@@ -19,5 +19,5 @@ with describe('be_true'):
             expect(False).not_to(be_true)
 
         def it_should_fail_if_object_is_true():
-            with failure(''):
+            with failure('Expected True not to be true'):
                 expect(True).not_to(be_true)

@@ -20,27 +20,27 @@ with describe('have_keys') as _:
         expect(_.dct).to(have_keys({'bar': 0, 'baz': 1}))
 
     def it_should_fail_if_dict_does_not_have_key_in_args():
-        with failure(''):
+        with failure("to have key 'foo'"):
             expect(_.dct).to(have_keys('bar', 'foo'))
 
     def it_should_fail_if_dict_does_not_have_key_in_kwargs():
-        with failure(''):
+        with failure("to have key 'foo' with value 1"):
             expect(_.dct).to(have_keys(bar=0, foo=1))
 
     def it_should_fail_if_dict_has_key_without_value_in_kwargs():
-        with failure(''):
+        with failure("to have key 'bar' with value 1"):
             expect(_.dct).to(have_keys(bar=1, baz=1))
 
     def it_should_fail_if_dict_does_not_have_key_in_args_but_in_kwargs():
-        with failure(''):
+        with failure("to have key 'foo'"):
             expect(_.dct).to(have_keys('foo', bar=0))
 
     def it_should_fail_if_dict_has_key_in_args_and_kwargs_without_value():
-        with failure(''):
+        with failure("to have key 'bar' with value 1"):
             expect(_.dct).to(have_keys('baz', bar=1))
 
     def it_should_fail_if_dict_has_key_without_value_in_dict():
-        with failure(''):
+        with failure("to have key 'bar' with value 1"):
             expect(_.dct).to(have_keys({'bar': 1, 'baz': 1}))
 
     with context('#negated'):
