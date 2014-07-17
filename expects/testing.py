@@ -15,9 +15,7 @@ class failure(object):
     expectation fails raising an :class:`AssertionError` with the
     proper failure message.
 
-    It can receive the object that is being asserted and `a string` that
-    should match the failure message. The first one can be omited and
-    only passed the failure message.
+    It receives `a string` that should match the failure message.
 
     If the expectation does not raise an :class:`AssertionError` or the
     failure message does not match then raises an :class:`AssertionError`.
@@ -39,11 +37,8 @@ class failure(object):
 
     """
 
-    def __init__(self, actual, message=None):
-        if message is None:
-            self._message = actual
-        else:
-            self._message = '{!r} {}'.format(actual, message)
+    def __init__(self, message):
+        self._message = message
 
     def __enter__(self):
         pass
