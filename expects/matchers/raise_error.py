@@ -41,7 +41,7 @@ class RaiseError(Matcher):
                     'Expected {subject!r} to raise {expected.__name__} '
                     'with {expected_value} but was {got_value!r}'.format(
                         subject=subject, expected=self._expected,
-                        expected_value=expected_value._description,
+                        expected_value=expected_value._description(subject),
                         got_value=self._got_value)
                 )
             else:

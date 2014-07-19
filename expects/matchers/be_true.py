@@ -7,6 +7,5 @@ class BeTrue(Matcher):
     def _match(self, subject):
         return subject is True
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'be true'

@@ -11,6 +11,5 @@ class BeWithIn(Matcher):
     def _match(self, subject):
         return subject in range(self._start, self._stop)
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'be within {start} and {stop}'.format(start=self._start, stop=self._stop)

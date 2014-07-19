@@ -42,8 +42,7 @@ class HaveProperties(Matcher):
 
         return hasattr(subject, name)
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         if self._missing:
             if len(self._missing) == 2:
                 return 'have property {!r} with value {!r}'.format(*self._missing)

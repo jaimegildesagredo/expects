@@ -10,6 +10,5 @@ class BeAbove(Matcher):
     def _match(self, subject):
         return subject > self._expected
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'be above {expected!r}'.format(expected=self._expected)

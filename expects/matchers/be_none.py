@@ -7,6 +7,5 @@ class BeNone(Matcher):
     def _match(self, subject):
         return subject is None
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'be none'

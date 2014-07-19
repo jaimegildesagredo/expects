@@ -41,8 +41,7 @@ class HaveKeys(Matcher):
 
         return name in subject
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         if self._missing:
             if len(self._missing) == 2:
                 message = 'have key {!r} with value {!r}'

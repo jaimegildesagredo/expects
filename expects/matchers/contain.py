@@ -21,6 +21,5 @@ class Contain(Matcher):
 
         return True
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'contain {expected}'.format(expected=plain_enumerate(self._args))

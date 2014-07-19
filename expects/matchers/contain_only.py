@@ -27,6 +27,5 @@ class ContainOnly(Matcher):
 
         return len(subject) == args_length
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'contain only {expected}'.format(expected=plain_enumerate(self._args))

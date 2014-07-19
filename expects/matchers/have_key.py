@@ -10,8 +10,6 @@ class HaveKey(Matcher):
         self._args = args
 
     def _match(self, subject):
-        self._subject = subject
-
         if isinstance(subject, str):
             return False
 
@@ -30,18 +28,17 @@ class HaveKey(Matcher):
 
         return self._name in subject
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         if not self._args:
             return 'have key {expected!r}'.format(expected=self._name)
 
         expected_value = self._args[0]
         if isinstance(expected_value, Matcher):
-            message = 'have key {expected!r} with value {expected_value}'.format(expected=self._name, expected_value=expected_value._description)
+            message = 'have key {expected!r} with value {expected_value}'.format(expected=self._name, expected_value=expected_value._description(subject))
         else:
             message = 'have key {expected!r} with value {expected_value!r}'.format(expected=self._name, expected_value=expected_value)
 
-        if isinstance(self._subject, _compat.string_types):
+        if isinstance(subject, _compat.string_types):
             message += ' but is not a dict'
 
         return message

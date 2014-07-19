@@ -13,6 +13,5 @@ class BeEmpty(Matcher):
             except StopIteration:
                 return True
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'be empty'

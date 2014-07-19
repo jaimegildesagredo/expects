@@ -21,6 +21,5 @@ class StartWith(Matcher):
         else:
             return list(self._args) == list(subject)[:len(self._args)]
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'start with {expected}'.format(expected=plain_enumerate(self._args))

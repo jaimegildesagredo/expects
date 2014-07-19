@@ -16,6 +16,5 @@ class HaveLength(Matcher):
         except TypeError:
             return sum(1 for i in collection)
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'have length {expected}'.format(expected=self._expected)

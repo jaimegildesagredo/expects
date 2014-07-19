@@ -13,7 +13,6 @@ class Match(Matcher):
     def _match(self, subject):
         return True if re.match(self._expected, subject, *self._args) is not None else False
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         # TODO: Add self._args to failure message
         return 'match {expected!r}'.format(expected=self._expected)

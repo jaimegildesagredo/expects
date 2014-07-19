@@ -10,6 +10,5 @@ class BeAnInstanceOf(Matcher):
     def _match(self, subject):
         return isinstance(subject, self._expected)
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'be an instance of {expected.__name__}'.format(expected=self._expected)

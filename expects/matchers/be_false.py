@@ -7,6 +7,5 @@ class BeFalse(Matcher):
     def _match(self, subject):
         return subject is False
 
-    @property
-    def _description(self):
+    def _description(self, subject):
         return 'be false'
