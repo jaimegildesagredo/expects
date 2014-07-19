@@ -18,16 +18,16 @@ class failure(object):
     It receives `a string` that should match the failure message.
 
     If the expectation does not raise an :class:`AssertionError` or the
-    failure message does not match then raises an :class:`AssertionError`.
+    failure message does not match the given string then an
+    :class:`AssertionError` is raised.
 
     Examples::
 
-        >>> obj = object()
         >>> with failure("to have property 'foo'"):
-        ...     expect(obj).to.have.property('foo')
+        ...     expect(object()).to(have_property('foo'))
 
         >>> with failure("to have property '__class__'"):
-        ...     expect(obj).to.have.property('__class__')
+        ...     expect(object()).to(have_property('__class__'))
         Traceback (most recent call last):
           File "<stdin>", line 2, in <module>
           File "expects/testing.py", line 40, in __exit__
