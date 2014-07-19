@@ -2,11 +2,11 @@
 
 import inspect
 
-from .matchers import *
+from . import plugins
 
 
 def expect(subject):
-    return Expectation(subject, _registered_matchers(), inspect.currentframe().f_back)
+    return Expectation(subject, plugins.load_matchers(), inspect.currentframe().f_back)
 
 
 class Expectation(object):
@@ -20,16 +20,18 @@ class Expectation(object):
 
     def _setup_matchers(self):
         self._globals_before = dict(self._frame.f_globals)
-        self._frame.f_globals.update(self._matchers)
 
-    def to(self, matcher):
-        self._teardown_matchers()
-        self._assert(matcher)
+        for name, matcher in self._matchers.items():
+            self._frame.f_globals[name] = matcher()
 
     @property
     def not_to(self):
         self._negated = True
         return self.to
+
+    def to(self, matcher):
+        self._teardown_matchers()
+        self._assert(matcher)
 
     def _teardown_matchers(self):
         for key in dict(self._frame.f_globals):
@@ -51,32 +53,3 @@ class Expectation(object):
                 message = matcher._failure_message_negated(self._subject)
 
         assert truth, message
-
-
-def _registered_matchers():
-    return {
-        'equal': Equal(),
-        'be': Be(),
-        'be_above': BeAbove(),
-        'be_above_or_equal': BeAboveOrEqual(),
-        'be_below': BeBelow(),
-        'be_below_or_equal': BeBelowOrEqual(),
-        'be_within': BeWithIn(),
-        'be_a': BeAnInstanceOf(),
-        'be_an': BeAnInstanceOf(),
-        'be_empty': BeEmpty(),
-        'be_true': BeTrue(),
-        'be_false': BeFalse(),
-        'be_none': BeNone(),
-        'have_length': HaveLength(),
-        'have_property': HaveProperty(),
-        'have_properties': HaveProperties(),
-        'have_key': HaveKey(),
-        'have_keys': HaveKeys(),
-        'contain': Contain(),
-        'contain_only': ContainOnly(),
-        'match': Match(),
-        'start_with': StartWith(),
-        'end_with': EndWith(),
-        'raise_error': RaiseError()
-    }
