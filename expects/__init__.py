@@ -5,8 +5,12 @@ import inspect
 from . import plugins
 
 
-def expect(subject):
-    return Expectation(subject, plugins.load_matchers(), inspect.currentframe().f_back)
+class Expect(object):
+    def __init__(self, matchers):
+        self._matchers = matchers
+
+    def __call__(self, subject):
+        return Expectation(subject, self._matchers, inspect.currentframe().f_back)
 
 
 class Expectation(object):
@@ -53,3 +57,6 @@ class Expectation(object):
                 message = matcher._failure_message_negated(self._subject)
 
         assert truth, message
+
+
+expect = Expect(plugins.load_matchers())
