@@ -5,6 +5,7 @@ from mamba import describe, context, before
 from spec.fixtures import Foo
 
 from expects import expect
+from expects.matchers import *
 from expects.testing import failure
 
 

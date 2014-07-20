@@ -6,7 +6,7 @@ from . import Matcher, plain_enumerate
 
 
 class Contain(Matcher):
-    def _initialize(self, *args):
+    def __init__(self, *args):
         self._args = args
 
     def _match(self, subject):

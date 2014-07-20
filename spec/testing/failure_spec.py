@@ -3,6 +3,7 @@
 from mamba import describe, before
 
 from expects import expect
+from expects.matchers import *
 from expects.testing import failure
 
 

@@ -4,7 +4,7 @@ from . import Matcher
 
 
 class HaveLength(Matcher):
-    def _initialize(self, expected):
+    def __init__(self, expected):
         self._expected = expected
 
     def _match(self, subject):

@@ -5,7 +5,7 @@ from .. import _compat
 
 
 class HaveProperty(Matcher):
-    def _initialize(self, name, *args):
+    def __init__(self, name, *args):
         self._name = name
         self._args = args
 

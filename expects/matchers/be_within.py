@@ -4,7 +4,7 @@ from . import Matcher
 
 
 class BeWithIn(Matcher):
-    def _initialize(self, start, stop):
+    def __init__(self, start, stop):
         self._start = start
         self._stop = stop
 

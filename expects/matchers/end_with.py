@@ -7,7 +7,7 @@ from .. import _compat
 
 
 class EndWith(Matcher):
-    def _initialize(self, *args):
+    def __init__(self, *args):
         self._args = args
 
     def _match(self, subject):

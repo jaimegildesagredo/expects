@@ -6,7 +6,7 @@ from . import Matcher
 
 
 class Match(Matcher):
-    def _initialize(self, expected, *args):
+    def __init__(self, expected, *args):
         self._expected = expected
         self._args = args
 

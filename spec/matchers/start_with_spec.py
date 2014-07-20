@@ -5,6 +5,7 @@ from collections import OrderedDict
 from mamba import describe, context, before
 
 from expects import expect
+from expects.matchers import *
 from expects.testing import failure
 
 IRRELEVANT_ARGS = (1, 2)

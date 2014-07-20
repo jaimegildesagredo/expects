@@ -4,7 +4,7 @@ from . import Matcher
 
 
 class RaiseError(Matcher):
-    def _initialize(self, expected, *args):
+    def __init__(self, expected, *args):
         self._expected = expected
         self._args = args
         self._got = None
