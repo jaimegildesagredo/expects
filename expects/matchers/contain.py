@@ -2,7 +2,7 @@
 
 import collections
 
-from . import Matcher, plain_enumerate
+from .matcher import Matcher, plain_enumerate
 
 
 class Contain(Matcher):

@@ -4,8 +4,7 @@ import re
 
 from mamba import describe, context, before
 
-from expects import expect
-from expects.matchers import *
+from expects import *
 from expects.testing import failure
 
 

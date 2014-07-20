@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 
-from . import Matcher
+from .matcher import Matcher
 
 
 class _BeEmpty(Matcher):

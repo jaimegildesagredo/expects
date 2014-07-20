@@ -22,7 +22,7 @@ Just import the ``expect`` callable and start writing test assertions.
 
 .. code-block:: python
 
-    from expects import expect
+    from expects import *
 
     expect([]).to(be_empty)
 
