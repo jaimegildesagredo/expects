@@ -6,7 +6,7 @@ from .matcher import Matcher, plain_enumerate
 from .. import _compat
 
 
-class ContainOnly(Matcher):
+class ContainExactly(Matcher):
     def __init__(self, *args):
         self._args = args
 
@@ -28,4 +28,4 @@ class ContainOnly(Matcher):
         return len(subject) == args_length
 
     def _description(self, subject):
-        return 'contain only {expected}'.format(expected=plain_enumerate(self._args))
+        return 'contain exactly {expected}'.format(expected=plain_enumerate(self._args))

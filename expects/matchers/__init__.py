@@ -19,7 +19,7 @@ from .have_properties import HaveProperties as have_properties
 from .have_key import HaveKey as have_key
 from .have_keys import HaveKeys as have_keys
 from .contain import Contain as contain
-from .contain_only import ContainOnly as contain_only
+from .contain_exactly import ContainExactly as contain_exactly
 from .start_with import StartWith as start_with
 from .end_with import EndWith as end_with
 from .match import Match as match
