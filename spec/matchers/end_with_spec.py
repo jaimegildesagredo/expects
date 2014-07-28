@@ -62,9 +62,8 @@ with describe('end_with') as self:
 
             expect(self.lst).not_to(end_with(*expected_args))
 
-        # TODO: Review this example
-        #def it_should_fail_if_subject_is_a_dict_():
-            #with failure('not to end with {!r} and {!r} '
-                         #'but it does not have ordered keys'.format(*IRRELEVANT_ARGS)):
+        def it_should_fail_if_subject_is_a_dict_():
+            with failure('not to end with {!r} and {!r} '
+                         'but it does not have ordered keys'.format(*IRRELEVANT_ARGS)):
 
-                #expect(self.dct).not_to(end_with(*IRRELEVANT_ARGS))
+                expect(self.dct).not_to(end_with(*IRRELEVANT_ARGS))

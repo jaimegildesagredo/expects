@@ -77,9 +77,8 @@ with describe('start_with') as self:
 
             expect(self.lst).not_to(start_with(*expected_args))
 
-        # TODO: Review this example
-        #def it_should_fail_if_actual_is_a_dict_():
-            #with failure('not to start with {!r} and {!r} '
-                         #'but it does not have ordered keys'.format(*IRRELEVANT_ARGS)):
+        def it_should_fail_if_actual_is_a_dict_():
+            with failure('not to start with {!r} and {!r} '
+                         'but it does not have ordered keys'.format(*IRRELEVANT_ARGS)):
 
-                #expect(self.dct).not_to(start_with(*IRRELEVANT_ARGS))
+                expect(self.dct).not_to(start_with(*IRRELEVANT_ARGS))

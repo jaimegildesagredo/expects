@@ -15,16 +15,17 @@ class Expectation(object):
         self._assert(matcher)
 
     def _assert(self, matcher):
-        truth = matcher._match(self._subject)
-        message = ''
+        if not self._match(matcher):
+            raise AssertionError(self._failure_message(matcher))
 
-        if hasattr(matcher, '_failure_message'):
-            message = matcher._failure_message(self._subject)
+    def _match(self, matcher):
+        return getattr(
+            matcher,
+            '_match_negated' if self._negated else '_match'
+        )(self._subject)
 
-        if self._negated:
-            truth = not truth
-
-            if hasattr(matcher, '_failure_message_negated'):
-                message = matcher._failure_message_negated(self._subject)
-
-        assert truth, message
+    def _failure_message(self, matcher):
+        return getattr(
+            matcher,
+            '_failure_message_negated' if self._negated else '_failure_message'
+        )(self._subject)
