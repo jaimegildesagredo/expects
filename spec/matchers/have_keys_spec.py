@@ -20,27 +20,27 @@ with describe('have_keys') as _:
         expect(_.dct).to(have_keys({'bar': 0, 'baz': 1}))
 
     def it_should_fail_if_dict_does_not_have_key_in_args():
-        with failure("to have key 'foo'"):
+        with failure("to have keys 'bar' and 'foo'"):
             expect(_.dct).to(have_keys('bar', 'foo'))
 
     def it_should_fail_if_dict_does_not_have_key_in_kwargs():
-        with failure("to have key 'foo' with value 1"):
+        with failure("to have keys bar=0 and foo=1"):
             expect(_.dct).to(have_keys(bar=0, foo=1))
 
     def it_should_fail_if_dict_has_key_without_value_in_kwargs():
-        with failure("to have key 'bar' with value 1"):
+        with failure("to have keys bar=1 and baz=1"):
             expect(_.dct).to(have_keys(bar=1, baz=1))
 
     def it_should_fail_if_dict_does_not_have_key_in_args_but_in_kwargs():
-        with failure("to have key 'foo'"):
-            expect(_.dct).to(have_keys('foo', bar=0))
+        with failure("to have keys 'foo', 'fuu' and bar=0"):
+            expect(_.dct).to(have_keys('foo', 'fuu', bar=0))
 
     def it_should_fail_if_dict_has_key_in_args_and_kwargs_without_value():
-        with failure("to have key 'bar' with value 1"):
+        with failure("to have keys 'baz' and bar=1"):
             expect(_.dct).to(have_keys('baz', bar=1))
 
     def it_should_fail_if_dict_has_key_without_value_in_dict():
-        with failure("to have key 'bar' with value 1"):
+        with failure("to have keys bar=1 and baz=1"):
             expect(_.dct).to(have_keys({'bar': 1, 'baz': 1}))
 
     with context('#negated'):
@@ -56,29 +56,16 @@ with describe('have_keys') as _:
         def it_should_pass_if_dict_does_not_have_keys_in_dict():
             expect(_.dct).not_to(have_keys({'foo': 0, 'foobar': 1}))
 
-        def it_should_pass_if_dict_has_key_without_value_in_dict():
-            expect(_.dct).not_to(have_keys({'foo': 0, 'bar': 1}))
+        def it_should_pass_if_dict_has_one_key_and_not_the_other_in_args():
+            expect(_.dct).not_to(have_keys('foo', 'bar'))
 
-        # TODO: Review these examples
-        #def it_should_fail_if_dict_has_key_in_args():
-            #with failure(''):
-                #expect(_.dct).not_to(have_keys('foo', 'bar'))
+        def it_should_fail_if_dict_has_keys_in_args():
+            with failure("not to have keys 'bar' and 'baz'"):
+                expect(_.dct).not_to(have_keys('bar', 'baz'))
 
-        #def it_should_fail_if_dict_has_key_in_kwargs_with_value():
-            #with failure(''):
-                #expect(_.dct).not_to(have_keys(baz=0, bar=0))
-
-        #def it_should_fail_if_dict_has_key_in_args_but_not_in_kwargs():
-            #with failure(''):
-                #expect(_.dct).not_to(have_keys('bar', baz=0))
-
-        #def it_should_fail_if_dict_has_key_in_kwargs_but_not_in_args():
-            #with failure(''):
-                #expect(_.dct).not_to(have_keys('foo', bar=0))
-
-            #def it_should_fail_if_dict_has_key_in_dict_with_value():
-                #with failure(''):
-                    #expect(_.dct).not_to(have_keys({'bar': 0, 'foo': 1}))
+        def it_should_fail_if_dict_has_keys_in_kwargs():
+            with failure("not to have keys bar=0 and baz=1"):
+                expect(_.dct).not_to(have_keys(bar=0, baz=1))
 
     @before.all
     def fixtures():
