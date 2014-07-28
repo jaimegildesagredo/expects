@@ -8,23 +8,26 @@ class HaveProperties(Matcher):
     def __init__(self, *args, **kwargs):
         self._args = args
         self._kwargs = kwargs
-        self._missing = None
 
     def _match(self, subject):
-        try:
-            self._kwargs = dict(*self._args, **self._kwargs)
-        except (TypeError, ValueError):
-            for name in self._args:
-                if not self._has_property(subject, name):
-                    self._missing = (name,)
-                    return False
-        finally:
-            for name, value in self._kwargs.items():
-                if not self._has_property(subject, name, value):
-                    self._missing = (name, value)
-                    return False
+        args, kwargs = self._properties
+
+        for name in args:
+            if not self._has_property(subject, name):
+                return False
+
+        for name, value in kwargs.items():
+            if not self._has_property(subject, name, value):
+                return False
 
         return True
+
+    @property
+    def _properties(self):
+        try:
+            return (), dict(*self._args, **self._kwargs)
+        except (TypeError, ValueError):
+            return self._args, self._kwargs
 
     def _has_property(self, subject, name, *args):
         if args:
@@ -43,7 +46,32 @@ class HaveProperties(Matcher):
         return hasattr(subject, name)
 
     def _description(self, subject):
-        if self._missing:
-            if len(self._missing) == 2:
-                return 'have property {!r} with value {!r}'.format(*self._missing)
-            return 'have property {!r}'.format(self._missing[0])
+        return 'have properties {}'.format(plain_enumerate(*self._properties))
+
+
+def plain_enumerate(args, kwargs):
+    total = len(args) + len(kwargs)
+
+    result = ''
+    i = 0
+    for i, arg in enumerate(args):
+        result += repr(arg)
+
+        if i + 2 == total:
+            result += ' and '
+        elif i + 1 != total:
+            result += ', '
+
+    for i, pair in enumerate(_ordered_items(kwargs), i):
+        result += '{}={!r}'.format(*pair)
+
+        if i + 2 == total:
+            result += ' and '
+        elif i + 1 != total:
+            result += ', '
+
+    return result
+
+
+def _ordered_items(dct):
+    return sorted(dct.items(), key=lambda args: args[0])
