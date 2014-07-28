@@ -25,10 +25,10 @@ with describe('end_with') as self:
         expect(self.lst).to(end_with(self.lst[-1]))
 
     def it_should_pass_if_list_ends_with_args():
-        expect(self.lst).to(end_with(*reversed(self.lst[-2:])))
+        expect(self.lst).to(end_with(*self.lst[-2:]))
 
     def it_should_pass_if_ordered_dict_ends_with_keys():
-        expected_args = reversed(list(self.ordered_dct)[:2])
+        expected_args = list(self.ordered_dct)[:2]
 
         expect(self.ordered_dct).to(end_with(*expected_args))
 
