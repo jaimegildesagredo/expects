@@ -14,5 +14,4 @@ class Match(Matcher):
         return True if re.match(self._expected, subject, *self._args) is not None else False
 
     def _description(self, subject):
-        # TODO: Add self._args to failure message
         return 'match {expected!r}'.format(expected=self._expected)
