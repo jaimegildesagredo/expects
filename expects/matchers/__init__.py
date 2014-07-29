@@ -16,8 +16,7 @@ from .be_within import BeWithIn as be_within
 from .have_length import HaveLength as have_length
 from .have_properties import have_properties, have_property
 from .have_keys import have_key, have_keys
-from .contain import Contain as contain
-from .contain_exactly import ContainExactly as contain_exactly
+from .contain import contain, contain_exactly
 from .start_end_with import start_with, end_with
 from .match import Match as match
 from .raise_error import RaiseError as raise_error
