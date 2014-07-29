@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*
 
-from mamba import describe, context, before
-
 from expects import *
 from expects.testing import failure
 
@@ -9,51 +7,54 @@ UNICODE_VALUE = u'an unicode value'
 UNICODE_PATTERN = u'unicode'
 
 
-with describe('raise_error') as _:
-    def it_should_pass_if_callable_raises_expected_exception():
+with describe('raise_error'):
+    with before.each:
+        self.message = 'Foo error'
+
+    with it('should pass if callable raises expected exception'):
         def callback():
             raise AttributeError()
 
         expect(callback).to(raise_error(AttributeError))
 
-    def it_should_fail_if_callable_does_not_raise_expected_exception():
+    with it('should fail if callable does not raise expected exception'):
         def callback():
             raise KeyError()
 
         with failure('to raise AttributeError but KeyError raised'):
             expect(callback).to(raise_error(AttributeError))
 
-    def it_should_fail_if_callable_does_not_raise_exception():
+    with it('should fail if callable does not raise exception'):
         with failure('to raise AttributeError but not raised'):
             expect(lambda: None).to(raise_error(AttributeError))
 
-    def it_should_pass_if_callable_raises_with_message():
+    with it('should pass if callable raises with message'):
         def callback():
-            raise AttributeError(_.message)
+            raise AttributeError(self.message)
 
-        expect(callback).to(raise_error(AttributeError, _.message))
+        expect(callback).to(raise_error(AttributeError, self.message))
 
-    def it_should_pass_if_callable_raises_with_non_string_value():
+    with it('should pass if callable raises with non string value'):
         def callback():
             raise AttributeError(1)
 
         expect(callback).to(raise_error(AttributeError, 1))
 
-    def it_should_fail_if_callable_raises_with_different_message():
+    with it('should fail if callable raises with different message'):
         def callback():
             raise AttributeError('bar')
 
         with failure("to raise AttributeError with 'foo' but was 'bar'"):
             expect(callback).to(raise_error(AttributeError, 'foo'))
 
-    def it_should_fail_if_callable_does_not_raise_with_none():
+    with it('should fail if callable does not raise with none'):
         def callback():
             raise AttributeError('foo')
 
         with failure("to raise AttributeError with None but was 'foo'"):
             expect(callback).to(raise_error(AttributeError, None))
 
-    def it_should_fail_if_callable_does_not_raise_with_non_string_value():
+    with it('should fail if callable does not raise with non string value'):
         def callback():
             raise AttributeError('foo')
 
@@ -61,29 +62,29 @@ with describe('raise_error') as _:
             expect(callback).to(raise_error(AttributeError, 1))
 
     with context('#negated'):
-        def it_should_pass_if_callable_does_not_raise_expected_exception():
+        with it('should pass if callable does not raise expected exception'):
             def callback():
                 raise AttributeError()
 
             expect(callback).not_to(raise_error(KeyError))
 
-        def it_should_pass_if_callable_does_not_raise_exception():
+        with it('should pass if callable does not raise exception'):
             expect(lambda: None).not_to(raise_error(AttributeError))
 
-        def it_should_pass_if_callable_raises_expected_exception_with_different_message():
+        with it('should pass if callable raises expected exception with different message'):
             def callback():
                 raise AttributeError('bar')
 
             expect(callback).not_to(raise_error(AttributeError, 'foo'))
 
-        def it_should_fail_if_callable_raises_expected_exception():
+        with it('should fail if callable raises expected exception'):
             def callback():
                 raise AttributeError()
 
             with failure('not to raise AttributeError but AttributeError raised'):
                 expect(callback).not_to(raise_error(AttributeError))
 
-        def it_should_fail_if_callable_raises_expected_exception_with_message():
+        with it('should fail if callable raises expected exception with message'):
             def callback():
                 raise AttributeError('foo')
 
@@ -93,19 +94,15 @@ with describe('raise_error') as _:
                 expect(callback).not_to(raise_error(AttributeError, 'foo'))
 
     with context('#combined'):
-        def it_should_pass_if_callable_raises_exception_and_message_matches():
+        with it('should pass if callable raises exception and message matches'):
             def callback():
-                raise AttributeError(_.message)
+                raise AttributeError(self.message)
 
             expect(callback).to(raise_error(AttributeError, match(r'Foo \w+')))
 
-        def it_should_fail_if_callable_raises_but_message_does_not_match():
+        with it('should fail if callable raises but message does not match'):
             def callback():
                 raise AttributeError('foo')
 
             with failure("to raise AttributeError with match '\\\\d+' but was 'foo'"):
                 expect(callback).to(raise_error(AttributeError, match(r'\d+')))
-
-    @before.each
-    def fixtures():
-        _.message = 'Foo error'

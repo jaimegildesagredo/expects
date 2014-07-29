@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*
 
-from mamba import describe, context
-
 from expects import *
 from expects.testing import failure
 
 
 with describe('be_true'):
-    def it_should_pass_if_object_is_true():
+    with it('should pass if object is true'):
         expect(True).to(be_true)
 
-    def it_should_fail_if_object_is_false():
+    with it('should fail if object is false'):
         with failure('Expected False to be true'):
             expect(False).to(be_true)
 
     with context('#negated'):
-        def it_should_pass_if_object_is_not_true():
+        with it('should pass if object is not true'):
             expect(False).not_to(be_true)
 
-        def it_should_fail_if_object_is_true():
+        with it('should fail if object is true'):
             with failure('Expected True not to be true'):
                 expect(True).not_to(be_true)
