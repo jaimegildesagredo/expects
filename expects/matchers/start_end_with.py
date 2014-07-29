@@ -17,15 +17,24 @@ class _StarEndWith(Matcher):
 
         return self._matches(subject)
 
+    def _is_unordered(self, subject):
+        return (isinstance(subject, collections.Mapping) and
+                not isinstance(subject, collections.OrderedDict))
+
     def _match_negated(self, subject):
         if self._is_unordered(subject):
             return False
 
         return not self._matches(subject)
 
-    def _is_unordered(self, subject):
-        return (isinstance(subject, collections.Mapping) and
-                not isinstance(subject, collections.OrderedDict))
+    def _description(self, subject):
+        message = '{} {expected}'.format(type(self).__name__.replace('_', ' '),
+                                         expected=plain_enumerate(self._args))
+
+        if self._is_unordered(subject):
+            message += ' but it does not have ordered keys'
+
+        return message
 
 
 class start_with(_StarEndWith):
@@ -34,25 +43,9 @@ class start_with(_StarEndWith):
             return subject.startswith(self._args[0])
         return list(self._args) == list(subject)[:len(self._args)]
 
-    def _description(self, subject):
-        message = 'start with {expected}'.format(expected=plain_enumerate(self._args))
-
-        if self._is_unordered(subject):
-            message += ' but it does not have ordered keys'
-
-        return message
-
 
 class end_with(_StarEndWith):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
             return subject.endswith(self._args[0])
         return (list(self._args) == list(subject)[-len(self._args):])
-
-    def _description(self, subject):
-        message = 'end with {expected}'.format(expected=plain_enumerate(self._args))
-
-        if self._is_unordered(subject):
-            message += ' but it does not have ordered keys'
-
-        return message
