@@ -2,15 +2,12 @@
 
 from .matcher import Matcher
 from .. import _compat
+from ..texts import plain_enumerate
 
 
-class HaveProperties(Matcher):
-    def __init__(self, *args, **kwargs):
-        self._args = args
-        self._kwargs = kwargs
-
+class _PropertyMatcher(Matcher):
     def _match(self, subject):
-        args, kwargs = self._properties
+        args, kwargs = self._expected
 
         for name in args:
             if not self._has_property(subject, name):
@@ -21,13 +18,6 @@ class HaveProperties(Matcher):
                 return False
 
         return True
-
-    @property
-    def _properties(self):
-        try:
-            return (), dict(*self._args, **self._kwargs)
-        except (TypeError, ValueError):
-            return self._args, self._kwargs
 
     def _has_property(self, subject, name, *args):
         if args:
@@ -46,32 +36,21 @@ class HaveProperties(Matcher):
         return hasattr(subject, name)
 
     def _description(self, subject):
-        return 'have properties {}'.format(plain_enumerate(*self._properties))
+        return '{} {}'.format(type(self).__name__.replace('_', ' '),
+                              plain_enumerate(*self._expected))
 
 
-def plain_enumerate(args, kwargs):
-    total = len(args) + len(kwargs)
-
-    result = ''
-    i = 0
-    for i, arg in enumerate(args):
-        result += repr(arg)
-
-        if i + 2 == total:
-            result += ' and '
-        elif i + 1 != total:
-            result += ', '
-
-    for i, pair in enumerate(_ordered_items(kwargs), i):
-        result += '{}={!r}'.format(*pair)
-
-        if i + 2 == total:
-            result += ' and '
-        elif i + 1 != total:
-            result += ', '
-
-    return result
+class have_properties(_PropertyMatcher):
+    def __init__(self, *args, **kwargs):
+        try:
+            self._expected = (), dict(*args, **kwargs)
+        except (TypeError, ValueError):
+            self._expected = args, kwargs
 
 
-def _ordered_items(dct):
-    return sorted(dct.items(), key=lambda args: args[0])
+class have_property(_PropertyMatcher):
+    def __init__(self, name, *args):
+        if args:
+            self._expected = (), {name: args[0]}
+        else:
+            self._expected = (name,), {}

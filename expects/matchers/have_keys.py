@@ -3,7 +3,7 @@
 import collections
 
 from .matcher import Matcher
-from . import equal as equal_matcher
+from ..texts import plain_enumerate
 
 
 class _DictMatcher(Matcher):
@@ -75,35 +75,3 @@ class have_key(_DictMatcher):
             self._expected = (), {name: args[0]}
         else:
             self._expected = (name,), {}
-
-
-def plain_enumerate(args, kwargs):
-    total = len(args) + len(kwargs)
-
-    result = ''
-    i = 0
-    for i, arg in enumerate(args):
-        result += repr(arg)
-
-        if i + 2 == total:
-            result += ' and '
-        elif i + 1 != total:
-            result += ', '
-
-    for i, pair in enumerate(_ordered_items(kwargs), i):
-        key, value = pair
-        if not isinstance(value, Matcher):
-            value = equal_matcher(value)
-
-        result += '{!r} {}'.format(key, value._description(None))
-
-        if i + 2 == total:
-            result += ' and '
-        elif i + 1 != total:
-            result += ', '
-
-    return result
-
-
-def _ordered_items(dct):
-    return sorted(dct.items(), key=lambda args: args[0])

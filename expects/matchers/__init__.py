@@ -14,8 +14,7 @@ from .be_above_or_equal import BeAboveOrEqual as be_above_or_equal
 from .be_below_or_equal import BeBelowOrEqual as be_below_or_equal
 from .be_within import BeWithIn as be_within
 from .have_length import HaveLength as have_length
-from .have_property import HaveProperty as have_property
-from .have_properties import HaveProperties as have_properties
+from .have_properties import have_properties, have_property
 from .have_keys import have_key, have_keys
 from .contain import Contain as contain
 from .contain_exactly import ContainExactly as contain_exactly
