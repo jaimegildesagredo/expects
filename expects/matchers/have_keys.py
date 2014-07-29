@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*
 
+import collections
+
 from .matcher import Matcher
 
 
@@ -9,6 +11,18 @@ class HaveKeys(Matcher):
         self._kwargs = kwargs
 
     def _match(self, subject):
+        if self._not_a_dict(subject):
+            return False
+
+        return self._matches(subject)
+
+    def _match_negated(self, subject):
+        if self._not_a_dict(subject):
+            return False
+
+        return not self._matches(subject)
+
+    def _matches(self, subject):
         args, kwargs = self._keys
 
         for name in args:
@@ -20,6 +34,9 @@ class HaveKeys(Matcher):
                 return False
 
         return True
+
+    def _not_a_dict(self, value):
+        return not isinstance(value, collections.Mapping)
 
     @property
     def _keys(self):
@@ -45,7 +62,12 @@ class HaveKeys(Matcher):
         return name in subject
 
     def _description(self, subject):
-        return 'have keys {}'.format(plain_enumerate(*self._keys))
+        message = 'have keys {}'.format(plain_enumerate(*self._keys))
+
+        if self._not_a_dict(subject):
+            message += ' but is not a dict'
+
+        return message
 
 
 def plain_enumerate(args, kwargs):

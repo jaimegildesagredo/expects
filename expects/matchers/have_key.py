@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*
 
+import collections
+
 from .matcher import Matcher
 from .. import _compat
 
@@ -10,9 +12,21 @@ class HaveKey(Matcher):
         self._args = args
 
     def _match(self, subject):
-        if isinstance(subject, str):
+        if self._not_a_dict(subject):
             return False
 
+        return self._matches(subject)
+
+    def _match_negated(self, subject):
+        if self._not_a_dict(subject):
+            return False
+
+        return not self._matches(subject)
+
+    def _not_a_dict(self, value):
+        return not isinstance(value, collections.Mapping)
+
+    def _matches(self, subject):
         if self._args:
             try:
                 value = subject[self._name]
@@ -38,7 +52,7 @@ class HaveKey(Matcher):
         else:
             message = 'have key {expected!r} with value {expected_value!r}'.format(expected=self._name, expected_value=expected_value)
 
-        if isinstance(subject, _compat.string_types):
+        if self._not_a_dict(subject):
             message += ' but is not a dict'
 
         return message

@@ -43,6 +43,12 @@ with describe('have_keys') as _:
         with failure("to have keys bar=1 and baz=1"):
             expect(_.dct).to(have_keys({'bar': 1, 'baz': 1}))
 
+    def it_should_fail_if_actual_is_not_a_dict():
+        # issue-10
+
+        with failure("to have keys bar=1 and baz=1 but is not a dict"):
+            expect(_.str).to(have_keys({'bar': 1, 'baz': 1}))
+
     with context('#negated'):
         def it_should_pass_if_dict_does_not_have_keys_in_args():
             expect(_.dct).not_to(have_keys('foo', 'foobar'))
@@ -67,6 +73,13 @@ with describe('have_keys') as _:
             with failure("not to have keys bar=0 and baz=1"):
                 expect(_.dct).not_to(have_keys(bar=0, baz=1))
 
+        def it_should_fail_if_actual_is_not_a_dict_():
+            # issue-10
+
+            with failure("not to have keys bar=1 and baz=1 but is not a dict"):
+                expect(_.str).not_to(have_keys({'bar': 1, 'baz': 1}))
+
     @before.all
     def fixtures():
         _.dct = {'bar': 0, 'baz': 1}
+        _.str = 'My foo string'

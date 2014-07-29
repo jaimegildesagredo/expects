@@ -53,10 +53,11 @@ with describe('have_key') as _:
             with failure("not to have key 'bar' with value 0"):
                 expect(_.dct).not_to(have_key('bar', 0))
 
-        def it_should_pass_if_actual_is_not_a_dict():
+        def it_should_fail_if_actual_is_not_a_dict_():
             # issue-10
 
-            expect(_.str).not_to(have_key('foo', 0))
+            with failure("not to have key 'foo' with value 0 but is not a dict"):
+                expect(_.str).not_to(have_key('foo', 0))
 
     with context('#composed'):
         def it_should_pass_if_actual_has_key_with_value_equal():
