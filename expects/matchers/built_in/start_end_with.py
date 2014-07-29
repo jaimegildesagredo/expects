@@ -2,9 +2,9 @@
 
 import collections
 
-from .matcher import Matcher
-from ..texts import plain_enumerate
-from .. import _compat
+from ..matcher import Matcher
+from ...texts import plain_enumerate
+from ... import _compat
 
 
 class _StarEndWith(Matcher):

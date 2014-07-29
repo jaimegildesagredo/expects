@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 
 from .matchers.matcher import Matcher
-from .matchers import equal as equal_matcher
+from .matchers.built_in import equal as equal_matcher
 
 
 def plain_enumerate(args, kwargs=None):

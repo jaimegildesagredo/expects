@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 
-from .matcher import Matcher
+from ..matcher import Matcher
 
 
 class HaveLength(Matcher):

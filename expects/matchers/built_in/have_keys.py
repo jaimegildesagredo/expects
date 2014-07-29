@@ -2,8 +2,8 @@
 
 import collections
 
-from .matcher import Matcher
-from ..texts import plain_enumerate
+from ..matcher import Matcher
+from ...texts import plain_enumerate
 
 
 class _DictMatcher(Matcher):
