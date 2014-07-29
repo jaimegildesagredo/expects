@@ -5,11 +5,7 @@ import collections
 from .matcher import Matcher
 
 
-class HaveKeys(Matcher):
-    def __init__(self, *args, **kwargs):
-        self._args = args
-        self._kwargs = kwargs
-
+class _DictMatcher(Matcher):
     def _match(self, subject):
         if self._not_a_dict(subject):
             return False
@@ -22,28 +18,8 @@ class HaveKeys(Matcher):
 
         return not self._matches(subject)
 
-    def _matches(self, subject):
-        args, kwargs = self._keys
-
-        for name in args:
-            if not self._has_key(subject, name):
-                return False
-
-        for name, value in kwargs.items():
-            if not self._has_key(subject, name, value):
-                return False
-
-        return True
-
     def _not_a_dict(self, value):
         return not isinstance(value, collections.Mapping)
-
-    @property
-    def _keys(self):
-        try:
-            return (), dict(*self._args, **self._kwargs)
-        except (TypeError, ValueError):
-            return self._args, self._kwargs
 
     def _has_key(self, subject, name, *args):
         if args:
@@ -61,8 +37,58 @@ class HaveKeys(Matcher):
 
         return name in subject
 
+
+class have_keys(_DictMatcher):
+    def __init__(self, *args, **kwargs):
+        self._args = args
+        self._kwargs = kwargs
+
+    def _matches(self, subject):
+        args, kwargs = self._keys
+
+        for name in args:
+            if not self._has_key(subject, name):
+                return False
+
+        for name, value in kwargs.items():
+            if not self._has_key(subject, name, value):
+                return False
+
+        return True
+
+    @property
+    def _keys(self):
+        try:
+            return (), dict(*self._args, **self._kwargs)
+        except (TypeError, ValueError):
+            return self._args, self._kwargs
+
     def _description(self, subject):
         message = 'have keys {}'.format(plain_enumerate(*self._keys))
+
+        if self._not_a_dict(subject):
+            message += ' but is not a dict'
+
+        return message
+
+
+class have_key(_DictMatcher):
+    def __init__(self, name, *args):
+        self._name = name
+        self._args = args
+
+    def _matches(self, subject):
+        return self._has_key(subject, self._name, *self._args)
+
+    def _description(self, subject):
+        if not self._args:
+            return 'have key {expected!r}'.format(expected=self._name)
+
+        expected_value = self._args[0]
+        if isinstance(expected_value, Matcher):
+            message = 'have key {expected!r} with value {expected_value}'.format(expected=self._name, expected_value=expected_value._description(subject))
+        else:
+            message = 'have key {expected!r} with value {expected_value!r}'.format(expected=self._name, expected_value=expected_value)
 
         if self._not_a_dict(subject):
             message += ' but is not a dict'
