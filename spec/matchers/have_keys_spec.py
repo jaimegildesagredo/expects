@@ -24,29 +24,29 @@ with describe('have_keys') as _:
             expect(_.dct).to(have_keys('bar', 'foo'))
 
     def it_should_fail_if_dict_does_not_have_key_in_kwargs():
-        with failure("to have keys bar=0 and foo=1"):
+        with failure("to have keys 'bar' equal 0 and 'foo' equal 1"):
             expect(_.dct).to(have_keys(bar=0, foo=1))
 
     def it_should_fail_if_dict_has_key_without_value_in_kwargs():
-        with failure("to have keys bar=1 and baz=1"):
+        with failure("to have keys 'bar' equal 1 and 'baz' equal 1"):
             expect(_.dct).to(have_keys(bar=1, baz=1))
 
     def it_should_fail_if_dict_does_not_have_key_in_args_but_in_kwargs():
-        with failure("to have keys 'foo', 'fuu' and bar=0"):
+        with failure("to have keys 'foo', 'fuu' and 'bar' equal 0"):
             expect(_.dct).to(have_keys('foo', 'fuu', bar=0))
 
     def it_should_fail_if_dict_has_key_in_args_and_kwargs_without_value():
-        with failure("to have keys 'baz' and bar=1"):
+        with failure("to have keys 'baz' and 'bar' equal 1"):
             expect(_.dct).to(have_keys('baz', bar=1))
 
     def it_should_fail_if_dict_has_key_without_value_in_dict():
-        with failure("to have keys bar=1 and baz=1"):
+        with failure("to have keys 'bar' equal 1 and 'baz' equal 1"):
             expect(_.dct).to(have_keys({'bar': 1, 'baz': 1}))
 
     def it_should_fail_if_actual_is_not_a_dict():
         # issue-10
 
-        with failure("to have keys bar=1 and baz=1 but is not a dict"):
+        with failure("to have keys 'bar' equal 1 and 'baz' equal 1 but is not a dict"):
             expect(_.str).to(have_keys({'bar': 1, 'baz': 1}))
 
     with context('#negated'):
@@ -70,13 +70,13 @@ with describe('have_keys') as _:
                 expect(_.dct).not_to(have_keys('bar', 'baz'))
 
         def it_should_fail_if_dict_has_keys_in_kwargs():
-            with failure("not to have keys bar=0 and baz=1"):
+            with failure("not to have keys 'bar' equal 0 and 'baz' equal 1"):
                 expect(_.dct).not_to(have_keys(bar=0, baz=1))
 
         def it_should_fail_if_actual_is_not_a_dict_():
             # issue-10
 
-            with failure("not to have keys bar=1 and baz=1 but is not a dict"):
+            with failure("not to have keys 'bar' equal 1 and 'baz' equal 1 but is not a dict"):
                 expect(_.str).not_to(have_keys({'bar': 1, 'baz': 1}))
 
     @before.all

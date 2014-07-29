@@ -3,6 +3,7 @@
 import collections
 
 from .matcher import Matcher
+from . import equal as equal_matcher
 
 
 class _DictMatcher(Matcher):
@@ -12,14 +13,21 @@ class _DictMatcher(Matcher):
 
         return self._matches(subject)
 
-    def _match_negated(self, subject):
-        if self._not_a_dict(subject):
-            return False
-
-        return not self._matches(subject)
-
     def _not_a_dict(self, value):
         return not isinstance(value, collections.Mapping)
+
+    def _matches(self, subject):
+        args, kwargs = self._expected
+
+        for name in args:
+            if not self._has_key(subject, name):
+                return False
+
+        for name, value in kwargs.items():
+            if not self._has_key(subject, name, value):
+                return False
+
+        return True
 
     def _has_key(self, subject, name, *args):
         if args:
@@ -37,63 +45,36 @@ class _DictMatcher(Matcher):
 
         return name in subject
 
+    def _match_negated(self, subject):
+        if self._not_a_dict(subject):
+            return False
 
-class have_keys(_DictMatcher):
-    def __init__(self, *args, **kwargs):
-        self._args = args
-        self._kwargs = kwargs
-
-    def _matches(self, subject):
-        args, kwargs = self._keys
-
-        for name in args:
-            if not self._has_key(subject, name):
-                return False
-
-        for name, value in kwargs.items():
-            if not self._has_key(subject, name, value):
-                return False
-
-        return True
-
-    @property
-    def _keys(self):
-        try:
-            return (), dict(*self._args, **self._kwargs)
-        except (TypeError, ValueError):
-            return self._args, self._kwargs
+        return not self._matches(subject)
 
     def _description(self, subject):
-        message = 'have keys {}'.format(plain_enumerate(*self._keys))
+        message = '{} {}'.format(type(self).__name__.replace('_', ' '),
+                                 plain_enumerate(*self._expected))
 
         if self._not_a_dict(subject):
             message += ' but is not a dict'
 
         return message
+
+
+class have_keys(_DictMatcher):
+    def __init__(self, *args, **kwargs):
+        try:
+            self._expected = (), dict(*args, **kwargs)
+        except (TypeError, ValueError):
+            self._expected = args, kwargs
 
 
 class have_key(_DictMatcher):
     def __init__(self, name, *args):
-        self._name = name
-        self._args = args
-
-    def _matches(self, subject):
-        return self._has_key(subject, self._name, *self._args)
-
-    def _description(self, subject):
-        if not self._args:
-            return 'have key {expected!r}'.format(expected=self._name)
-
-        expected_value = self._args[0]
-        if isinstance(expected_value, Matcher):
-            message = 'have key {expected!r} with value {expected_value}'.format(expected=self._name, expected_value=expected_value._description(subject))
+        if args:
+            self._expected = (), {name: args[0]}
         else:
-            message = 'have key {expected!r} with value {expected_value!r}'.format(expected=self._name, expected_value=expected_value)
-
-        if self._not_a_dict(subject):
-            message += ' but is not a dict'
-
-        return message
+            self._expected = (name,), {}
 
 
 def plain_enumerate(args, kwargs):
@@ -110,7 +91,11 @@ def plain_enumerate(args, kwargs):
             result += ', '
 
     for i, pair in enumerate(_ordered_items(kwargs), i):
-        result += '{}={!r}'.format(*pair)
+        key, value = pair
+        if not isinstance(value, Matcher):
+            value = equal_matcher(value)
+
+        result += '{!r} {}'.format(key, value._description(None))
 
         if i + 2 == total:
             result += ' and '

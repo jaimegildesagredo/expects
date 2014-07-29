@@ -32,12 +32,9 @@ class HaveProperty(Matcher):
         expected_value = self._args[0]
         if isinstance(expected_value, Matcher):
             message = 'have property {expected!r} with value {expected_value}'.format(
-                expected=self._name, expected_value=expected_value._description(subject))
+                expected=self._name, expected_value=expected_value._description(None))
         else:
             message = 'have property {expected!r} with value {expected_value!r}'.format(
                 expected=self._name, expected_value=expected_value)
-
-        if isinstance(subject, _compat.string_types):
-            message += ' but is not a dict'
 
         return message
