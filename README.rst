@@ -18,7 +18,7 @@ Expects
 Usage
 -----
 
-Just import the ``expect`` callable and start writing test assertions.
+Just import the ``expect`` callable and the built-in matchers and start writing test assertions.
 
 .. code-block:: python
 
