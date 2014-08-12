@@ -2,6 +2,9 @@
 
 
 class Matcher(object):
+    def _match(self, subject):
+        raise NotImplementedError()
+
     def _match_negated(self, subject):
         return not self._match(subject)
 
