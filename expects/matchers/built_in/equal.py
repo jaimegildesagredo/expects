@@ -9,6 +9,3 @@ class equal(Matcher):
 
     def _match(self, subject):
         return subject == self._expected
-
-    def _description(self, subject):
-        return 'equal {expected!r}'.format(expected=self._expected)

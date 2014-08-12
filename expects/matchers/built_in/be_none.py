@@ -3,11 +3,8 @@
 from .. import Matcher
 
 
-class _BeNone(Matcher):
+class _be_none(Matcher):
     def _match(self, subject):
         return subject is None
 
-    def _description(self, subject):
-        return 'be none'
-
-be_none = _BeNone()
+be_none = _be_none()

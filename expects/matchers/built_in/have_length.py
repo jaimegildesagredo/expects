@@ -15,6 +15,3 @@ class have_length(Matcher):
             return len(collection)
         except TypeError:
             return sum(1 for i in collection)
-
-    def _description(self, subject):
-        return 'have length {expected}'.format(expected=self._expected)

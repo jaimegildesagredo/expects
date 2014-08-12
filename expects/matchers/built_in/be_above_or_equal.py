@@ -9,6 +9,3 @@ class be_above_or_equal(Matcher):
 
     def _match(self, subject):
         return subject >= self._expected
-
-    def _description(self, subject):
-        return 'be above or equal {expected!r}'.format(expected=self._expected)

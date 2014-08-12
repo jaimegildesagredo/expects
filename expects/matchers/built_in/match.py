@@ -12,6 +12,3 @@ class match(Matcher):
 
     def _match(self, subject):
         return True if re.match(self._expected, subject, *self._args) is not None else False
-
-    def _description(self, subject):
-        return 'match {expected!r}'.format(expected=self._expected)

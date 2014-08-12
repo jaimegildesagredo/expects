@@ -3,11 +3,8 @@
 from .. import Matcher
 
 
-class _BeTrue(Matcher):
+class _be_true(Matcher):
     def _match(self, subject):
         return subject is True
 
-    def _description(self, subject):
-        return 'be true'
-
-be_true = _BeTrue()
+be_true = _be_true()

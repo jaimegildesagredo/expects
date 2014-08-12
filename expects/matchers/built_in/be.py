@@ -9,6 +9,3 @@ class be(Matcher):
 
     def _match(self, subject):
         return subject is self._expected
-
-    def _description(self, subject):
-        return 'be {expected!r}'.format(expected=self._expected)

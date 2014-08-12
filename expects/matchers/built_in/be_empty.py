@@ -3,7 +3,7 @@
 from .. import Matcher
 
 
-class _BeEmpty(Matcher):
+class _be_empty(Matcher):
     def _match(self, subject):
         try:
             return len(subject) == 0
@@ -13,8 +13,4 @@ class _BeEmpty(Matcher):
             except StopIteration:
                 return True
 
-    def _description(self, subject):
-        return 'be empty'
-
-
-be_empty = _BeEmpty()
+be_empty = _be_empty()

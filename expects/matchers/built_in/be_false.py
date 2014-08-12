@@ -3,11 +3,8 @@
 from .. import Matcher
 
 
-class _BeFalse(Matcher):
+class _be_false(Matcher):
     def _match(self, subject):
         return subject is False
 
-    def _description(self, subject):
-        return 'be false'
-
-be_false = _BeFalse()
+be_false = _be_false()
