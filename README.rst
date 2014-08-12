@@ -18,7 +18,7 @@ Expects
 Usage
 -----
 
-Just import the ``expect`` callable and the *built-in* matchers and start writing test assertions.
+Just import the ``expect`` callable and the built-in matchers and start writing test assertions.
 
 .. code-block:: python
 
@@ -37,7 +37,7 @@ Just import the ``expect`` callable and the *built-in* matchers and start writin
 
     expect(lambda: foo).to(raise_error(NameError))
 
-You can see all the *built-in* assertions with lots of examples `here <http://expects.readthedocs.org/en/latest/reference.html>`_.
+You can see all the built-in assertions with lots of examples `here <http://expects.readthedocs.org/en/latest/reference.html>`_.
 
 Installation
 ------------
