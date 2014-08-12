@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 
-from ..matcher import Matcher
+from .. import Matcher
 from ... import _compat
 from ...texts import plain_enumerate
 

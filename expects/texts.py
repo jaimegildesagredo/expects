@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 
-from .matchers.matcher import Matcher
+from .matchers import Matcher
 from .matchers.built_in import equal as equal_matcher
 
 

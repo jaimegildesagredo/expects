@@ -2,7 +2,7 @@
 
 import collections
 
-from ..matcher import Matcher
+from .. import Matcher
 from ...texts import plain_enumerate
 
 

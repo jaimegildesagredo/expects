@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 
-from ..matcher import Matcher
+from .. import Matcher
 
 
 class BeWithIn(Matcher):

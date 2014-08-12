@@ -2,7 +2,7 @@
 
 import re
 
-from ..matcher import Matcher
+from .. import Matcher
 
 
 class Match(Matcher):
