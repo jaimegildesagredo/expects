@@ -3,7 +3,7 @@
 from .. import Matcher
 
 
-class RaiseError(Matcher):
+class raise_error(Matcher):
     def __init__(self, expected, *args):
         self._expected = expected
         self._args = args

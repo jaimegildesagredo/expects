@@ -3,7 +3,7 @@
 from .. import Matcher
 
 
-class HaveLength(Matcher):
+class have_length(Matcher):
     def __init__(self, expected):
         self._expected = expected
 

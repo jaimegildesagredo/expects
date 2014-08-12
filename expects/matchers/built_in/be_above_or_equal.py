@@ -3,7 +3,7 @@
 from .. import Matcher
 
 
-class BeAboveOrEqual(Matcher):
+class be_above_or_equal(Matcher):
     def __init__(self, expected):
         self._expected = expected
 

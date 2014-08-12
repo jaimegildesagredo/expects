@@ -3,7 +3,7 @@
 from .. import Matcher
 
 
-class Be(Matcher):
+class be(Matcher):
     def __init__(self, expected):
         self._expected = expected
 

@@ -12,3 +12,6 @@ class BeAnInstanceOf(Matcher):
 
     def _description(self, subject):
         return 'be an instance of {expected.__name__}'.format(expected=self._expected)
+
+
+be_a = be_an = BeAnInstanceOf

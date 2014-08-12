@@ -3,7 +3,7 @@
 from .. import Matcher
 
 
-class BeWithIn(Matcher):
+class be_within(Matcher):
     def __init__(self, start, stop):
         self._start = start
         self._stop = stop

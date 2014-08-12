@@ -5,7 +5,7 @@ import re
 from .. import Matcher
 
 
-class Match(Matcher):
+class match(Matcher):
     def __init__(self, expected, *args):
         self._expected = expected
         self._args = args
