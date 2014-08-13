@@ -1,4 +1,7 @@
 Custom Matchers
 ===============
 
-Custom matchers stuff
+.. automodule:: matchers
+   :members:
+   :private-members:
+   :member-order: bysource
