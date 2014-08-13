@@ -159,15 +159,6 @@ be_a / be_an
 
 .. code-block:: python
 
-    expect(Foo()).not_to(be_a(object))
-
-.. admonition:: Failure
-    :class: error
-
-    Expected ``<Foo object at 0x7ff289cb4310>`` not to be an instance of ``object``
-
-.. code-block:: python
-
     expect(Foo()).not_to(be_a(Foo))
 
 .. admonition:: Failure
