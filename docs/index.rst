@@ -56,7 +56,7 @@ Contents
 
    install
    matchers
-   plugins
+   custom-matchers
    testing
    changes
 

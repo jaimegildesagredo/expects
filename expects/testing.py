@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """The :mod:`testing` module provides helpers to ease testing of your
-expects `plugins <plugins.html>`_.
+`custom matchers <custom-matchers.html>`_.
 
 """
 
