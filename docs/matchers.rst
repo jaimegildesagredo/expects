@@ -1,4 +1,4 @@
-Built-in Matchers
-=================
+Matchers
+========
 
 .. include:: examples.rst
