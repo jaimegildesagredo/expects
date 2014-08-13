@@ -1,4 +1,4 @@
-Reference
-=========
+Matchers
+========
 
 .. include:: examples.rst

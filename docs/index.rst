@@ -18,7 +18,7 @@ Expects
 Usage
 -----
 
-Just import the ``expect`` callable and the built-in matchers and start writing test assertions.
+Just import the ``expect`` callable and the `built-in matchers <matchers.html>`_ and start writing test assertions.
 
 .. code-block:: python
 
@@ -36,8 +36,6 @@ Just import the ``expect`` callable and the built-in matchers and start writing 
     expect(str).to(have_property('split'))
 
     expect(lambda: foo).to(raise_error(NameError))
-
-You can see all the *builtin* assertions with lots of examples `here <reference.html>`_.
 
 Installation
 ------------
@@ -57,7 +55,7 @@ Contents
    :maxdepth: 2
 
    install
-   reference
+   matchers
    plugins
    testing
    changes
