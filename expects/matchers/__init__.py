@@ -1,7 +1,28 @@
 # -*- coding: utf-8 -*
 
-"""
-The :mod:`matchers` module contains the bases for building custom matchers.
+""" *Expects* can be `extended` by defining new `matchers`.
+The :mod:`matchers` module contains the bases for building
+custom matchers.
+
+The easiest way to define a new matcher is to extend the
+:class:`Matcher` class and override the :func:`Matcher._match`
+method.
+
+For example::
+
+    from expects.matchers import Matcher
+
+    class have_header(Matcher):
+        def __init__(self, expected):
+            self._expected = expected
+
+        def _match(self, request):
+            return self._expected in self.request.headers
+
+    from expects import expect
+
+    expect(my_request).to(have_header('Content-Type'))
+
 """
 
 
