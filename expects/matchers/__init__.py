@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 
 """
-Custom matchers stuff
+The :mod:`matchers` module contains the bases for building custom matchers.
 """
 
 
@@ -18,6 +18,7 @@ class Matcher(object):
         the subject and :keyword:`False` if it does not.
 
         :param subject: The target value of the expectation.
+        :rtype: a boolean
 
         """
 
@@ -31,6 +32,7 @@ class Matcher(object):
         By default returns the result of ``not self._match(subject)``.
 
         :param subject: The target value of the expectation.
+        :rtype: a boolean
 
         """
 
@@ -49,6 +51,7 @@ class Matcher(object):
         :func:`_description` method.
 
         :param subject: The target value of the expectation.
+        :rtype: a string
 
         """
 
@@ -65,6 +68,7 @@ class Matcher(object):
             'Expected {subject} not to {description}'
 
         :param subject: The target value of the expectation.
+        :rtype: a string
 
         """
 
@@ -84,6 +88,7 @@ class Matcher(object):
         is the value passed to the constructor.
 
         :param subject: The target value of the expectation.
+        :rtype: a string
 
         """
 
