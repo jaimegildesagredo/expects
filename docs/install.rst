@@ -1,9 +1,15 @@
 Installation
 ============
 
+PyPI
+----
+
 You can install the last stable release of Expects from PyPI using pip or easy_install::
 
     $ pip install expects
+
+GitHub
+------
 
 Or install the latest sources from Github::
 

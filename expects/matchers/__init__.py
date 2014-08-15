@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*
 
-""" *Expects* can be `extended` by defining `new matchers`.
+"""
+Introduction
+------------
+
+*Expects* can be `extended` by defining `new matchers`.
 The :mod:`matchers` module contains the bases for building
 custom matchers.
+
+Tutorial
+--------
 
 The easiest way to define a new matcher is to extend the
 :class:`Matcher` class and override the :func:`Matcher._match`
@@ -27,6 +34,9 @@ your expectation::
     from my_custom_matchers import have_header
 
     expect(my_request).to(have_header('Content-Type'))
+
+Advanced
+--------
 
 For more complex matchers you can override the :class:`Matcher` class
 methods in order to achieve the needed behavior.
