@@ -12,7 +12,7 @@ This release *does not* maintain backwards compability with the previous version
 Highlights
 ^^^^^^^^^^
 
-* Improved failure messaged for ``have_keys`` and ``have_properties`` matchers.
+* Improved failure message for ``have_keys`` and ``have_properties`` matchers.
 * The ``raise_error`` matcher now can receive any other matcher as the second argument.
 
 Bug fixes
@@ -25,7 +25,7 @@ Backwards-incompatible
 ^^^^^^^^^^^^^^^^^^^^^^
 
 * The ``end_with`` matcher should receive args in the right order and not reversed. See `this commit <https://github.com/jaimegildesagredo/expects/commit/3be83da4e0c335efa02931e19b30233e1021fec3>`_.
-* The ``to.have()`` and ``to.have.only`` assertions have been remamed to ``contain`` and ``contain_exactly`` matchers.
+* The ``to.have`` and ``to.have.only`` assertions have been remamed to ``contain`` and ``contain_exactly`` matchers.
 * Assertion chaining has been replaced by *matcher composition* in all places where was possible in the previous version.
 * The ``testing.failure`` context manager now only receives a string matching the failure message.
 
