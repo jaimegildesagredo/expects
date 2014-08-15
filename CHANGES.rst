@@ -7,7 +7,7 @@ Changes
 Warnings
 ^^^^^^^^
 
-This release *does not* maintain backwards compability with the previous version because a *new syntax was implemented* based on matchers. Matchers have been implemented maintaining compability with its equivalent assertions (and those that break compability are listed below). For most users upgrade to this version will only involve a migration to the new syntax.
+This release *does not* maintain backwards compatibility with the previous version because a *new syntax was implemented* based on matchers. Matchers have been implemented maintaining compatibility with its equivalent assertions (and those that break compatibility are listed below). For most users upgrade to this version will only involve a migration to the new syntax.
 
 Highlights
 ^^^^^^^^^^
