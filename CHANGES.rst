@@ -7,7 +7,7 @@ Changes
 Warnings
 ^^^^^^^^
 
-This release `does not` maintain backwards compability with the previous version because a `new syntax was implemented` based on matchers. Matchers have been implemented maintaining compability with its equivalent assertions (and those that break compability are listed below). For most users upgrade to this version will only involve a migration to the new syntax.
+This release *does not* maintain backwards compability with the previous version because a *new syntax was implemented* based on matchers. Matchers have been implemented maintaining compability with its equivalent assertions (and those that break compability are listed below). For most users upgrade to this version will only involve a migration to the new syntax.
 
 Highlights
 ^^^^^^^^^^
@@ -26,7 +26,7 @@ Backwards-incompatible
 
 * The ``end_with`` matcher should receive args in the right order and not reversed. See `this commit <https://github.com/jaimegildesagredo/expects/commit/3be83da4e0c335efa02931e19b30233e1021fec3>`_.
 * The ``to.have()`` and ``to.have.only`` assertions have been remamed to ``contain`` and ``contain_exactly`` matchers.
-* Assertion chaining has been replaced by `matcher composition` in all places where was possible in the previous version.
+* Assertion chaining has been replaced by *matcher composition* in all places where was possible in the previous version.
 * The ``testing.failure`` context manager now only receives a string matching the failure message.
 
 0.3.0 (Jun 29, 2014)
