@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 
-""" *Expects* can be `extended` by defining new `matchers`.
+""" *Expects* can be `extended` by defining `new matchers`.
 The :mod:`matchers` module contains the bases for building
 custom matchers.
 
