@@ -38,7 +38,7 @@ your expectation::
 Advanced
 --------
 
-For more complex matchers you can override the :class:`Matcher` class
+For more complex matchers you can override the :class:`Matcher`
 methods in order to achieve the needed behavior.
 
 """
