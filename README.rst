@@ -1,11 +1,11 @@
 Expects
 =======
 
-.. image:: http://img.shields.io/pypi/v/expects.svg
+.. image:: https://img.shields.io/pypi/v/expects.svg
     :target: https://pypi.python.org/pypi/expects
     :alt: Latest version
 
-.. image:: http://img.shields.io/pypi/dm/expects.svg
+.. image:: https://img.shields.io/pypi/dm/expects.svg
     :target: https://pypi.python.org/pypi/expects
     :alt: Number of PyPI downloads
 
