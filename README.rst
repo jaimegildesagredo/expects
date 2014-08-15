@@ -13,7 +13,7 @@ Expects
     :target: http://travis-ci.org/jaimegildesagredo/expects
     :alt: Build status
 
-**Expects** is an *expressive* and *extensible* TDD/BDD assertion library for Python.
+**Expects** is an *expressive* and *extensible* TDD/BDD assertion library for Python. Expects can be *extended* by defining `new matchers <http://expects.readthedocs.org/en/latest/custom-matchers.html>`_.
 
 Usage
 -----

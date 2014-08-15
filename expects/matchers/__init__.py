@@ -8,7 +8,8 @@ The easiest way to define a new matcher is to extend the
 :class:`Matcher` class and override the :func:`Matcher._match`
 method.
 
-For example::
+For example, to define a matcher to check if a `request` object contains
+a given header takes <10 lines of code::
 
     from expects.matchers import Matcher
 
@@ -19,15 +20,27 @@ For example::
         def _match(self, request):
             return self._expected in self.request.headers
 
+An then you only need to import the new defined matcher and write
+your expectation::
+
     from expects import expect
+    from my_custom_matchers import have_header
 
     expect(my_request).to(have_header('Content-Type'))
+
+For more complex matchers you can override the :class:`Matcher` class
+methods in order to achieve the needed behavior.
 
 """
 
 
 class Matcher(object):
-    """Base class for all Expects matchers"""
+    """The :class:`Matcher` class is the base class for all `Expects`
+    matchers.
+
+    It defines a set of methods to ease writting new matchers.
+
+    """
 
     def _match(self, subject):
         """This method will be called when the matcher is used in an
