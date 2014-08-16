@@ -8,31 +8,29 @@ def plain_enumerate(args, kwargs=None):
     if kwargs is None:
         kwargs = {}
 
+    tokens = []
+
+    for arg in args:
+        tokens.append(repr(arg))
+
+    for k, v in _sorted_items(kwargs):
+        if not isinstance(v, Matcher):
+            v = equal_matcher(v)
+
+        tokens.append('{!r} {}'.format(k, v._description(None)))
+
     total = len(args) + len(kwargs)
 
     result = ''
-    i = 0
-    for i, arg in enumerate(args):
-        result += repr(arg)
-
-        if i + 2 == total:
+    for i, token in enumerate(tokens):
+        result += token
+        if i == total - 2:
             result += ' and '
-        elif i + 1 != total:
-            result += ', '
-
-    for i, pair in enumerate(_sorted_items(kwargs), i):
-        key, value = pair
-        if not isinstance(value, Matcher):
-            value = equal_matcher(value)
-
-        result += '{!r} {}'.format(key, value._description(None))
-
-        if i + 2 == total:
-            result += ' and '
-        elif i + 1 != total:
+        elif i != total - 1:
             result += ', '
 
     return result
+
 
 
 def _sorted_items(dct):
