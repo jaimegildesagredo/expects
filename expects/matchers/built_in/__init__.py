@@ -19,3 +19,30 @@ from .contain import contain, contain_exactly
 from .start_end_with import start_with, end_with
 from .match import match
 from .raise_error import raise_error
+
+__all__ = [
+    'equal',
+    'be',
+    'be_true',
+    'be_false',
+    'be_none',
+    'be_a',
+    'be_an',
+    'be_empty',
+    'be_above',
+    'be_below',
+    'be_above_or_equal',
+    'be_below_or_equal',
+    'be_within',
+    'have_length',
+    'have_properties',
+    'have_property',
+    'have_key',
+    'have_keys',
+    'contain',
+    'contain_exactly',
+    'start_with',
+    'end_with',
+    'match',
+    'raise_error'
+]
