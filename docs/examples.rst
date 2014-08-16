@@ -425,6 +425,8 @@ have_property
 
     expect(Foo(bar=0, baz=1)).to(have_property('bar', be_below(1)))
 
+    expect(Foo(bar=0, baz=1)).to(have_property('bar', not_(be_above(1))))
+
     expect(Foo(bar=0, baz=1)).to(have_property('foo'))
 
 .. admonition:: Failure
@@ -485,6 +487,15 @@ have_property
     :class: error
 
     Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'bar'`` be above ``1``
+
+.. code-block:: python
+
+    expect(Foo(bar=0, baz=1)).to(have_property('bar', not_(be_below(1))))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``<Foo object at 0x7ff289cb4310>`` to have property ``'bar'`` not be below ``1``
 
 have_properties
 ---------------
