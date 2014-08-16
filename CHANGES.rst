@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.4.1 (Ago 16, 2014)
+--------------------
+
+Bug fixes
+^^^^^^^^^
+
+* Now ``from expects import *`` only imports the ``expect`` callable and *built in* matchers.
+
 0.4.0 (Ago 15, 2014)
 --------------------
 
