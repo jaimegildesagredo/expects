@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.4.2 (Ago 16, 2014)
+--------------------
+
+Highlights
+^^^^^^^^^^
+
+* Added the ``not_`` matcher to negate another matcher when composing matchers.
+
 0.4.1 (Ago 16, 2014)
 --------------------
 
