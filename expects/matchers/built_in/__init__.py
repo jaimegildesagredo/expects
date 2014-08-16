@@ -19,6 +19,7 @@ from .contain import contain, contain_exactly
 from .start_end_with import start_with, end_with
 from .match import match
 from .raise_error import raise_error
+from .not_ import not_
 
 __all__ = [
     'equal',
@@ -44,5 +45,6 @@ __all__ = [
     'start_with',
     'end_with',
     'match',
-    'raise_error'
+    'raise_error',
+    'not_'
 ]
