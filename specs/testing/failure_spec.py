@@ -9,19 +9,17 @@ with describe('failure'):
         self.message = "to be 'bar'"
         self.pattern = "to be '\w+'"
 
-    with it('should pass if assertion error raised and message matches'):
-        def callback():
-            with failure(self.message):
-                raise AssertionError("Expected 'foo' {}".format(self.message))
+    with it('should pass if assertion error raised'):
+        with failure():
+            raise AssertionError("Expected 'foo' {}".format(self.message))
 
-        expect(callback).not_to(raise_error(AssertionError))
+    with it('should pass if assertion error raised and message matches'):
+        with failure(self.message):
+            raise AssertionError("Expected 'foo' {}".format(self.message))
 
     with it('should pass if assertion error raised and pattern matches'):
-        def callback():
-            with failure(self.pattern):
-                raise AssertionError("Expected 'foo' {}".format(self.message))
-
-        expect(callback).not_to(raise_error(AssertionError))
+        with failure(self.pattern):
+            raise AssertionError("Expected 'foo' {}".format(self.message))
 
     with it('should fail if assertion error not raised'):
         def callback():

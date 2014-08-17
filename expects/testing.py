@@ -37,7 +37,7 @@ class failure(object):
 
     """
 
-    def __init__(self, message):
+    def __init__(self, message=None):
         self._message = message
 
     def __enter__(self):
@@ -53,6 +53,9 @@ class failure(object):
                 '\n\n{}'.format(exc_type.__name__,
                                 _format_exception(exc_type, exc_value, exc_tb))
             )
+
+        if self._message is None:
+            return True
 
         exc_message = str(exc_value)
 
