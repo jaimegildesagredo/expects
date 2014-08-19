@@ -1,1 +1,1 @@
-mamba>=0.8,<0.9
+git+git://github.com/jaimegildesagredo/mamba.git@fix-expects-build-258#egg=mamba
