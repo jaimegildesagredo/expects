@@ -48,4 +48,4 @@ class end_with(_StarEndWith):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
             return subject.endswith(self._args[0])
-        return (list(self._args) == list(subject)[-len(self._args):])
+        return list(self._args) == list(subject)[-len(self._args):]
