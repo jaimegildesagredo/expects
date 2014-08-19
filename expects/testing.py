@@ -9,19 +9,35 @@ import re
 import traceback
 
 
+class _ContextManagerMeta(type):
+    def __enter__(cls):
+        pass
+
+    def __exit__(cls, exc_type, exc_value, exc_tb):
+        cls._handle_exception(exc_type, exc_value, exc_tb)
+        return True
+
+
 class failure(object):
     """The :class:`failure` context manager can be used to build
-    assertions of your expectations failures. It tests that an
-    expectation fails raising an :class:`AssertionError` with the
-    proper failure message.
+    assertions of your expectations failures. It tests that the
+    code inside the context manager raises an :class:`AssertionError`
+    and matches the given message (if any).
 
-    It receives `a string` that should match the failure message.
+    :param message: string matching the failure message
+    :type message: a string
+    :raises:  :class:`AssertionError` when no *AssertionError* or
+              another exception raised
 
-    If the expectation does not raise an :class:`AssertionError` or the
-    failure message does not match the given string then an
-    :class:`AssertionError` is raised.
+    .. note::
+
+        The :class:`failure` context manager can be used without being
+        *called* (for example, if you don't want to specify a *failure message*).
 
     Examples::
+
+        >>> with failure:
+                expect(object()).to(have_property('foo'))
 
         >>> with failure("to have property 'foo'"):
         ...     expect(object()).to(have_property('foo'))
@@ -34,28 +50,18 @@ class failure(object):
             raise AssertionError('Expected AssertionError to be raised')
         AssertionError: Expected AssertionError to be raised
 
-
     """
 
-    def __init__(self, message=None):
+    __metaclass__ = _ContextManagerMeta
+
+    def __init__(self, message):
         self._message = message
 
     def __enter__(self):
         pass
 
     def __exit__(self, exc_type, exc_value, exc_tb):
-        if exc_type is None:
-            raise AssertionError('Expected AssertionError to be raised')
-
-        if exc_type != AssertionError:
-            raise AssertionError(
-                'Expected AssertionError to be raised but {} raised.'
-                '\n\n{}'.format(exc_type.__name__,
-                                _format_exception(exc_type, exc_value, exc_tb))
-            )
-
-        if self._message is None:
-            return True
+        self._handle_exception(exc_type, exc_value, exc_tb)
 
         exc_message = str(exc_value)
 
@@ -67,6 +73,18 @@ class failure(object):
         raise AssertionError(
             "Expected error message '{}' to match '{}'".format(
                 exc_value, self._message))
+
+    @classmethod
+    def _handle_exception(cls, exc_type, exc_value, exc_tb):
+        if exc_type is None:
+            raise AssertionError('Expected AssertionError to be raised')
+
+        if exc_type != AssertionError:
+            raise AssertionError(
+                'Expected AssertionError to be raised but {} raised.'
+                '\n\n{}'.format(exc_type.__name__,
+                                _format_exception(exc_type, exc_value, exc_tb))
+            )
 
 
 def _format_exception(exc_type, exc_value, exc_tb):

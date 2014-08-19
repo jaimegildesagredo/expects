@@ -4,7 +4,10 @@ Changes
 0.4.3 (Not released yet)
 ------------------------
 
-* The ``testing.failure`` context manager can be called without any argument.
+* The ``testing.failure`` context manager can be used even without calling it with the failure message as argument::
+
+    with failure:
+        expect('foo').to(be_empty)
 
 0.4.2 (Ago 16, 2014)
 --------------------
