@@ -31,7 +31,7 @@ class failure(with_metaclass(_ContextManagerMeta)):
                     passed, the :class:`contain` matcher will be used
                     by default.
 
-    :type message: a :class:`matchers.Matcher` or string
+    :type message: a :class:`expects.matchers.Matcher` or string
 
     :raises:  :class:`AssertionError` when no *AssertionError* was
               raised, another exception raised or the failure message
