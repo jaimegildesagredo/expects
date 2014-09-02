@@ -17,6 +17,8 @@ Highlights
     with failure(end_with('empty')):
         expect('foo').to(be_empty)
 
+* Added the ``be_callable`` matcher.
+
 .. note:: See also backwards-incompatible changes for it.
 
 Bug fixes

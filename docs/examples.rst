@@ -369,6 +369,20 @@ be_within
 
     Expected ``5`` not to be within ``4, 7``
 
+be_callable
+-----------
+
+.. code-block:: python
+
+    expect(lambda: None).to(be_callable)
+
+    expect('foo').to(be_callable)
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``'foo'`` to be callable
+
 have_length
 -----------
 
