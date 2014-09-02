@@ -12,10 +12,18 @@ Highlights
     with failure:
         expect('foo').to(be_empty)
 
+* Also can receive matchers as argument::
+
+    with failure(end_with('empty')):
+        expect('foo').to(be_empty)
+
+.. note:: See also backwards-incompatible changes for it.
+
 Backwards-incompatible
 ^^^^^^^^^^^^^^^^^^^^^^
 
 * The ``match`` matcher now passes if matches a part of the subject string instead of all of it. Previously used the :func:`re.match` and now uses :func:`re.search`.
+* The ``testing.failure`` context manager not longer tries to match regular expressions. Instead you can pass the ``match`` matcher with your regexp.
 
 0.4.2 (Ago 16, 2014)
 --------------------
