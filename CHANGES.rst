@@ -29,7 +29,7 @@ Bug fixes
 Backwards-incompatible
 ^^^^^^^^^^^^^^^^^^^^^^
 
-* The ``match`` matcher now passes if matches a part of the subject string instead of all of it. Previously used the :func:`re.match` and now uses :func:`re.search`.
+* The ``match`` matcher now passes if matches a part of the subject string instead of all of it. Previously used the :func:`re.match` and now uses :func:`re.search`. If your tests depended on this you can migrate them by adding a ``'^'`` and ``'$'`` at the beginning and end of your regular expression.
 * The ``testing.failure`` context manager not longer tries to match regular expressions. Instead you can pass the ``match`` matcher with your regexp.
 
 0.4.2 (Ago 16, 2014)
