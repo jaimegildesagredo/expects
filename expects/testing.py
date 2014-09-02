@@ -28,8 +28,8 @@ class failure(with_metaclass(_ContextManagerMeta)):
     and matches the given message (whether any has been specified).
 
     :param message: should match the failure message. If a string is
-                    passed, the :class:`contain` matcher will be used
-                    by default.
+                    passed, the :class:`matchers.built_in.contain`
+                    matcher will be used by default.
 
     :type message: a :class:`matchers.Matcher` or string
 
