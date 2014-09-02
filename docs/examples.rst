@@ -349,6 +349,8 @@ be_within
 
     expect(5).to(be_within(4, 7))
 
+    expect(5.5).to(be_within(4, 7))
+
     expect(1).not_to(be_within(4, 7))
 
     expect(1).to(be_within(4, 7))

@@ -19,6 +19,11 @@ Highlights
 
 .. note:: See also backwards-incompatible changes for it.
 
+Bug fixes
+^^^^^^^^^
+
+* The ``be_within`` matcher now supports float values.
+
 Backwards-incompatible
 ^^^^^^^^^^^^^^^^^^^^^^
 
