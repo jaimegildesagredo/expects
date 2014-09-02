@@ -1,7 +1,7 @@
 Custom Matchers
 ===============
 
-.. automodule:: matchers
+.. automodule:: expects.matchers
    :members:
    :private-members:
    :member-order: bysource
