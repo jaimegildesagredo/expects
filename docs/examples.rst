@@ -1043,6 +1043,8 @@ match
 
     expect('My foo string').to(match(r'My \w+ string'))
 
+    expect('My foo string').to(match(r'\w+ string'))
+
     expect('My foo string').to(match(r'my [A-Z]+ strinG', re.I))
 
     expect('My foo string').not_to(match(r'My \W+ string'))

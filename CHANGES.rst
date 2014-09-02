@@ -1,13 +1,21 @@
 Changes
 =======
 
-0.4.3 (Not released yet)
+0.5.0 (Not released yet)
 ------------------------
+
+Highlights
+^^^^^^^^^^
 
 * The ``testing.failure`` context manager can be used even without calling it with the failure message as argument::
 
     with failure:
         expect('foo').to(be_empty)
+
+Backwards-incompatible
+^^^^^^^^^^^^^^^^^^^^^^
+
+* The ``match`` matcher now passes if matches a part of the subject string instead of all of it. Previously used the :func:`re.match` and now uses :func:`re.search`.
 
 0.4.2 (Ago 16, 2014)
 --------------------
