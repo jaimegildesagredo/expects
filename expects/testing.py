@@ -25,25 +25,41 @@ class failure(with_metaclass(_ContextManagerMeta)):
     """The :class:`failure` context manager can be used to build
     assertions of your expectations failures. It tests that the
     code inside the context manager raises an :class:`AssertionError`
-    and matches the given message (if any).
+    and matches the given message (whether any has been specified).
 
-    :param message: string matching the failure message
-    :type message: a string
-    :raises:  :class:`AssertionError` when no *AssertionError* or
-              another exception raised
+    :param message: should match the failure message. If a string is
+                    passed, the :class:`contain` matcher will be used
+                    by default.
+
+    :type message: a :class:`matchers.Matcher` or string
+
+    :raises:  :class:`AssertionError` when no *AssertionError* was
+              raised, another exception raised or the failure message
+              didn't match.
 
     .. note::
 
         The :class:`failure` context manager can be used without being
         *called* (for example, if you don't want to specify a *failure message*).
 
-    Examples::
+    Examples:
+
+    .. code-block:: python
 
         >>> with failure:
                 expect(object()).to(have_property('foo'))
 
+    .. code-block:: python
+
         >>> with failure("to have property 'foo'"):
         ...     expect(object()).to(have_property('foo'))
+
+    .. code-block:: python
+
+        >>> with failure(end_with("have property 'foo'")):
+                expect(object()).to(have_property('foo'))
+
+    .. code-block:: python
 
         >>> with failure("to have property '__class__'"):
         ...     expect(object()).to(have_property('__class__'))
