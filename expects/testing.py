@@ -65,14 +65,22 @@ class failure(with_metaclass(_ContextManagerMeta)):
 
         exc_message = str(exc_value)
 
-        if (self._message in exc_message or
-            re.search(self._message, exc_message, re.DOTALL)):
+        if hasattr(self._message, '_match'):
+            if self._message._match(exc_message):
+                return True
 
-            return True
+            raise AssertionError(
+                "Expected error message '{}' {}".format(
+                    exc_value, self._message._description(exc_value)))
+        else:
+            if (self._message in exc_message or
+                re.search(self._message, exc_message, re.DOTALL)):
 
-        raise AssertionError(
-            "Expected error message '{}' to match '{}'".format(
-                exc_value, self._message))
+                return True
+
+            raise AssertionError(
+                "Expected error message '{}' to match '{}'".format(
+                    exc_value, self._message))
 
     @classmethod
     def _handle_exception(cls, exc_type, exc_value, exc_tb):
