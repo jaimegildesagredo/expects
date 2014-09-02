@@ -8,6 +8,8 @@
 import re
 import traceback
 
+from ._compat import with_metaclass
+
 
 class _ContextManagerMeta(type):
     def __enter__(cls):
@@ -18,7 +20,7 @@ class _ContextManagerMeta(type):
         return True
 
 
-class failure(object):
+class failure(with_metaclass(_ContextManagerMeta)):
     """The :class:`failure` context manager can be used to build
     assertions of your expectations failures. It tests that the
     code inside the context manager raises an :class:`AssertionError`
@@ -51,8 +53,6 @@ class failure(object):
         AssertionError: Expected AssertionError to be raised
 
     """
-
-    __metaclass__ = _ContextManagerMeta
 
     def __init__(self, message):
         self._message = message
