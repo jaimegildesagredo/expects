@@ -9,6 +9,7 @@ import re
 import traceback
 
 from ._compat import with_metaclass
+from .matchers.built_in import contain as contain_matcher
 
 
 class _ContextManagerMeta(type):
@@ -55,6 +56,9 @@ class failure(with_metaclass(_ContextManagerMeta)):
     """
 
     def __init__(self, message):
+        if not hasattr(message, '_match'):
+            message = contain_matcher(message)
+
         self._message = message
 
     def __enter__(self):
@@ -65,22 +69,12 @@ class failure(with_metaclass(_ContextManagerMeta)):
 
         exc_message = str(exc_value)
 
-        if hasattr(self._message, '_match'):
-            if self._message._match(exc_message):
-                return True
-
+        if not self._message._match(exc_message):
             raise AssertionError(
-                "Expected error message '{}' {}".format(
-                    exc_value, self._message._description(exc_value)))
-        else:
-            if (self._message in exc_message or
-                re.search(self._message, exc_message, re.DOTALL)):
+                "Expected error message {!r} {}".format(
+                    exc_message, self._message._description(exc_value)))
 
-                return True
-
-            raise AssertionError(
-                "Expected error message '{}' to match '{}'".format(
-                    exc_value, self._message))
+        return True
 
     @classmethod
     def _handle_exception(cls, exc_type, exc_value, exc_tb):

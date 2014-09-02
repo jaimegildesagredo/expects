@@ -29,12 +29,12 @@ with describe('failure'):
             self.message = "to be 'bar'"
             self.pattern = "to be '\w+'"
 
-        with it('passes if assertion raised and message matches'):
+        with it('passes if assertion raised and message is contained'):
             with failure(self.message):
                 raise AssertionError("Expected 'foo' {}".format(self.message))
 
-        with it('passes if assertion error raised and pattern matches'):
-            with failure(self.pattern):
+        with it('passes if assertion error raised and message matches'):
+            with failure(match(self.pattern)):
                 raise AssertionError("Expected 'foo' {}".format(self.message))
 
         with it('passes if assertion error raised and message has length 0'):
