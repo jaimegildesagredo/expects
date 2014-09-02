@@ -47,7 +47,7 @@ class failure(with_metaclass(_ContextManagerMeta)):
     .. code-block:: python
 
         >>> with failure:
-                expect(object()).to(have_property('foo'))
+        ...     expect(object()).to(have_property('foo'))
 
     .. code-block:: python
 
@@ -57,7 +57,7 @@ class failure(with_metaclass(_ContextManagerMeta)):
     .. code-block:: python
 
         >>> with failure(end_with("have property 'foo'")):
-                expect(object()).to(have_property('foo'))
+        ...     expect(object()).to(have_property('foo'))
 
     .. code-block:: python
 
