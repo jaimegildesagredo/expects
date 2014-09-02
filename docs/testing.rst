@@ -1,6 +1,6 @@
 Testing
 =======
 
-.. automodule:: testing
+.. automodule:: expects.testing
    :members:
    :member-order: bysource
