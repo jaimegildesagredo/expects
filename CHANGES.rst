@@ -25,6 +25,7 @@ Bug fixes
 ^^^^^^^^^
 
 * The ``be_within`` matcher now supports float values.
+* In some places ``bytes`` were not being treated as a string type in python 3.
 
 Backwards-incompatible
 ^^^^^^^^^^^^^^^^^^^^^^
