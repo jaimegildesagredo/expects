@@ -1,1 +1,1 @@
-git+git://github.com/jaimegildesagredo/mamba.git@fix-expects-build-258#egg=mamba
+git+git://github.com/nestorsalceda/mamba.git#egg=mamba
