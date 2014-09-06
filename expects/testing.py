@@ -23,7 +23,7 @@ class _ContextManagerMeta(type):
 
 class failure(with_metaclass(_ContextManagerMeta)):
     """The :class:`failure` context manager can be used to build
-    assertions of your expectations failures. It tests that the
+    assertions of your expectation failures. It tests that the
     code inside the context manager raises an :class:`AssertionError`
     and matches the given message (whether any has been specified).
 
@@ -31,11 +31,11 @@ class failure(with_metaclass(_ContextManagerMeta)):
                     passed, the :class:`contain` matcher will be used
                     by default.
 
-    :type message: a :class:`expects.matchers.Matcher` or string
+    :type message: an :class:`expects.matchers.Matcher` or string
 
     :raises:  :class:`AssertionError` when no *AssertionError* was
-              raised, another exception raised or the failure message
-              didn't match.
+              raised, the failure message didn't match or another
+              exception raised.
 
     .. note::
 
