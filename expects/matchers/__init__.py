@@ -144,3 +144,19 @@ class Matcher(object):
     @property
     def __name(self):
         return type(self).__name__.replace('_', ' ').strip()
+
+    def __and__(self, other):
+        return And(self, other)
+
+
+class And(Matcher):
+    def __init__(self, op1, op2):
+        self.op1 = op1
+        self.op2 = op2
+
+    def _match(self, subject):
+        return self.op1._match(subject) and self.op2._match(subject)
+
+    def _description(self, subject):
+        return '{} and {}'.format(self.op1._description(subject),
+                                  self.op2._description(subject))
