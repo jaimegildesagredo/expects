@@ -148,6 +148,9 @@ class Matcher(object):
     def __and__(self, other):
         return And(self, other)
 
+    def __or__(self, other):
+        return Or(self, other)
+
 
 class And(Matcher):
     def __init__(self, op1, op2):
@@ -160,3 +163,16 @@ class And(Matcher):
     def _description(self, subject):
         return '{} and {}'.format(self.op1._description(subject).replace(' and ', ', '),
                                   self.op2._description(subject))
+
+
+class Or(Matcher):
+    def __init__(self, op1, op2):
+        self.op1 = op1
+        self.op2 = op2
+
+    def _match(self, subject):
+        return self.op1._match(subject) or self.op2._match(subject)
+
+    def _description(self, subject):
+        return '{} or {}'.format(self.op1._description(subject).replace(' or ', ', '),
+                                 self.op2._description(subject))
