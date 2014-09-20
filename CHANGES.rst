@@ -25,6 +25,8 @@ Highlights
 .. note:: See also backwards-incompatible changes for ``testing.failure``.
 
 * Added the ``be_callable`` matcher.
+* Published a list of `3rd Party Matchers libraries <http://expects.readthedocs.org/en/latest/3rd-party-matchers.html>`_.
+
 
 Bug fixes
 ^^^^^^^^^
