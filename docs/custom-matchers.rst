@@ -5,3 +5,10 @@ Custom Matchers
    :members:
    :private-members:
    :member-order: bysource
+
+Testing
+-------
+
+.. automodule:: expects.testing
+   :members:
+   :member-order: bysource

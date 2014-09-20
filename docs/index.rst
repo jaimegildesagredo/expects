@@ -38,7 +38,6 @@ Contents
    install
    matchers
    custom-matchers
-   testing
    3rd-party-matchers
    changes
 
