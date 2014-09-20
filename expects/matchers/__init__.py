@@ -146,13 +146,13 @@ class Matcher(object):
         return type(self).__name__.replace('_', ' ').strip()
 
     def __and__(self, other):
-        return And(self, other)
+        return _And(self, other)
 
     def __or__(self, other):
-        return Or(self, other)
+        return _Or(self, other)
 
 
-class And(Matcher):
+class _And(Matcher):
     def __init__(self, op1, op2):
         self.op1 = op1
         self.op2 = op2
@@ -165,7 +165,7 @@ class And(Matcher):
                                   self.op2._description(subject))
 
 
-class Or(Matcher):
+class _Or(Matcher):
     def __init__(self, op1, op2):
         self.op1 = op1
         self.op2 = op2
