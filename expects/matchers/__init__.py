@@ -158,5 +158,5 @@ class And(Matcher):
         return self.op1._match(subject) and self.op2._match(subject)
 
     def _description(self, subject):
-        return '{} and {}'.format(self.op1._description(subject),
+        return '{} and {}'.format(self.op1._description(subject).replace(' and ', ', '),
                                   self.op2._description(subject))
