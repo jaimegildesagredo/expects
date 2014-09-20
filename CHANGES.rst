@@ -7,7 +7,11 @@ Changes
 Highlights
 ^^^^^^^^^^
 
-* Now we can use the ``&`` operator with matchers allowing more complex assertions.
+* Now the ``&`` and ``|`` operators can be used to write simpler assertions::
+
+    expect('Foo').to(have_length(3) & start_with('F'))
+    expect('Foo').to(equal('Foo') | equal('Bar'))
+
 * The ``testing.failure`` context manager can be used even without calling it with the failure message as argument::
 
     with failure:
