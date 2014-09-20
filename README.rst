@@ -9,6 +9,10 @@ Expects
     :target: http://expects.readthedocs.org/en/latest
     :alt: Docs
 
+.. image:: https://img.shields.io/badge/Licence-Apache2-brightgreen.svg
+    :target: https://www.tldrlegal.com/l/apache2
+    :alt: License
+
 .. image:: https://img.shields.io/pypi/dm/expects.svg
     :target: https://pypi.python.org/pypi/expects
     :alt: Number of PyPI downloads
@@ -69,11 +73,6 @@ To run the Expects specs you should install the development requirements and the
 
     $ pip install -r test-requirements.txt
     $ mamba
-
-License
--------
-
-Expects is released under the `Apache2 license <http://www.apache.org/licenses/LICENSE-2.0.html>`_.
 
 Changes
 -------
