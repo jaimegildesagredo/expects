@@ -7,6 +7,7 @@ Changes
 Highlights
 ^^^^^^^^^^
 
+* Now we can use the ``&`` operator with matchers allowing more complex assertions.
 * The ``testing.failure`` context manager can be used even without calling it with the failure message as argument::
 
     with failure:
