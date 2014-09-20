@@ -80,3 +80,8 @@ Documentation
 -------------
 
 Expects docs are hosted on `Read The Docs <https://expects.readthedocs.org>`_.
+
+3rd Party Matchers
+------------------
+
+See `3rd-Party Matchers list <http://expects.readthedocs.org/en/latest/3rd-party-matchers.html>`_.

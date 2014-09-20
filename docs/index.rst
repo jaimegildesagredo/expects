@@ -39,9 +39,8 @@ Contents
    matchers
    custom-matchers
    testing
+   3rd-party-matchers
    changes
-
-
 
 Indices and tables
 ==================
