@@ -37,6 +37,10 @@ Just import the ``expect`` callable and the `built-in matchers <http://expects.r
 
     expect(lambda: foo).to(raise_error(NameError))
 
+    expect('Foo').to(have_length(3) & start_with('F'))
+
+    expect('Foo').to(equal('Foo') | equal('Bar'))
+
 Installation
 ------------
 

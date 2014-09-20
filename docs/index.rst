@@ -25,6 +25,10 @@ Just import the ``expect`` callable and the `built-in matchers <matchers.html>`_
 
     expect(lambda: foo).to(raise_error(NameError))
 
+    expect('Foo').to(have_length(3) & start_with('F'))
+
+    expect('Foo').to(equal('Foo') | equal('Bar'))
+
 Contents
 --------
 
