@@ -5,6 +5,10 @@ Expects
     :target: https://pypi.python.org/pypi/expects
     :alt: Latest version
 
+.. image:: https://readthedocs.org/projects/expects/badge
+    :target: http://expects.readthedocs.org/en/latest
+    :alt: Docs
+
 .. image:: https://img.shields.io/pypi/dm/expects.svg
     :target: https://pypi.python.org/pypi/expects
     :alt: Number of PyPI downloads
@@ -75,11 +79,6 @@ Changes
 -------
 
 See `Changes  <https://expects.readthedocs.org/en/latest/changes.html>`_.
-
-Documentation
--------------
-
-Expects docs are hosted on `Read The Docs <https://expects.readthedocs.org>`_.
 
 3rd Party Matchers
 ------------------
