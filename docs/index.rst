@@ -21,13 +21,11 @@ Just import the ``expect`` callable and the `built-in matchers <matchers.html>`_
         'email': 'jack@example.com'
     }).to(have_key('name', match('\w+')))
 
-    expect(str).to(have_property('split'))
+    expect(str).to(have_property('split') & be_callable)
 
     expect(lambda: foo).to(raise_error(NameError))
 
-    expect('Foo').to(have_length(3) & start_with('F'))
-
-    expect('Foo').to(equal('Foo') | equal('Bar'))
+    expect('Foo').to(equal('Bar') | equal('Foo'))
 
 Contents
 --------
