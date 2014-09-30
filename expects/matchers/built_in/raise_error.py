@@ -3,12 +3,15 @@
 from .. import Matcher
 
 
-class raise_error(Matcher):
+class _raise_error(Matcher):
     def __init__(self, expected, *args):
         self._expected = expected
         self._args = args
         self._got = None
         self._got_value = None
+
+    def __call__(self, *args, **kwargs):
+        return _raise_error(*args, **kwargs)
 
     def _match(self, subject):
         try:
@@ -74,3 +77,6 @@ class raise_error(Matcher):
 
         return 'Expected {subject!r} not to raise {expected.__name__} but {got.__name__} raised'.format(
             subject=subject, expected=self._expected, got=type(self._got))
+
+
+raise_error = _raise_error(Exception)

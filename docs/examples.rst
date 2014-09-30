@@ -1091,6 +1091,8 @@ raise_error
     def callback():
         raise AttributeError('error message')
 
+    expect(callback).to(raise_error)
+
     expect(callback).to(raise_error(AttributeError))
 
     expect(callback).to(raise_error(AttributeError, 'error message'))
