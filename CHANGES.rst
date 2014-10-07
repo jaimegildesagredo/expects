@@ -9,7 +9,7 @@ Highlights
 
 * Now the ``raise_error`` matcher can be used without specifing an exception class for writing less strict assertions::
 
-  expect(lambda: foo).to(raise_error)
+    expect(lambda: foo).to(raise_error)
 
 0.5.0 (Sep 20, 2014)
 --------------------
