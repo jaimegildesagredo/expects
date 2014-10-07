@@ -7,7 +7,7 @@ Changes
 Highlights
 ^^^^^^^^^^
 
-* Now the ``raise_error`` matcher can be used without specifing an exception class for writing less strict assertions::
+* Now the ``raise_error`` matcher can be used without specifying an exception class for writing less strict assertions::
 
     expect(lambda: foo).to(raise_error)
 
