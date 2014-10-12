@@ -145,11 +145,19 @@ class Matcher(object):
     def __name(self):
         return type(self).__name__.replace('_', ' ').strip()
 
+    def _match_value(self, matcher, value):
+        if not hasattr(matcher, '_match'):
+            matcher = equal_matcher(matcher)
+
+        return matcher._match(value)
+
     def __and__(self, other):
         return _And(self, other)
 
     def __or__(self, other):
         return _Or(self, other)
+
+from .built_in import equal as equal_matcher
 
 
 class _And(Matcher):

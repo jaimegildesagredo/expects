@@ -21,13 +21,9 @@ class _raise_error(Matcher):
 
             if len(self._args) != 0:
                 self._got_value, expected_value = exc.args[0], self._args[0]
+                return self._match_value(expected_value, self._got_value)
 
-                if hasattr(expected_value, '_match'):
-                    return expected_value._match(self._got_value)
-
-                return self._got_value == expected_value
-            else:
-                return True
+            return True
 
         except Exception as err:
             self._got = err

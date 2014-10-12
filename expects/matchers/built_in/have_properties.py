@@ -26,12 +26,7 @@ class _PropertyMatcher(Matcher):
             except AttributeError:
                 return False
             else:
-                expected_value = args[0]
-
-                if hasattr(expected_value, '_match'):
-                    return expected_value._match(value)
-
-                return value == expected_value
+                return self._match_value(args[0], value)
 
         return hasattr(subject, name)
 
