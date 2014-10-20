@@ -5,7 +5,7 @@ Expects
     :target: https://pypi.python.org/pypi/expects
     :alt: Latest version
 
-.. image:: https://readthedocs.org/projects/expects/badge
+.. image:: https://img.shields.io/badge/Docs-latest-brightgreen.svg
     :target: http://expects.readthedocs.org/en/latest
     :alt: Docs
 
