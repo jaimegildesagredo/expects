@@ -7,7 +7,7 @@ python:
 
 install:
   - python setup.py sdist
-  - pip install dist/expects-`python setup.py --version`.tar.gz
+  - pip install dist/`python setup.py --name`-`python setup.py --version`.tar.gz
   - pip install -r test-requirements.txt
 
 script:
