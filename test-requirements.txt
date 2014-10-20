@@ -1,1 +1,1 @@
-git+git://github.com/nestorsalceda/mamba.git#egg=mamba
+mamba==0.8.2
