@@ -25,7 +25,7 @@ a given header takes <10 lines of code::
             self._expected = expected
 
         def _match(self, request):
-            return self._expected in self.request.headers
+            return self._expected in request.headers
 
 An then you only need to import the new defined matcher and write
 your expectation::
