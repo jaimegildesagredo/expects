@@ -11,6 +11,10 @@ Highlights
 
     expect(lambda: foo).to(raise_error)
 
+* Implemented the ``Matcher._match_value`` method to help develop custom matchers that receive another matchers. See the `docs <http://expects.readthedocs.org/en/latest/custom-matchers.html#expects.matchers.Matcher._match_value>`_ for more info.
+
+* The ``specs`` and ``docs`` directories are now distributed with the source tarball. See `GH-20 <https://github.com/jaimegildesagredo/expects/pull/20>`_.
+
 0.5.0 (Sep 20, 2014)
 --------------------
 
