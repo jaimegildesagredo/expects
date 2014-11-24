@@ -8,7 +8,7 @@ with describe('failure'):
     with context('without message'):
         with it('passes if assertion error raised'):
             with failure:
-                raise AssertionError("Expected 'foo' {}".format(self.message))
+                raise AssertionError()
 
         with it('fails if assertion error not raised'):
             def callback():
