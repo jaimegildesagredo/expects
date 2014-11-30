@@ -7,7 +7,7 @@ Changes
 Bug fixes
 ^^^^^^^^^
 
-* Now the ``contain`` and ``contain_exactly`` matchers fail with a proper message when used with a non-sequence type. See `GH-21 <https://github.com/jaimegildesagredo/expects/issues/21>`_
+* Now the ``contain`` and ``contain_exactly`` matchers fail with a proper message when used with a non-sequence type. See `GH-21 <https://github.com/jaimegildesagredo/expects/issues/21>`_.
 
 0.6.0 (Nov 24, 2014)
 --------------------
