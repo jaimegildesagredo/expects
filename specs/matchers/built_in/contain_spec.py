@@ -38,8 +38,12 @@ with describe('contain'):
             expect(self.lst).to(contain('bar', 'foo'))
 
     with it('should fail if iterable does not contain item'):
-        with failure("to contain 'bar' and 'foo'"):
+        with failure(end_with("to contain 'bar' and 'foo'")):
             expect(self.itr).to(contain('bar', 'foo'))
+
+    with it('should fail if is not an iterable object'):
+        with failure("to contain 'bar' but is not a valid sequence type"):
+            expect(object()).to(contain('bar'))
 
     with context('#negated'):
         with it('should pass if list does not contain item'):
@@ -58,3 +62,7 @@ with describe('contain'):
         with it('should fail if list contains items'):
             with failure("not to contain 'bar' and 'baz'"):
                 expect(self.lst).not_to(contain('bar', 'baz'))
+
+        with it('should fail if is not an iterable object'):
+            with failure("not to contain 'bar' but is not a valid sequence type"):
+                expect(object()).not_to(contain('bar'))

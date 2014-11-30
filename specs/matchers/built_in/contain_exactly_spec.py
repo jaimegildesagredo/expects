@@ -49,3 +49,7 @@ with describe('contain_exactly'):
     with it('should fail if string does not exactly contain string'):
         with failure("to contain exactly 'foo'"):
             expect(self.str).to(contain_exactly('foo'))
+
+    with it('should fail if is not an iterable object'):
+        with failure("to contain exactly 'bar' but is not a valid sequence type"):
+            expect(object()).to(contain_exactly('bar'))

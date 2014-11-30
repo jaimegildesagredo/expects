@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*
 
+import functools
 import collections
 
 from .. import Matcher
@@ -11,21 +12,48 @@ class contain(Matcher):
     def __init__(self, *args):
         self._args = args
 
-    def _match(self, subject):
-        if isinstance(subject, collections.Iterator):
-            collection = list(subject)
-        else:
-            collection = subject
+    def _normalize_subject(method):
+        @functools.wraps(method)
+        def wrapper(self, subject):
+            if isinstance(subject, collections.Iterator):
+                subject = list(subject)
 
+            return method(self, subject)
+        return wrapper
+
+    @_normalize_subject
+    def _match(self, subject):
+        if self._is_not_a_sequence(subject):
+            return False
+
+        return self._matches(subject)
+
+    def _is_not_a_sequence(self, value):
+        return not isinstance(value, collections.Sequence)
+
+    def _matches(self, subject):
         for arg in self._args:
-            if arg not in collection:
+            if arg not in subject:
                 return False
 
         return True
 
+    @_normalize_subject
+    def _match_negated(self, subject):
+        if self._is_not_a_sequence(subject):
+            return False
+
+        return not self._matches(subject)
+
+    @_normalize_subject
     def _description(self, subject):
-        return '{} {expected}'.format(type(self).__name__.replace('_', ' '),
-                                      expected=plain_enumerate(self._args))
+        result = '{} {expected}'.format(type(self).__name__.replace('_', ' '),
+                                        expected=plain_enumerate(self._args))
+
+        if self._is_not_a_sequence(subject):
+            result += ' but is not a valid sequence type'
+
+        return result
 
 
 class contain_exactly(contain):
