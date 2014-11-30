@@ -863,6 +863,15 @@ contain
 
 .. code-block:: python
 
+    expect(object()).to(contain('bar'))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``<object object at 0x7f5004aa1070>`` to contain ``'bar'`` but is not a valid sequence type
+
+.. code-block:: python
+
     expect(['bar', 'baz']).not_to(contain('bar'))
 
 .. admonition:: Failure
@@ -878,6 +887,15 @@ contain
     :class: error
 
     Expected ``['bar', 'baz']`` not to contain ``'bar'`` and ``'baz'``
+
+.. code-block:: python
+
+    expect(object()).not_to(contain('bar'))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``<object object at 0x7f5004aa1070>`` not to contain ``'bar'`` but is not a valid sequence type
 
 contain_exactly
 ---------------
@@ -943,6 +961,15 @@ contain_exactly
     :class: error
 
     Expected ``['bar', 'baz']`` to contain exactly ``'foo'``
+
+.. code-block:: python
+
+    expect(object()).to(contain_exactly('bar'))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``<object object at 0x7f5004aa1070>`` to contain exactly ``'bar'`` but is not a valid sequence type
 
 start_with
 ----------
