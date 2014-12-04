@@ -21,6 +21,9 @@ Highlights
 ^^^^^^^^^^
 
 * Added ``have_len`` as an alias to ``have_length``.
+* The ``have_len`` and ``have_length`` matchers can receive another matcher as expected value::
+
+    expect('foo').to(have_len(be_above(2)))
 
 
 0.6.1 (Nov 30, 2014)
