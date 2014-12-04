@@ -4,6 +4,20 @@ Changes
 0.7.0 (Not released yet)
 ------------------------
 
+Backwards-incompatible
+^^^^^^^^^^^^^^^^^^^^^^
+
+* The ``failure`` context manager now uses the ``end_with`` matcher as default matcher for failure message instead of the previously used ``contain`` matcher. Example::
+
+    >>> from expects.testing import failure
+    >>> with failure('foo'):
+    ...     raise AssertionError('A foo message')
+    AssertionError: Expected message 'A foo message' to end with 'foo'
+
+    >>> with failure('message'):
+    ...     raise AssertionError('A foo message')
+
+
 0.6.1 (Nov 30, 2014)
 --------------------
 
