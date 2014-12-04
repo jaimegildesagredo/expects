@@ -15,3 +15,7 @@ class have_length(Matcher):
             return len(collection)
         except TypeError:
             return sum(1 for i in collection)
+
+
+class have_len(have_length):
+    pass
