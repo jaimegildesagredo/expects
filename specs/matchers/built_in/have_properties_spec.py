@@ -22,6 +22,9 @@ with describe('have_properties'):
     with it('passes if object has properties in dict'):
         expect(self.obj).to(have_properties({'bar': 0, 'baz': 1}))
 
+    with it('passes if object has properties matching in kwargs'):
+        expect(self.obj).to(have_properties(bar=be_an(int)))
+
     with it('fails if object does not have property in args'):
         with failure("to have properties 'bar' and 'foo'"):
             expect(self.obj).to(have_properties('bar', 'foo'))
@@ -45,6 +48,10 @@ with describe('have_properties'):
     with it('fails if object has property without value in dict'):
         with failure("to have properties 'bar' equal 1 and 'baz' equal 1"):
             expect(self.obj).to(have_properties({'bar': 1, 'baz': 1}))
+
+    with it('fails if object has properties not matching in args'):
+        with failure("to have properties 'bar' be an instance of str"):
+            expect(self.obj).to(have_properties(bar=be_a(str)))
 
     with context('#negated'):
         with it('passes if object does not have properties in args'):

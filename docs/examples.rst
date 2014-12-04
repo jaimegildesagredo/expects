@@ -531,6 +531,8 @@ have_properties
 
     expect(Foo(bar=0, baz=1)).to(have_properties({'bar': 0, 'baz': 1}))
 
+    expect(Foo(bar=0, baz=1)).to(have_properties(bar=be_an(int)))
+
     expect(Foo(bar=0, baz=1)).not_to(have_properties('foo', 'foobar'))
 
     expect(Foo(bar=0, baz=1)).not_to(have_properties(foo=0, foobar=1))
@@ -552,7 +554,7 @@ have_properties
 
 .. code-block:: python
 
-    expect(self.obj).to(have_properties(bar=0, foo=1))
+    expect(Foo(bar=0, baz=1)).to(have_properties(bar=0, foo=1))
 
 .. admonition:: Failure
     :class: error
@@ -561,7 +563,7 @@ have_properties
 
 .. code-block:: python
 
-    expect(self.obj).to(have_properties(bar=1, baz=1))
+    expect(Foo(bar=0, baz=1)).to(have_properties(bar=1, baz=1))
 
 .. admonition:: Failure
     :class: error
@@ -570,7 +572,7 @@ have_properties
 
 .. code-block:: python
 
-    expect(self.obj).to(have_properties('foo', bar=0))
+    expect(Foo(bar=0, baz=1)).to(have_properties('foo', bar=0))
 
 .. admonition:: Failure
     :class: error
@@ -579,7 +581,7 @@ have_properties
 
 .. code-block:: python
 
-    expect(self.obj).to(have_properties('baz', bar=1))
+    expect(Foo(bar=0, baz=1)).to(have_properties('baz', bar=1))
 
 .. admonition:: Failure
     :class: error
@@ -588,7 +590,7 @@ have_properties
 
 .. code-block:: python
 
-    expect(self.obj).to(have_properties({'bar': 1, 'baz': 1}))
+    expect(Foo(bar=0, baz=1)).to(have_properties({'bar': 1, 'baz': 1}))
 
 .. admonition:: Failure
     :class: error
@@ -597,7 +599,7 @@ have_properties
 
 .. code-block:: python
 
-    expect(self.obj).not_to(have_properties('bar', 'baz'))
+    expect(Foo(bar=0, baz=1)).not_to(have_properties('bar', 'baz'))
 
 .. admonition:: Failure
     :class: error
@@ -606,12 +608,22 @@ have_properties
 
 .. code-block:: python
 
-    expect(self.obj).not_to(have_properties(bar=0, baz=1))
+    expect(Foo(bar=0, baz=1)).not_to(have_properties(bar=0, baz=1))
 
 .. admonition:: Failure
     :class: error
 
     Expected ``<Foo object at 0x7ff289cb4310>`` not to have properties ``'bar'`` equal ``0`` and ``'baz'`` equal ``1``
+
+
+.. code-block:: python
+
+    expect(Foo(bar=0, baz=1)).to(have_properties(bar=be_a(str)))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to have properties ``'bar'`` be an instance of ``str``
 
 have_key
 --------
