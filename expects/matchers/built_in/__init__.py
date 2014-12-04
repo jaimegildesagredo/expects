@@ -13,7 +13,7 @@ from .be_above_or_equal import be_above_or_equal
 from .be_below_or_equal import be_below_or_equal
 from .be_within import be_within
 from .be_callable import be_callable
-from .have_length import have_length, have_len
+from .have_len import have_len, have_length
 from .have_properties import have_properties, have_property
 from .have_keys import have_key, have_keys
 from .contain import contain, contain_exactly
@@ -37,8 +37,8 @@ __all__ = [
     'be_below_or_equal',
     'be_within',
     'be_callable',
-    'have_length',
     'have_len',
+    'have_length',
     'have_properties',
     'have_property',
     'have_key',

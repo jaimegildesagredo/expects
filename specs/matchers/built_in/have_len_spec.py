@@ -26,3 +26,12 @@ with describe('have_len'):
         with it('fails if string has the expected length'):
             with failure("Expected 'foo' not to have len 3"):
                 expect('foo').not_to(have_len(3))
+
+
+with describe('have_length'):
+    with it('passes if string has the expected length'):
+        expect('foo').to(have_length(3))
+
+    with it('fails if string does not have the expected length'):
+        with failure("Expected 'foo' to have length 2"):
+            expect('foo').to(have_length(2))
