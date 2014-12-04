@@ -401,7 +401,7 @@ have_len / have_length
 .. admonition:: Failure
     :class: error
 
-    Expected ``'foo'`` to have length ``2`` but was ``3``
+    Expected ``'foo'`` to have length ``2``
 
 .. code-block:: python
 
@@ -410,8 +410,7 @@ have_len / have_length
 .. admonition:: Failure
     :class: error
 
-    Expected ``'foo'`` to have len be bellow ``2`` but was ``3``
-
+    Expected ``'foo'`` to have len be bellow ``2``
 .. code-block:: python
 
     expect(iter('foo')).to(have_len(2))
@@ -419,7 +418,7 @@ have_len / have_length
 .. admonition:: Failure
     :class: error
 
-    Expected ``<str_iterator object at 0x7fd4832d6950>`` to have len ``2`` but was ``3``
+    Expected ``<str_iterator object at 0x7fd4832d6950>`` to have len ``2``
 
 .. code-block:: python
 
@@ -428,7 +427,7 @@ have_len / have_length
 .. admonition:: Failure
     :class: error
 
-    Expected ``'foo'`` not to have len ``3`` but was ``3``
+    Expected ``'foo'`` not to have len ``3``
 
 have_property
 -------------
