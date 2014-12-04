@@ -383,16 +383,16 @@ be_callable
 
     Expected ``'foo'`` to be callable
 
-have_length
------------
+have_len / have_length
+----------------------
 
 .. code-block:: python
 
-    expect('foo').to(have_length(3))
+    expect('foo').to(have_len(3))
 
     expect(iter('foo')).to(have_length(3))
 
-    expect('foo').not_to(have_length(2))
+    expect('foo').not_to(have_len(2))
 
     expect('foo').to(have_length(2))
 
@@ -403,7 +403,7 @@ have_length
 
 .. code-block:: python
 
-    expect(iter('foo')).to(have_length(2))
+    expect(iter('foo')).to(have_len(2))
 
 .. admonition:: Failure
     :class: error
@@ -412,7 +412,7 @@ have_length
 
 .. code-block:: python
 
-    expect('foo').not_to(have_length(3))
+    expect('foo').not_to(have_len(3))
 
 .. admonition:: Failure
     :class: error
