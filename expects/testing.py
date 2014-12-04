@@ -9,7 +9,7 @@ import re
 import traceback
 
 from ._compat import with_metaclass
-from .matchers.built_in import contain as contain_matcher
+from .matchers.built_in import end_with as end_with_matcher
 
 
 class _ContextManagerMeta(type):
@@ -28,7 +28,7 @@ class failure(with_metaclass(_ContextManagerMeta)):
     and matches the given message (whether any has been specified).
 
     :param message: should match the failure message. If a string is
-                    passed, the :class:`contain` matcher will be used
+                    passed, the :class:`end_with` matcher will be used
                     by default.
 
     :type message: an :class:`expects.matchers.Matcher` or string
@@ -73,7 +73,7 @@ class failure(with_metaclass(_ContextManagerMeta)):
 
     def __init__(self, message):
         if not hasattr(message, '_match'):
-            message = contain_matcher(message)
+            message = end_with_matcher(message)
 
         self._message = message
 
