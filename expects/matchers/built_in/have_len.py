@@ -8,7 +8,7 @@ class have_length(Matcher):
         self._expected = expected
 
     def _match(self, subject):
-        return self.__length(subject) == self._expected
+        return self._match_value(self._expected, self.__length(subject))
 
     def __length(self, collection):
         try:

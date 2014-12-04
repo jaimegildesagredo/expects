@@ -137,8 +137,13 @@ class Matcher(object):
         """
 
         if hasattr(self, '_expected'):
-            return '{name} {expected!r}'.format(name=self.__name,
-                                                expected=self._expected)
+            if hasattr(self._expected, '_description'):
+                expected = self._expected._description(None)
+            else:
+                expected = repr(self._expected)
+
+            return '{name} {expected}'.format(name=self.__name,
+                                                expected=expected)
         return self.__name
 
     @property
