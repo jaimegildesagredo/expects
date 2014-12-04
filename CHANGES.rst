@@ -17,6 +17,11 @@ Backwards-incompatible
     >>> with failure('message'):
     ...     raise AssertionError('A foo message')
 
+Highlights
+^^^^^^^^^^
+
+* Added ``have_len`` as an alias to ``have_length``.
+
 
 0.6.1 (Nov 30, 2014)
 --------------------
