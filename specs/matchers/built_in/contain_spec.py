@@ -33,6 +33,9 @@ with describe('contain'):
     with it('passes if string contains strings'):
         expect(self.str).to(contain('foo', 'string'))
 
+    with it('passes if list contains a item matching'):
+        expect(self.lst).to(contain(be_a(str)))
+
     with it('fails if list does not contain item'):
         with failure("to contain 'bar' and 'foo'"):
             expect(self.lst).to(contain('bar', 'foo'))
@@ -44,6 +47,10 @@ with describe('contain'):
     with it('fails if is not an iterable object'):
         with failure("to contain 'bar' but is not a valid sequence type"):
             expect(object()).to(contain('bar'))
+
+    with it('fails if list does not contain items matching'):
+        with failure('contain be an instance of int and have len 5'):
+            expect(self.lst).to(contain(be_an(int), have_len(5)))
 
     with context('#negated'):
         with it('passes if list does not contain item'):

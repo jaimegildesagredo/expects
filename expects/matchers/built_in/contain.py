@@ -9,8 +9,8 @@ from ... import _compat
 
 
 class contain(Matcher):
-    def __init__(self, *args):
-        self._args = args
+    def __init__(self, *expected):
+        self._expected = expected
 
     def _normalize_subject(method):
         @functools.wraps(method)
@@ -32,11 +32,20 @@ class contain(Matcher):
         return not isinstance(value, collections.Sequence)
 
     def _matches(self, subject):
-        for arg in self._args:
-            if arg not in subject:
+        for expected_item in self._expected:
+            if not self._matches_any(expected_item, subject):
                 return False
 
         return True
+
+    def _matches_any(self, expected, subject):
+        if isinstance(subject, _compat.string_types):
+            return expected in subject
+
+        for item in subject:
+            if self._match_value(expected, item):
+                return True
+        return False
 
     @_normalize_subject
     def _match_negated(self, subject):
@@ -48,7 +57,7 @@ class contain(Matcher):
     @_normalize_subject
     def _description(self, subject):
         result = '{} {expected}'.format(type(self).__name__.replace('_', ' '),
-                                        expected=plain_enumerate(self._args))
+                                        expected=plain_enumerate(self._expected))
 
         if self._is_not_a_sequence(subject):
             result += ' but is not a valid sequence type'
@@ -61,9 +70,9 @@ class contain_exactly(contain):
         if not super(contain_exactly, self)._match(subject):
             return False
 
-        return len(subject) == self._args_length(subject)
+        return len(subject) == self._expected_length(subject)
 
-    def _args_length(self, subject):
+    def _expected_length(self, subject):
         if isinstance(subject, _compat.string_types):
-            return len(''.join(self._args))
-        return len(self._args)
+            return len(''.join(self._expected))
+        return len(self._expected)

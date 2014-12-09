@@ -11,7 +11,10 @@ def plain_enumerate(args, kwargs=None):
     tokens = []
 
     for arg in args:
-        tokens.append(repr(arg))
+        if hasattr(arg, '_description'):
+            tokens.append(arg._description(None))
+        else:
+            tokens.append(repr(arg))
 
     for k, v in _sorted_items(kwargs):
         if not isinstance(v, Matcher):
