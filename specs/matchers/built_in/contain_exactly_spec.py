@@ -16,6 +16,9 @@ with describe('contain_exactly'):
     with it('should pass if list exactly has expected items'):
         expect(self.lst).to(contain_exactly(*self.lst))
 
+    with it('should passes if iterable contains item'):
+        expect(self.itr).to(contain_exactly('bar', 'baz'))
+
     with it('should pass if string exactly contains string'):
         expect(self.str).to(contain_exactly(self.str))
 
