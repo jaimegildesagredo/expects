@@ -26,6 +26,14 @@ Highlights
     expect('foo').to(have_len(be_above(2)))
 
 
+0.6.2 (Dec 10, 2014)
+--------------------
+
+Bug fixes
+^^^^^^^^^
+
+* Fixed ``contain_exactly`` to work with iterable objects. Regression introduced in v0.6.1.
+
 0.6.1 (Nov 30, 2014)
 --------------------
 

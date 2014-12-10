@@ -66,8 +66,8 @@ class contain(Matcher):
 
 
 class contain_exactly(contain):
-    def _match(self, subject):
-        if not super(contain_exactly, self)._match(subject):
+    def _matches(self, subject):
+        if not super(contain_exactly, self)._matches(subject):
             return False
 
         return len(subject) == self._expected_length(subject)
