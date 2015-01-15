@@ -25,6 +25,10 @@ Highlights
 
     expect('foo').to(have_len(be_above(2)))
 
+* The ``contain`` and ``contain_exactly`` matchers now can receive another matchers as arguments::
+
+    expect(['foo', 'bar']).to(contain(be_a(str)))
+    expect(['foo', 'bar']).to(contain_exactly(be_a(str), match('\w+')))
 
 0.6.2 (Dec 10, 2014)
 --------------------
