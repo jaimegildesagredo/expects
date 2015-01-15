@@ -16,6 +16,9 @@ with describe('contain_exactly'):
     with it('passes if list exactly has expected items'):
         expect(self.lst).to(contain_exactly(*self.lst))
 
+    with it('passes if list contains exactly matching items'):
+        expect(self.lst).to(contain_exactly(equal('bar'), equal('baz')))
+
     with it('passes if iterable contains item'):
         expect(self.itr).to(contain_exactly('bar', 'baz'))
 
@@ -56,3 +59,7 @@ with describe('contain_exactly'):
     with it('fails if is not an iterable object'):
         with failure("to contain exactly 'bar' but is not a valid sequence type"):
             expect(object()).to(contain_exactly('bar'))
+
+    with it('fails if list does not contain exactly matching items'):
+        with failure:
+            expect(self.lst).to(contain_exactly(equal('baz'), equal('baz')))

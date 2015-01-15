@@ -67,10 +67,14 @@ class contain(Matcher):
 
 class contain_exactly(contain):
     def _matches(self, subject):
-        if not super(contain_exactly, self)._matches(subject):
-            return False
+        if isinstance(subject, _compat.string_types):
+            return subject == ''.join(self._expected)
 
-        return len(subject) == self._expected_length(subject)
+        for index, expected_item in enumerate(self._expected):
+            if not self._match_value(expected_item, subject[index]):
+                return False
+
+        return len(subject) == len(self._expected)
 
     def _expected_length(self, subject):
         if isinstance(subject, _compat.string_types):
