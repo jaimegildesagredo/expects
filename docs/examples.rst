@@ -867,6 +867,8 @@ contain
 
     expect(['bar', 'baz']).not_to(contain('bar', 'foo'))
 
+    expect(['bar', 'baz']).to(contain(be_a(str)))
+
     expect(['bar', 'baz']).to(contain('bar', 'foo'))
 
 .. admonition:: Failure
@@ -919,6 +921,15 @@ contain
 
     Expected ``<object object at 0x7f5004aa1070>`` not to contain ``'bar'`` but is not a valid sequence type
 
+.. code-block:: python
+
+    expect(['bar', 'baz']).to(contain(be_an(int), have_len(5)))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``['bar', 'baz']`` to contain be an instance of ``int`` and have len ``5``
+
 contain_exactly
 ---------------
 
@@ -931,6 +942,8 @@ contain_exactly
     expect('My foo string').to(contain_exactly('My foo string'))
 
     expect('My foo string').to(contain_exactly('My foo', ' string'))
+
+    expect(['bar', 'baz']).to(contain_exactly(equal('bar'), equal('baz')))
 
     expect(['bar', 'baz']).to(contain_exactly('foo'))
 
@@ -982,7 +995,7 @@ contain_exactly
 .. admonition:: Failure
     :class: error
 
-    Expected ``['bar', 'baz']`` to contain exactly ``'foo'``
+    Expected ``'My foo string'`` to contain exactly ``'foo'``
 
 .. code-block:: python
 
@@ -992,6 +1005,15 @@ contain_exactly
     :class: error
 
     Expected ``<object object at 0x7f5004aa1070>`` to contain exactly ``'bar'`` but is not a valid sequence type
+
+.. code-block:: python
+
+    expect(['bar', 'baz']).to(contain_exactly(equal('baz'), equal('baz')))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``['bar', 'baz']`` to contain exactly equal ``'bar'`` and equal ``'baz'``
 
 start_with
 ----------
