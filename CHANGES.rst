@@ -30,6 +30,8 @@ Highlights
     expect(['foo', 'bar']).to(contain(be_a(str)))
     expect(['foo', 'bar']).to(contain_exactly(be_a(str), match('\w+')))
 
+* Improved ``be_a`` and ``be_an`` failure messages.
+
 0.6.2 (Dec 10, 2014)
 --------------------
 
