@@ -3,6 +3,7 @@
 from specs.fixtures import Foo
 
 from expects import *
+from expects.aliases import *
 from expects.testing import failure
 
 
@@ -55,11 +56,11 @@ with describe('have_property'):
             expect(self.obj).to(have_property('bar', be_below(1)))
 
         with it('should pass if object does not have property above 1'):
-            expect(self.obj).to(have_property('bar', not_(be_above(1))))
+            expect(self.obj).to(have_property('bar', not_(above(1))))
 
         with it('should fail if object has property above 1'):
-            with failure("to have property 'bar' be above 1"):
-                expect(self.obj).to(have_property('bar', be_above(1)))
+            with failure("to have property 'bar' above 1"):
+                expect(self.obj).to(have_property('bar', above(1)))
 
         with it('should fail if object has property not below 1'):
             with failure("to have property 'bar' not be below 1"):

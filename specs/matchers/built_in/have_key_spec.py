@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*
 
 from expects import *
+from expects.aliases import *
 from expects.testing import failure
 
 
@@ -66,5 +67,5 @@ with describe('have_key'):
             expect(self.dct).to(have_key('bar', be_below(1)))
 
         with it('should fail if actual does not have key above 1'):
-            with failure("to have key 'bar' be above 1"):
-                expect(self.dct).to(have_key('bar', be_above(1)))
+            with failure("to have key 'bar' above 1"):
+                expect(self.dct).to(have_key('bar', above(1)))

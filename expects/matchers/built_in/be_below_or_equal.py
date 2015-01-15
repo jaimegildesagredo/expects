@@ -9,3 +9,7 @@ class be_below_or_equal(Matcher):
 
     def _match(self, subject):
         return subject <= self._expected
+
+
+class below_or_equal(be_below_or_equal):
+    pass

@@ -21,3 +21,11 @@ class be_a(_BeAnInstanceOf):
 
 class be_an(_BeAnInstanceOf):
     pass
+
+
+class a(_BeAnInstanceOf):
+    pass
+
+
+class an(_BeAnInstanceOf):
+    pass

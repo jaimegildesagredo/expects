@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*
 
 from expects import *
+from expects.aliases import *
+
 from expects.testing import failure
 
 
@@ -9,7 +11,7 @@ with describe('have_len'):
         expect('foo').to(have_len(3))
 
     with it('passes if string has length matching'):
-        expect('foo').to(have_len(be_above_or_equal(3)))
+        expect('foo').to(have_len(above_or_equal(3)))
 
     with it('passes if iterable has the expected length'):
         expect(iter('foo')).to(have_len(3))
@@ -19,8 +21,8 @@ with describe('have_len'):
             expect('foo').to(have_len(2))
 
     with it('fails if string does not have length matching'):
-        with failure('to have len be below 3'):
-            expect('foo').to(have_len(be_below(3)))
+        with failure('to have len below 3'):
+            expect('foo').to(have_len(below(3)))
 
     with it('fails if iterable does not have the expected length'):
         with failure('to have len 2'):

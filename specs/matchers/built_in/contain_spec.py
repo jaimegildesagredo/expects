@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*
 
 from expects import *
+from expects.aliases import *
 from expects.testing import failure
 
 
@@ -34,7 +35,7 @@ with describe('contain'):
         expect(self.str).to(contain('foo', 'string'))
 
     with it('passes if list contains a item matching'):
-        expect(self.lst).to(contain(be_a(str)))
+        expect(self.lst).to(contain(a(str)))
 
     with it('fails if list does not contain item'):
         with failure("to contain 'bar' and 'foo'"):
@@ -49,8 +50,8 @@ with describe('contain'):
             expect(object()).to(contain('bar'))
 
     with it('fails if list does not contain items matching'):
-        with failure('contain be an int and have len 5'):
-            expect(self.lst).to(contain(be_an(int), have_len(5)))
+        with failure('contain an int and have len 5'):
+            expect(self.lst).to(contain(an(int), have_len(5)))
 
     with context('#negated'):
         with it('passes if list does not contain item'):
