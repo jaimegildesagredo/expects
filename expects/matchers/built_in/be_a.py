@@ -3,7 +3,7 @@
 from .. import Matcher
 
 
-class BeAnInstanceOf(Matcher):
+class _BeAnInstanceOf(Matcher):
     def __init__(self, expected):
         self._expected = expected
 
@@ -11,7 +11,13 @@ class BeAnInstanceOf(Matcher):
         return isinstance(subject, self._expected)
 
     def _description(self, subject):
-        return 'be an instance of {expected.__name__}'.format(expected=self._expected)
+        return '{name} {expected}'.format(name=self._name,
+                                          expected=self._expected.__name__)
 
 
-be_a = be_an = BeAnInstanceOf
+class be_a(_BeAnInstanceOf):
+    pass
+
+
+class be_an(_BeAnInstanceOf):
+    pass

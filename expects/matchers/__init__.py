@@ -142,12 +142,12 @@ class Matcher(object):
             else:
                 expected = repr(self._expected)
 
-            return '{name} {expected}'.format(name=self.__name,
+            return '{name} {expected}'.format(name=self._name,
                                                 expected=expected)
-        return self.__name
+        return self._name
 
     @property
-    def __name(self):
+    def _name(self):
         return type(self).__name__.replace('_', ' ').strip()
 
     def _match_value(self, matcher, value):

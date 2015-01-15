@@ -49,7 +49,7 @@ with describe('contain'):
             expect(object()).to(contain('bar'))
 
     with it('fails if list does not contain items matching'):
-        with failure('contain be an instance of int and have len 5'):
+        with failure('contain be an int and have len 5'):
             expect(self.lst).to(contain(be_an(int), have_len(5)))
 
     with context('#negated'):

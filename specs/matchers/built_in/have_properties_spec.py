@@ -50,7 +50,7 @@ with describe('have_properties'):
             expect(self.obj).to(have_properties({'bar': 1, 'baz': 1}))
 
     with it('fails if object has properties not matching in args'):
-        with failure("to have properties 'bar' be an instance of str"):
+        with failure("to have properties 'bar' be a str"):
             expect(self.obj).to(have_properties(bar=be_a(str)))
 
     with context('#negated'):

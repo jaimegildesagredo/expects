@@ -20,7 +20,7 @@ with describe('be_a'):
         class Bar(object):
             pass
 
-        with failure('to be an instance of Bar'):
+        with failure('to be a Bar'):
             expect(self.obj).to(be_a(Bar))
 
     with context('#negated'):
@@ -31,9 +31,9 @@ with describe('be_a'):
             expect(self.obj).not_to(be_a(Bar))
 
         with it('should fail if object is a subclass instance of the expected class'):
-            with failure('to be an instance of object'):
+            with failure('to be a object'):
                 expect(self.obj).not_to(be_a(object))
 
         with it('should fail if object is an instance of the expected class'):
-            with failure('not to be an instance of Foo'):
+            with failure('not to be a Foo'):
                 expect(self.obj).not_to(be_a(Foo))
