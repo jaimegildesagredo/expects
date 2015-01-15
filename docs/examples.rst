@@ -155,7 +155,7 @@ be_a / be_an
 .. admonition:: Failure
     :class: error
 
-    Expected ``<Foo object at 0x7ff289cb4310>`` to be an instance of ``Bar``
+    Expected ``<Foo object at 0x7ff289cb4310>`` to be a ``Bar``
 
 .. code-block:: python
 
@@ -164,7 +164,7 @@ be_a / be_an
 .. admonition:: Failure
     :class: error
 
-    Expected ``<Foo object at 0x7ff289cb4310>`` not to be an instance of ``Foo``
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to be a ``Foo``
 
 .. code-block:: python
 
@@ -173,7 +173,7 @@ be_a / be_an
 .. admonition:: Failure
     :class: error
 
-    Expected ``<Foo object at 0x7ff289cb4310>`` to be an instance of ``Object``
+    Expected ``<Foo object at 0x7ff289cb4310>`` to be an ``Object``
 
 .. code-block:: python
 
@@ -182,7 +182,7 @@ be_a / be_an
 .. admonition:: Failure
     :class: error
 
-    Expected ``<Foo object at 0x7ff289cb4310>`` not to be an instance of ``object``
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to be an ``object``
 
 be_empty
 --------
@@ -633,7 +633,7 @@ have_properties
 .. admonition:: Failure
     :class: error
 
-    Expected ``<Foo object at 0x7ff289cb4310>`` not to have properties ``'bar'`` be an instance of ``str``
+    Expected ``<Foo object at 0x7ff289cb4310>`` not to have properties ``'bar'`` be a ``str``
 
 have_key
 --------
@@ -928,7 +928,7 @@ contain
 .. admonition:: Failure
     :class: error
 
-    Expected ``['bar', 'baz']`` to contain be an instance of ``int`` and have len ``5``
+    Expected ``['bar', 'baz']`` to contain be an ``int`` and have len ``5``
 
 contain_exactly
 ---------------
