@@ -75,8 +75,3 @@ class contain_exactly(contain):
                 return False
 
         return len(subject) == len(self._expected)
-
-    def _expected_length(self, subject):
-        if isinstance(subject, _compat.string_types):
-            return len(''.join(self._expected))
-        return len(self._expected)
