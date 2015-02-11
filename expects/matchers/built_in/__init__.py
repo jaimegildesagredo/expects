@@ -16,7 +16,7 @@ from .be_callable import be_callable
 from .have_len import have_len, have_length
 from .have_properties import have_properties, have_property
 from .have_keys import have_key, have_keys
-from .contain import contain, contain_exactly
+from .contain import contain, contain_exactly, contain_only
 from .start_end_with import start_with, end_with
 from .match import match
 from .raise_error import raise_error
@@ -45,6 +45,7 @@ __all__ = [
     'have_keys',
     'contain',
     'contain_exactly',
+    'contain_only',
     'start_with',
     'end_with',
     'match',

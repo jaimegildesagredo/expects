@@ -75,3 +75,14 @@ class contain_exactly(contain):
                 return False
 
         return len(subject) == len(self._expected)
+
+
+class contain_only(contain):
+    def _matches(self, subject):
+        if isinstance(subject, _compat.string_types):
+            return subject == ''.join(self._expected)
+
+        if not super(contain_only, self)._matches(subject):
+            return False
+
+        return len(subject) == len(self._expected)
