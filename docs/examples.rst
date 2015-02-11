@@ -1026,6 +1026,66 @@ contain_exactly
 
     Expected ``['bar', 'baz']`` to contain exactly equal ``'bar'`` and equal ``'baz'``
 
+contain_only
+------------
+
+.. code-block:: python
+
+    expect(['bar']).to(contain_only('bar'))
+
+    expect(['bar', 'baz']).to(contain_only(['baz', 'bar']))
+
+    expect(iter(['bar', 'baz'])).to(contain_only('bar', 'baz'))
+
+    expect('My foo string').to(contain_only('My foo string'))
+
+    expect('My foo string').to(contain_only('My foo', ' string'))
+
+    expect(['bar', 'baz']).to(contain_only(equal('bar'), equal('baz')))
+
+    expect(['bar', 'baz']).to(contain_only('foo'))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``['bar', 'baz']`` to contain only ``'foo'``
+
+.. code-block:: python
+
+    expect(['bar', 'baz', 'foo']).to(contain_only('bar', 'baz'))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``['bar', 'baz', 'foo']`` to contain only ``'bar'`` and ``'baz'``
+
+.. code-block:: python
+
+    expect('My foo string').to(contain_only('foo'))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``'My foo string'`` to contain only ``'foo'``
+
+.. code-block:: python
+
+    expect(object()).to(contain_only('bar'))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``<object object at 0x7f5004aa1070>`` to contain only ``'bar'`` but is not a valid sequence type
+
+.. code-block:: python
+
+    expect(['bar', 'baz']).to(contain_only(equal('baz'), equal('foo')))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``['bar', 'baz']`` to contain only equal ``'baz'`` and equal ``'foo'``
+
 start_with
 ----------
 
