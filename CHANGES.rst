@@ -4,19 +4,6 @@ Changes
 0.7.0 (Not released yet)
 ------------------------
 
-Backwards-incompatible
-^^^^^^^^^^^^^^^^^^^^^^
-
-* The ``failure`` context manager now uses the ``end_with`` matcher as default matcher for failure message instead of the previously used ``contain`` matcher. Example::
-
-    >>> from expects.testing import failure
-    >>> with failure('foo'):
-    ...     raise AssertionError('A foo message')
-    AssertionError: Expected message 'A foo message' to end with 'foo'
-
-    >>> with failure('message'):
-    ...     raise AssertionError('A foo message')
-
 Highlights
 ^^^^^^^^^^
 
@@ -31,6 +18,20 @@ Highlights
     expect(['foo', 'bar']).to(contain_exactly(be_a(str), match('\w+')))
 
 * Improved ``be_a`` and ``be_an`` failure messages.
+* Added the ``contain_only`` matcher.
+
+Backwards-incompatible
+^^^^^^^^^^^^^^^^^^^^^^
+
+* The ``failure`` context manager now uses the ``end_with`` matcher as default matcher for failure message instead of the previously used ``contain`` matcher. Example::
+
+    >>> from expects.testing import failure
+    >>> with failure('foo'):
+    ...     raise AssertionError('A foo message')
+    AssertionError: Expected message 'A foo message' to end with 'foo'
+
+    >>> with failure('message'):
+    ...     raise AssertionError('A foo message')
 
 0.6.2 (Dec 10, 2014)
 --------------------
