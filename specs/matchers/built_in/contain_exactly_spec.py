@@ -36,6 +36,10 @@ with describe('contain_exactly'):
         with failure("to contain exactly 'foo' and 'fuu'"):
             expect(self.lst).to(contain_exactly('foo', 'fuu'))
 
+    with it('fails if list does not contain expected items in order'):
+        with failure("to contain exactly 'baz' and 'bar'"):
+            expect(self.lst).to(contain_exactly('baz', 'bar'))
+
     with it('fails if list not exactly has expected item'):
         with failure("to contain exactly 'bar'"):
             expect(self.lst).to(contain_exactly('bar'))

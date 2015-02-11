@@ -17,6 +17,9 @@ with describe('contain'):
     with it('passes if list contains items'):
         expect(self.lst).to(contain('bar', 'baz'))
 
+    with it('passes if list contains items in any order'):
+        expect(self.lst).to(contain('baz', 'bar'))
+
     with it('passes if iterable of dicts contains dict'):
         # https://github.com/jaimegildesagredo/expects/issues/8
 

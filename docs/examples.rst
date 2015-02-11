@@ -851,6 +851,8 @@ contain
 
     expect(['bar', 'baz']).to(contain('bar', 'baz'))
 
+    expect(['bar', 'baz']).to(contain('baz', 'bar'))
+
     expect([{'foo': 1}, 'bar']).to(contain({'foo': 1}))
 
     expect(iter(['bar', 'baz'])).to(contain('bar'))
@@ -960,6 +962,15 @@ contain_exactly
     :class: error
 
     Expected ``['bar', 'baz']`` to contain exactly ``'foo'`` and ``'fuu'``
+
+.. code-block:: python
+
+    expect(['bar', 'baz']).to(contain_exactly('baz', 'bar'))
+
+.. admonition:: Failure
+    :class: error
+
+    Expected ``['bar', 'baz']`` to contain exactly ``'baz'`` and ``'bar'``
 
 .. code-block:: python
 
