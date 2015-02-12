@@ -26,6 +26,13 @@ Highlights
 
     expect(True).to_not(be_false)
 
+* Added the `aliases <http://expects.readthedocs.org/en/latest/aliases.html>`_ module with matcher aliases useful to compose matchers::
+
+    from expects import *
+    from expects.aliases import *
+
+    expect([1, 2]).to(contain_exactly(an(int), 2))
+
 Backwards-incompatible
 ^^^^^^^^^^^^^^^^^^^^^^
 
