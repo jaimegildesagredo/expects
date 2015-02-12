@@ -59,17 +59,17 @@ with describe('have_keys'):
             expect(self.dct).not_to(have_keys(foo=0, foobar=1))
 
         with it('should_pass_if_dict_has_key_without_value_in_kwargs'):
-            expect(self.dct).not_to(have_keys(foo=0, bar=1))
+            expect(self.dct).to_not(have_keys(foo=0, bar=1))
 
         with it('should_pass_if_dict_does_not_have_keys_in_dict'):
-            expect(self.dct).not_to(have_keys({'foo': 0, 'foobar': 1}))
+            expect(self.dct).to_not(have_keys({'foo': 0, 'foobar': 1}))
 
         with it('should_pass_if_dict_has_one_key_and_not_the_other_in_args'):
             expect(self.dct).not_to(have_keys('foo', 'bar'))
 
         with it('should_fail_if_dict_has_keys_in_args'):
             with failure("not to have keys 'bar' and 'baz'"):
-                expect(self.dct).not_to(have_keys('bar', 'baz'))
+                expect(self.dct).to_not(have_keys('bar', 'baz'))
 
         with it('should_fail_if_dict_has_keys_in_kwargs'):
             with failure("not to have keys 'bar' equal 0 and 'baz' equal 1"):

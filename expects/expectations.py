@@ -11,6 +11,10 @@ class Expectation(object):
         self._negated = True
         return self.to
 
+    @property
+    def to_not(self):
+        return self.not_to
+
     def to(self, matcher):
         self._assert(matcher)
 

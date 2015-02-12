@@ -55,7 +55,7 @@ with describe('have_properties'):
 
     with context('#negated'):
         with it('passes if object does not have properties in args'):
-            expect(self.obj).not_to(have_properties('foo', 'foobar'))
+            expect(self.obj).to_not(have_properties('foo', 'foobar'))
 
         with it('passes if object does not have properties in kwargs'):
             expect(self.obj).not_to(have_properties(foo=0, foobar=1))
@@ -74,7 +74,7 @@ with describe('have_properties'):
 
         with it('fails if object has properties in args'):
             with failure("not to have properties 'bar' and 'baz'"):
-                expect(self.obj).not_to(have_properties('bar', 'baz'))
+                expect(self.obj).to_not(have_properties('bar', 'baz'))
 
         with it('fails if object has properties in kwargs'):
             with failure("not to have properties 'bar' equal 0 and 'baz' equal 1"):

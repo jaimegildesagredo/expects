@@ -19,6 +19,9 @@ Highlights
 
 * Improved ``be_a`` and ``be_an`` failure messages.
 * Added the ``contain_only`` matcher.
+* Added the ``to_not`` alias for ``not_to`` to negate assertions::
+
+    expect(True).to_not(be_false)
 
 Backwards-incompatible
 ^^^^^^^^^^^^^^^^^^^^^^

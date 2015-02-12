@@ -159,7 +159,7 @@ be_a / be_an
 
 .. code-block:: python
 
-    expect(Foo()).not_to(be_a(Foo))
+    expect(Foo()).to_not(be_a(Foo))
 
 .. admonition:: Failure
     :class: error
@@ -213,7 +213,7 @@ be_empty
 
 .. code-block:: python
 
-    expect('').not_to(be_empty)
+    expect('').to_not(be_empty)
 
 .. admonition:: Failure
     :class: error
@@ -279,7 +279,7 @@ be_above_or_equal
 
     expect(5).to(be_above_or_equal(5))
 
-    expect(1).not_to(be_above_or_equal(4))
+    expect(1).to_not(be_above_or_equal(4))
 
     expect(1).to(be_above_or_equal(4))
 
@@ -543,9 +543,9 @@ have_properties
 
     expect(Foo(bar=0, baz=1)).to(have_properties(bar=be_an(int)))
 
-    expect(Foo(bar=0, baz=1)).not_to(have_properties('foo', 'foobar'))
+    expect(Foo(bar=0, baz=1)).to_not(have_properties('foo', 'foobar'))
 
-    expect(Foo(bar=0, baz=1)).not_to(have_properties(foo=0, foobar=1))
+    expect(Foo(bar=0, baz=1)).to_not(have_properties(foo=0, foobar=1))
 
     expect(Foo(bar=0, baz=1)).not_to(have_properties(foo=0, bar=1))
 
@@ -648,7 +648,7 @@ have_key
 
     expect({'bar': 0, 'baz': 1}).not_to(have_key('foo', 0))
 
-    expect({'bar': 0, 'baz': 1}).not_to(have_key('bar', 1))
+    expect({'bar': 0, 'baz': 1}).to_not(have_key('bar', 1))
 
     expect({'bar': 0, 'baz': 1}).to(have_key('bar', be_below(1)))
 
@@ -1165,9 +1165,9 @@ end_with
 
     expect(OrderedDict([('bar', 0), ('baz', 1)])).to(end_with('bar, 'baz'))
 
-    expect([1, 2, 3]).not_to(end_with(1, 2))
+    expect([1, 2, 3]).to_not(end_with(1, 2))
 
-    expect([1, 2, 3]).not_to(end_with(3, 3))
+    expect([1, 2, 3]).to_not(end_with(3, 3))
 
     expect('My foo string').to(end_with('My fo'))
 
