@@ -35,6 +35,7 @@ Contents
 
    install
    matchers
+   aliases
    custom-matchers
    3rd-party-matchers
    changes
