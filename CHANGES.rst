@@ -18,7 +18,10 @@ Highlights
     expect(['foo', 'bar']).to(contain_exactly(be_a(str), match('\w+')))
 
 * Improved ``be_a`` and ``be_an`` failure messages.
-* Added the ``contain_only`` matcher.
+* Added the ``contain_only`` matcher::
+
+    expect([1, 2]).to(contain_only(2, 1))
+
 * Added the ``to_not`` alias for ``not_to`` to negate assertions::
 
     expect(True).to_not(be_false)
