@@ -11,7 +11,7 @@ To use the aliases just import them::
 
     expect([1, 2]).to(contain_exactly(an(int), 2))
 
-The same code without using the an alias for the be_an matcher::
+The same code without using the ``an`` alias for the ``be_an`` matcher::
 
     from expects import *
 
