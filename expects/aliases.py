@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 
 """The :mod:`aliases` module contains a set of matcher *aliases*
-that are most commonly used when composing matchers and are not meant
+that are commonly used when composing matchers and are not meant
 to be imported every time.
 
 To use the aliases just import them::
