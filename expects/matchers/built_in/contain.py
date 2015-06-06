@@ -69,10 +69,12 @@ class contain_exactly(contain):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
             return subject == ''.join(self._expected)
-
-        for index, expected_item in enumerate(self._expected):
-            if not self._match_value(expected_item, subject[index]):
-                return False
+        try:
+            for index, expected_item in enumerate(self._expected):
+                if not self._match_value(expected_item, subject[index]):
+                    return False
+        except IndexError:
+            return False
 
         return len(subject) == len(self._expected)
 

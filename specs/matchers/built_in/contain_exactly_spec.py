@@ -28,6 +28,10 @@ with describe('contain_exactly'):
     with it('passes if string exactly contains strings'):
         expect(self.str).to(contain_exactly('My foo', ' string'))
 
+    with it('fails if list contains fewer elements that the expected one'):
+        with failure("to contain exactly 'foo' and 'bar'"):
+            expect(['foo']).to(contain_exactly('foo', 'bar'))
+
     with it('fails if list does not contain expected item'):
         with failure("to contain exactly 'foo'"):
             expect(self.lst).to(contain_exactly('foo'))
