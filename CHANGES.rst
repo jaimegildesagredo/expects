@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.7.1 (Jun 9, 2015)
+-------------------
+
+Bug fixes
+^^^^^^^^^
+
+* The ``contain_exactly`` matcher does not raise an ``IndexError`` if the subject list has fewer elements than the expected one. `GH-23 <https://github.com/jaimegildesagredo/expects/issues/23>`_.
+
 0.7.0 (Mar 1, 2015)
 -------------------
 
