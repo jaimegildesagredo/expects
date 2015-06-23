@@ -35,3 +35,24 @@ with describe('plain_enumerate'):
 
             expect(result).to(equal("'foo', 'bar', 'baz', 'a' equal 0, "
                                     "'b' equal 1 and 'c' equal 2"))
+
+    with context('one matcher'):
+        with it('returns matcher description'):
+            result = plain_enumerate((equal(1),))
+
+            expect(result).to(equal("equal 1"))
+
+    with context('any object with a _description method'):
+        # https://github.com/jaimegildesagredo/expects/issues/26
+        # https://github.com/jaimegildesagredo/doublex-expects/issues/8
+
+        with it('returns object repr'):
+            class Object(object):
+                def _description(self, *args, **kwargs):
+                    pass
+
+            obj = Object()
+
+            result = plain_enumerate((obj,))
+
+            expect(result).to(equal(repr(obj)))

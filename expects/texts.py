@@ -11,7 +11,7 @@ def plain_enumerate(args, kwargs=None):
     tokens = []
 
     for arg in args:
-        if hasattr(arg, '_description'):
+        if isinstance(arg, Matcher):
             tokens.append(arg._description(None))
         else:
             tokens.append(repr(arg))
@@ -33,7 +33,6 @@ def plain_enumerate(args, kwargs=None):
             result += ', '
 
     return result
-
 
 
 def _sorted_items(dct):
