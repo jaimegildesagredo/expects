@@ -7,7 +7,7 @@ Changes
 Bug fixes
 ^^^^^^^^^
 
-* `GH-26 <https://github.com/jaimegildesagredo/expects/issues/26>_`
+* `GH-26 <https://github.com/jaimegildesagredo/expects/issues/26>`_.
 
 Bug fixes
 ^^^^^^^^^
