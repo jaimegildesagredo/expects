@@ -68,13 +68,8 @@ class contain(Matcher):
 
     @_normalize_subject
     def _description(self, subject):
-        result = '{} {expected}'.format(type(self).__name__.replace('_', ' '),
-                                        expected=plain_enumerate(self._expected))
-
-        if self._is_not_a_sequence(subject):
-            result += ' but is not a valid sequence type'
-
-        return result
+        return '{} {expected}'.format(type(self).__name__.replace('_', ' '),
+                                      expected=plain_enumerate(self._expected))
 
     def _failure_message(self, subject, reason):
         return '\nExpected: {!r} to {}\n{}'.format(subject, self._description(subject), reason)
