@@ -32,12 +32,15 @@ class contain(Matcher):
         return not isinstance(value, collections.Sequence)
 
     def _matches(self, subject):
+        ok_messages = []
         for expected_item in self._expected:  ## cada matcher
             ok, message = self._matches_any(expected_item, subject)
             if not ok:
                 return False, "but: no item " + message + " found"
+            else:
+                ok_messages.append("but: item " + message + " found")
 
-        return True, ''
+        return True, '\n'.join(ok_messages)
 
     def _matches_any(self, expected, subject):
         if isinstance(subject, _compat.string_types):
@@ -47,15 +50,17 @@ class contain(Matcher):
         for item in subject:
             ok, message = self._match_value(expected, item)
             if ok:
-                return True, ''
+                return True, message
         return False, message
 
     @_normalize_subject
     def _match_negated(self, subject):
         if self._is_not_a_sequence(subject):
-            return False
+            return False, 'but: is not a valid sequence type'
 
-        return not self._matches(subject)
+        ok, message = self._matches(subject)
+
+        return not ok, message
 
     @_normalize_subject
     def _description(self, subject):
