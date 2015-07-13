@@ -41,19 +41,19 @@ with describe('contain'):
         expect(self.lst).to(contain(a(str)))
 
     with it('fails if list does not contain item'):
-        with failure(equal("but: no item equal 'foo' found")):
+        with failure("but:\n * item equal 'foo' not found"):
             expect(self.lst).to(contain('bar', 'foo'))
 
     with it('fails if iterable does not contain item'):
-        with failure(equal("but: no item equal 'foo' found")):
+        with failure("but:\n * item equal 'foo' not found"):
             expect(self.itr).to(contain('bar', 'foo'))
 
     with it('fails if is not an iterable object'):
-        with failure("but: is not a valid sequence type"):
+        with failure("but:\n * is not a valid sequence type"):
             expect(object()).to(contain('bar'))
 
     with it('fails if list does not contain items matching'):
-        with failure(equal("but: no item be an int found")):
+        with failure("but:\n * item be an int not found"):
             expect(self.lst).to(contain(be_an(int), have_len(5)))
 
     with context('#negated'):
@@ -67,13 +67,13 @@ with describe('contain'):
             expect(self.lst).not_to(contain('bar', 'foo'))
 
         with it('fails if list contains item'):
-            with failure(equal("but: item equal 'bar' found")):
+            with failure("but:\n * item equal 'bar' found"):
                 expect(self.lst).not_to(contain('bar'))
 
         with it('fails if list contains items'):
-            with failure(equal("but: item equal 'bar' found\nbut: item equal 'baz' found")):
+            with failure("but:\n * item equal 'bar' found\n * item equal 'baz' found"):
                 expect(self.lst).not_to(contain('bar', 'baz'))
 
         with it('fails if is not an iterable object'):
-            with failure("but: is not a valid sequence type"):
+            with failure("but:\n * is not a valid sequence type"):
                 expect(object()).not_to(contain('bar'))
