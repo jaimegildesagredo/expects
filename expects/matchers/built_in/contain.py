@@ -24,7 +24,7 @@ class contain(Matcher):
     @_normalize_subject
     def _match(self, subject):
         if self._is_not_a_sequence(subject):
-            return False
+            return False, 'but: is not a valid sequence type'
 
         return self._matches(subject)
 
@@ -32,20 +32,23 @@ class contain(Matcher):
         return not isinstance(value, collections.Sequence)
 
     def _matches(self, subject):
-        for expected_item in self._expected:
-            if not self._matches_any(expected_item, subject):
-                return False
+        for expected_item in self._expected:  ## cada matcher
+            ok, message = self._matches_any(expected_item, subject)
+            if not ok:
+                return False, "but: no item " + message + " found"
 
-        return True
+        return True, ''
 
     def _matches_any(self, expected, subject):
         if isinstance(subject, _compat.string_types):
-            return expected in subject
+            return expected in subject, ''
 
+        message = 'is empty coo'
         for item in subject:
-            if self._match_value(expected, item):
-                return True
-        return False
+            ok, message = self._match_value(expected, item)
+            if ok:
+                return True, ''
+        return False, message
 
     @_normalize_subject
     def _match_negated(self, subject):
@@ -69,6 +72,7 @@ class contain_exactly(contain):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
             return subject == ''.join(self._expected)
+
         try:
             for index, expected_item in enumerate(self._expected):
                 if not self._match_value(expected_item, subject[index]):

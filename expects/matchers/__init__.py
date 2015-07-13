@@ -178,7 +178,7 @@ class Matcher(object):
         if not hasattr(matcher, '_match'):
             matcher = equal_matcher(matcher)
 
-        return matcher._match(value)
+        return matcher._match(value), matcher._description(value)
 
     def __and__(self, other):
         return _And(self, other)
