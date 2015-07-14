@@ -147,6 +147,10 @@ class Matcher(object):
                                                 expected=expected)
         return self._name
 
+    def __repr__(self):
+        # TODO: the description method shouldn't receive the subject
+        return self._description(None)
+
     @property
     def _name(self):
         return type(self).__name__.replace('_', ' ').strip()
@@ -163,7 +167,7 @@ class Matcher(object):
 
         Examples::
 
-            >>> self._match_value('foo', 'foo')
+           >>> self._match_value('foo', 'foo')
             True
             >>> self._match_value('foo', 'bar')
             False
@@ -176,6 +180,8 @@ class Matcher(object):
 
         """
 
+        # TODO: deprecate this and use default_matcher function
+
         if not hasattr(matcher, '_match'):
             matcher = equal_matcher(matcher)
 
@@ -187,7 +193,11 @@ class Matcher(object):
     def __or__(self, other):
         return _Or(self, other)
 
-from .built_in import equal as equal_matcher
+
+def default_matcher(value):
+    if not isinstance(value, Matcher):
+        return equal_matcher(value)
+    return value
 
 
 class _And(Matcher):
@@ -214,3 +224,5 @@ class _Or(Matcher):
     def _description(self, subject):
         return '{} or {}'.format(self.op1._description(subject).replace(' or ', ', '),
                                  self.op2._description(subject))
+
+from .built_in import equal as equal_matcher

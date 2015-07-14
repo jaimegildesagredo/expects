@@ -3,7 +3,7 @@
 import functools
 import collections
 
-from .. import Matcher
+from .. import Matcher, default_matcher
 from ...texts import plain_enumerate
 from ... import _compat
 
@@ -87,17 +87,27 @@ class contain(Matcher):
 class contain_exactly(contain):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
-            return subject == ''.join(self._expected), ['string false o true']
+            return self.__match_string(subject)
 
         try:
             for index, expected_item in enumerate(self._expected):
-                result, reason = self._match_value(expected_item, subject[index])
+                expected_item = default_matcher(expected_item)
+                result, _ = expected_item._match(subject[index])
                 if not result:
-                    return False, ['item {!r} not found'.format(expected_item)]
+                    return False, ['item {!r} not found at index {}'.format(expected_item, index)]
         except IndexError:
-            return False, ['item {!r} not found'.format(expected_item)]
+            return False, ['item {!r} not found at index {}'.format(expected_item, index)]
 
-        return len(subject) == len(self._expected), ['true o false']
+        return len(subject) == len(self._expected), ['have a different length']
+
+    def __match_string(self, subject):
+        currentIndex = 0
+        for part in self._expected:
+            if part != subject[currentIndex:currentIndex+len(part)]:
+                return False, ['item equal {!r} not found at index {}'.format(part, currentIndex)]
+            currentIndex = len(part)
+
+        return len(subject) == len(''.join(self._expected)), ['have a different length']
 
 
 class contain_only(contain):
