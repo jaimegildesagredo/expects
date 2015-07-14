@@ -22,36 +22,36 @@ with describe('have_keys'):
         expect(self.dct).to(have_keys({'bar': 0, 'baz': 1}))
 
     with it('fails if dict does not have key in args'):
-        with failure("to have keys 'bar' and 'foo'"):
+        with failure("but: key 'foo' not found"):
             expect(self.dct).to(have_keys('bar', 'foo'))
 
     with it('fails if dict does not have key in kwargs'):
-        with failure("to have keys 'bar' equal 0 and 'foo' equal 1"):
+        with failure("but: key 'foo' equal 1 not found"):
             expect(self.dct).to(have_keys(bar=0, foo=1))
 
     with it('fails if dict has key without value in kwargs'):
-        with failure("to have keys 'bar' equal 1 and 'baz' equal 1"):
+        with failure("but: key 'bar' equal 1 not found"):
             expect(self.dct).to(have_keys(bar=1, baz=1))
 
     with it('fails if dict does not have key in args but in kwargs'):
-        with failure("to have keys 'foo', 'fuu' and 'bar' equal 0"):
+        with failure("but: key 'foo' not found"):
             expect(self.dct).to(have_keys('foo', 'fuu', bar=0))
 
     with it('fails if dict has key in args and kwargs without value'):
-        with failure("to have keys 'baz' and 'bar' equal 1"):
+        with failure("but: key 'bar' equal 1 not found"):
             expect(self.dct).to(have_keys('baz', bar=1))
 
     with it('fails if dict has key without value in dict'):
-        with failure("to have keys 'bar' equal 1 and 'baz' equal 1"):
+        with failure("but: key 'bar' equal 1 not found"):
             expect(self.dct).to(have_keys({'bar': 1, 'baz': 1}))
 
     with it('fails if actual is not a dict'):
         # issue-10
 
-        with failure("to have keys 'bar' equal 1 and 'baz' equal 1 but is not a dict"):
+        with failure("but: is not a dict"):
             expect(self.str).to(have_keys({'bar': 1, 'baz': 1}))
 
-    with context('#negated'):
+    with context('when negated'):
         with it('passes if dict does not have keys in args'):
             expect(self.dct).not_to(have_keys('foo', 'foobar'))
 
@@ -68,15 +68,15 @@ with describe('have_keys'):
             expect(self.dct).not_to(have_keys('foo', 'bar'))
 
         with it('fails if dict has keys in args'):
-            with failure("not to have keys 'bar' and 'baz'"):
+            with failure("but: key 'bar' found\n          key 'baz' found"):
                 expect(self.dct).to_not(have_keys('bar', 'baz'))
 
         with it('fails if dict has keys in kwargs'):
-            with failure("not to have keys 'bar' equal 0 and 'baz' equal 1"):
+            with failure("but: key 'bar' equal 0 found\n          key 'baz' equal 1 found"):
                 expect(self.dct).not_to(have_keys(bar=0, baz=1))
 
         with it('fails if actual is not a dict'):
             # issue-10
 
-            with failure("not to have keys 'bar' equal 1 and 'baz' equal 1 but is not a dict"):
+            with failure("but: is not a dict"):
                 expect(self.str).not_to(have_keys({'bar': 1, 'baz': 1}))
