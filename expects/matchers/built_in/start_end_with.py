@@ -13,7 +13,7 @@ class _StarEndWith(Matcher):
 
     def _match(self, subject):
         if self._is_unordered(subject):
-            return False
+            return False, ['does not have ordered keys']
 
         return self._matches(subject)
 
@@ -23,18 +23,26 @@ class _StarEndWith(Matcher):
 
     def _match_negated(self, subject):
         if self._is_unordered(subject):
-            return False
+            return False, ['does not have ordered keys']
 
-        return not self._matches(subject)
+        result, reasons = self._matches(subject)
+        return not result, reasons
 
     def _description(self, subject):
-        message = '{} {expected}'.format(type(self).__name__.replace('_', ' '),
-                                         expected=plain_enumerate(self._args))
+        return '{} {expected}'.format(type(self).__name__.replace('_', ' '),
+                                      expected=plain_enumerate(self._args))
 
-        if self._is_unordered(subject):
-            message += ' but it does not have ordered keys'
+    def _failure_message(self, subject, reasons):
+        return '\nexpected: {!r} to {}\n     but: {}'.format(
+            subject,
+            self._description(None),
+            '\n          '.join(reasons))
 
-        return message
+    def _failure_message_negated(self, subject, reasons):
+        return '\nexpected: {!r} not to {}\n     but: {}'.format(
+            subject,
+            self._description(subject),
+            '\n          '.join(reasons))
 
 
 class start_with(_StarEndWith):
@@ -47,5 +55,11 @@ class start_with(_StarEndWith):
 class end_with(_StarEndWith):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
-            return subject.endswith(self._args[0])
-        return list(self._args) == list(subject)[-len(self._args):]
+            return (
+                subject.endswith(self._args[0]),
+                ['ends with {!r}'.format(subject[-len(self._args[0]):])])
+
+        actual_end = list(subject)[-len(self._args):]
+        return (
+            list(self._args) == actual_end,
+            ['ends with {!r}'.format(actual_end)])

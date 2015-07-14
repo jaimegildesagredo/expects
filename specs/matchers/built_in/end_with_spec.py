@@ -30,24 +30,20 @@ with describe('end_with'):
         expect(self.ordered_dct).to(end_with(*expected_args))
 
     with it('should fail if string does not end with string'):
-        expected = self.str[:5]
+        str_ = 'My foo string'
 
-        with failure('to end with {!r}'.format(expected)):
-            expect(self.str).to(end_with(expected))
+        with failure('but: ends with {!r}'.format(str_[-5:])):
+            expect(self.str).to(end_with(str_[:5]))
 
     with it('should fail if list ends with first arg but not second'):
-        expected_args = self.lst[-1], self.lst[-1]
-
-        with failure('to end with {!r} and {!r}'.format(*expected_args)):
-            expect(self.lst).to(end_with(*expected_args))
+        with failure('but: ends with {!r}'.format(self.lst[-2:])):
+            expect(self.lst).to(end_with(self.lst[-1], self.lst[-1]))
 
     with it('should fail if subject is a dict'):
-        with failure('to end with {!r} and {!r} '
-                     'but it does not have ordered keys'.format(*IRRELEVANT_ARGS)):
-
+        with failure('but: does not have ordered keys'):
             expect(self.dct).to(end_with(*IRRELEVANT_ARGS))
 
-    with context('#negated'):
+    with context('when negated'):
         with it('should pass if string does not end with string'):
             expect(self.str).not_to(end_with(self.str[:5]))
 
@@ -60,7 +56,5 @@ with describe('end_with'):
             expect(self.lst).not_to(end_with(*expected_args))
 
         with it('should fail if subject is a dict'):
-            with failure('not to end with {!r} and {!r} '
-                         'but it does not have ordered keys'.format(*IRRELEVANT_ARGS)):
-
+            with failure('but: does not have ordered keys'):
                 expect(self.dct).not_to(end_with(*IRRELEVANT_ARGS))
