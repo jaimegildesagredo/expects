@@ -8,4 +8,4 @@ class be(Matcher):
         self._expected = expected
 
     def _match(self, subject):
-        return subject is self._expected
+        return subject is self._expected, ''
