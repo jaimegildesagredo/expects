@@ -48,14 +48,17 @@ class contain(Matcher):
             # TODO: test this
             return expected in subject, ['contain {!r}'.format(expected)]
 
-        # TODO: test this
-        reason = None
+        expected = default_matcher(expected)
         for item in subject:
-            matches, reason = self._match_value(expected, item)
+            matches, _ = expected._match(item)
             if matches:
-                return True, 'item {} found'.format(reason)
+                return True, 'item {!r} found'.format(expected)
 
-        return False, 'item {} not found'.format(reason) if reason is not None else 'is empty'
+        # TODO: test this
+        if len(subject) == 0:
+            return False, 'is empty'
+
+        return False, 'item {!r} not found'.format(expected)
 
     @_normalize_subject
     def _match_negated(self, subject):
