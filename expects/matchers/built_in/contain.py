@@ -116,9 +116,13 @@ class contain_exactly(contain):
 class contain_only(contain):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
-            return subject == ''.join(self._expected)
+            for item in self._expected:
+                if not item in subject:
+                    return False, ['item {!r} not found'.format(item)]
+            return len(subject) == len(''.join(self._expected)), ['have a different length']
 
-        if not super(contain_only, self)._matches(subject):
-            return False
+        result, reason = super(contain_only, self)._matches(subject)
+        if not result:
+            return False, reason
 
-        return len(subject) == len(self._expected)
+        return len(subject) == len(self._expected), ['have a different length']
