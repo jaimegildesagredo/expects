@@ -82,7 +82,7 @@ class Matcher(object):
 
         return not self._match(subject)
 
-    def _failure_message(self, subject):
+    def _failure_message(self, subject, reasons=None):
         """This method will be called from an expectation `only` when
         the expectation is going to fail. It should return a string
         with the failure message.

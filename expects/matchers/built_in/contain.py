@@ -24,7 +24,7 @@ class contain(Matcher):
     @_normalize_subject
     def _match(self, subject):
         if self._is_not_a_sequence(subject):
-            return False, 'but:\n * is not a valid sequence type'
+            return False, ['is not a valid sequence type']
 
         return self._matches(subject)
 
@@ -37,16 +37,16 @@ class contain(Matcher):
             matches_any, reason = self._matches_any(expected_item, subject)
 
             if not matches_any:
-                return False, 'but:\n * {}'.format(reason)
+                return False, [reason]
             else:
                 reasons.append(reason)
 
-        return True, 'but:\n{}'.format('\n'.join([' * {}'.format(reason) for reason in reasons]))
+        return True, reasons
 
     def _matches_any(self, expected, subject):
         if isinstance(subject, _compat.string_types):
             # TODO: test this
-            return expected in subject, 'contain {!r}'.format(expected)
+            return expected in subject, ['contain {!r}'.format(expected)]
 
         # TODO: test this
         reason = None
@@ -60,7 +60,7 @@ class contain(Matcher):
     @_normalize_subject
     def _match_negated(self, subject):
         if self._is_not_a_sequence(subject):
-            return False, 'but:\n * is not a valid sequence type'
+            return False, ['is not a valid sequence type']
 
         ok, message = self._matches(subject)
 
@@ -71,11 +71,17 @@ class contain(Matcher):
         return '{} {expected}'.format(type(self).__name__.replace('_', ' '),
                                       expected=plain_enumerate(self._expected))
 
-    def _failure_message(self, subject, reason):
-        return '\nExpected: {!r} to {}\n{}'.format(subject, self._description(subject), reason)
+    def _failure_message(self, subject, reasons):
+        return '\nexpected: {!r} to {}\n     but: {}'.format(
+            subject,
+            self._description(subject),
+            '\n          '.join(reasons))
 
-    def _failure_message_negated(self, subject, reason):
-        return '\nExpected: {!r} not to {}\n{}'.format(subject, self._description(subject), reason)
+    def _failure_message_negated(self, subject, reasons):
+        return '\nexpected: {!r} not to {}\n     but: {}'.format(
+            subject,
+            self._description(subject),
+            '\n          '.join(reasons))
 
 
 class contain_exactly(contain):
