@@ -87,16 +87,17 @@ class contain(Matcher):
 class contain_exactly(contain):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
-            return subject == ''.join(self._expected)
+            return subject == ''.join(self._expected), ['string false o true']
 
         try:
             for index, expected_item in enumerate(self._expected):
-                if not self._match_value(expected_item, subject[index]):
-                    return False
+                result, reason = self._match_value(expected_item, subject[index])
+                if not result:
+                    return False, ['item {!r} not found'.format(expected_item)]
         except IndexError:
-            return False
+            return False, ['item {!r} not found'.format(expected_item)]
 
-        return len(subject) == len(self._expected)
+        return len(subject) == len(self._expected), ['true o false']
 
 
 class contain_only(contain):
