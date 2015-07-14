@@ -9,7 +9,7 @@ from ...texts import plain_enumerate
 class _DictMatcher(Matcher):
     def _match(self, subject):
         if self._not_a_dict(subject):
-            return False
+            return False, ''
 
         return self._matches(subject)
 
@@ -21,24 +21,25 @@ class _DictMatcher(Matcher):
 
         for name in args:
             if not self._has_key(subject, name):
-                return False
+                return False, ['key {!r} not found'.format(name)]
 
         for name, value in kwargs.items():
-            if not self._has_key(subject, name, value):
-                return False
+            has_key, reasons = self._has_key(subject, name, value)
+            if not has_key:
+                return False, reasons
 
-        return True
+        return True, ''
 
     def _has_key(self, subject, name, *args):
         if args:
             try:
                 value = subject[name]
             except KeyError:
-                return False
+                return False, ''
             else:
                 return self._match_value(args[0], value)
 
-        return name in subject
+        return name in subject, ''
 
     def _match_negated(self, subject):
         if self._not_a_dict(subject):
@@ -54,6 +55,12 @@ class _DictMatcher(Matcher):
             message += ' but is not a dict'
 
         return message
+
+    def _failure_message(self, subject, reasons):
+        return '\nexpected: {!r} to {}\n     but: {}'.format(
+            subject,
+            self._description(subject),
+            '\n          '.join(reasons))
 
 
 class have_keys(_DictMatcher):
