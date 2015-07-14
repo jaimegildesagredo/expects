@@ -2,6 +2,7 @@
 
 import collections
 
+from . import equal as equal_matcher
 from .. import Matcher
 from ...texts import plain_enumerate
 
@@ -20,13 +21,14 @@ class _DictMatcher(Matcher):
         args, kwargs = self._expected
 
         for name in args:
-            if not self._has_key(subject, name):
+            has_key, reason = self._has_key(subject, name)
+            if not has_key:
                 return False, ['key {!r} not found'.format(name)]
 
         for name, value in kwargs.items():
-            has_key, reasons = self._has_key(subject, name, value)
+            has_key, reason = self._has_key(subject, name, value)
             if not has_key:
-                return False, reasons
+                return False, [reason]
 
         return True, ''
 
@@ -35,7 +37,9 @@ class _DictMatcher(Matcher):
             try:
                 value = subject[name]
             except KeyError:
-                return False, ''
+                return False, 'key {!r} {} not found'.format(name,
+                        equal_matcher(args[0])._description(None))
+
             else:
                 return self._match_value(args[0], value)
 
