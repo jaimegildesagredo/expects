@@ -80,7 +80,8 @@ class Matcher(object):
 
         """
 
-        return not self._match(subject)
+        result, reason = self._match(subject)
+        return not result, reason
 
     def _failure_message(self, subject, reasons=None):
         """This method will be called from an expectation `only` when
@@ -102,7 +103,7 @@ class Matcher(object):
         return 'Expected {subject!r} to {description}'.format(
             subject=subject, description=self._description(subject))
 
-    def _failure_message_negated(self, subject):
+    def _failure_message_negated(self, subject, reasons=None):
         """Like the :func:`_failure_message` method but will be called
         when a negated expectation is going to fail. It should return a
         string with the failure message for the negated expectation.
