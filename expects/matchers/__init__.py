@@ -90,17 +90,19 @@ class Matcher(object):
 
         By default returns a failure message with the following format::
 
-            'Expected {subject} to {description}'
+            expected: {subject} to {description}
+                 but: {reasons}
 
-        With the passed `subject` and the result of calling the
-        :func:`_description` method.
+        With the passed `subject` repr, this matcher repr as `description`
+        and the passed `reasons` from the matcher result.
 
         :param subject: The target value of the expectation.
+        :param reasons: A list of reasons that caused this matcher to fail.
+        :type subject: a string
+        :type reasons: list of strings
         :rtype: a string
 
         """
-
-        # TODO: Fix this doc
 
         message = '\nexpected: {subject!r} to {matcher!r}'.format(
             subject=subject, matcher=self)
@@ -117,9 +119,13 @@ class Matcher(object):
 
         By default returns a failure message with the following format::
 
-            'Expected {subject} not to {description}'
+            expected: {subject} to {description}
+                 but: {reasons}
 
         :param subject: The target value of the expectation.
+        :param reasons: A list of reasons that caused this matcher to fail.
+        :type subject: a string
+        :type reasons: list of strings
         :rtype: a string
 
         """
