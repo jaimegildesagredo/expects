@@ -19,18 +19,6 @@ class have_length(Matcher):
         except TypeError:
             return sum(1 for i in collection)
 
-    def _failure_message(self, subject, reasons):
-        return '\nexpected: {!r} to {}\n     but: {}'.format(
-            subject,
-            repr(self),
-            '\n          '.join(reasons))
-
-    def _failure_message_negated(self, subject, reasons):
-         return '\nexpected: {!r} not to {}\n     but: {}'.format(
-            subject,
-            repr(self),
-            '\n          '.join(reasons))
-
 
 class have_len(have_length):
     pass

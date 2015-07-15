@@ -47,18 +47,6 @@ class _PropertyMatcher(Matcher):
         return '{} {}'.format(type(self).__name__.replace('_', ' '),
                               plain_enumerate(*self._expected))
 
-    def _failure_message(self, subject, reasons):
-        return '\nexpected: {!r} to {}\n     but: {}'.format(
-            subject,
-            repr(self),
-            '\n          '.join(reasons))
-
-    def _failure_message_negated(self, subject, reasons):
-         return '\nexpected: {!r} not to {}\n     but: {}'.format(
-            subject,
-            repr(self),
-            '\n          '.join(reasons))
-
 
 class have_properties(_PropertyMatcher):
     def __init__(self, *args, **kwargs):

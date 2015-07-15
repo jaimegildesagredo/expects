@@ -73,18 +73,6 @@ class contain(Matcher):
         return '{} {expected}'.format(type(self).__name__.replace('_', ' '),
                                       expected=plain_enumerate(self._expected))
 
-    def _failure_message(self, subject, reasons):
-        return '\nexpected: {!r} to {}\n     but: {}'.format(
-            subject,
-            repr(self),
-            '\n          '.join(reasons))
-
-    def _failure_message_negated(self, subject, reasons):
-        return '\nexpected: {!r} not to {}\n     but: {}'.format(
-            subject,
-            repr(self),
-            '\n          '.join(reasons))
-
 
 class contain_exactly(contain):
     def _matches(self, subject):

@@ -8,19 +8,7 @@ class be_above_or_equal(Matcher):
         self._expected = expected
 
     def _match(self, subject):
-        return subject >= self._expected, ['was {!r}'.format(subject)]
-
-    def _failure_message(self, subject, reasons):
-        return '\nexpected: {!r} to {}\n     but: {}'.format(
-            subject,
-            repr(self),
-            '\n          '.join(reasons))
-
-    def _failure_message_negated(self, subject, reasons):
-         return '\nexpected: {!r} not to {}\n     but: {}'.format(
-            subject,
-            repr(self),
-            '\n          '.join(reasons))
+        return subject >= self._expected, []
 
 
 class above_or_equal(be_above_or_equal):

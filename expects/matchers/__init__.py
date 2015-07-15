@@ -83,7 +83,7 @@ class Matcher(object):
         result, reason = self._match(subject)
         return not result, reason
 
-    def _failure_message(self, subject, reasons=None):
+    def _failure_message(self, subject, reasons):
         """This method will be called from an expectation `only` when
         the expectation is going to fail. It should return a string
         with the failure message.
@@ -102,9 +102,15 @@ class Matcher(object):
 
         # TODO: Fix this doc
 
-        return 'Expected {!r} to {!r}'.format(subject, self)
+        message = '\nexpected: {subject!r} to {matcher!r}'.format(
+            subject=subject, matcher=self)
 
-    def _failure_message_negated(self, subject, reasons=None):
+        if reasons:
+            message += '\n     but: {}'.format('\n          '.join(reasons))
+
+        return message
+
+    def _failure_message_negated(self, subject, reasons):
         """Like the :func:`_failure_message` method but will be called
         when a negated expectation is going to fail. It should return a
         string with the failure message for the negated expectation.
@@ -118,7 +124,13 @@ class Matcher(object):
 
         """
 
-        return 'Expected {!r} not to {!r}'.format(subject, self)
+        message = '\nexpected: {subject!r} not to {matcher!r}'.format(
+            subject=subject, matcher=self)
+
+        if reasons:
+            message += '\n     but: {}'.format('\n          '.join(reasons))
+
+        return message
 
     def __repr__(self):
         """Returns a string with the description of the matcher.
