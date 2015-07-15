@@ -44,6 +44,10 @@ with describe('contain'):
         with failure("but: item equal 'foo' not found"):
             expect(self.lst).to(contain('bar', 'foo'))
 
+    with it('fails if list is empty'):
+        with failure("but: is empty"):
+            expect([]).to(contain('foo'))
+
     with it('fails if iterable does not contain item'):
         with failure("but: item equal 'foo' not found"):
             expect(self.itr).to(contain('bar', 'foo'))
@@ -56,7 +60,15 @@ with describe('contain'):
         with failure("but: item be an int not found"):
             expect(self.lst).to(contain(be_an(int), have_len(5)))
 
-    with context('#negated'):
+    with it('fails if string does not contain string'):
+        with failure("but: item 'bar' not found"):
+            expect("My foo string").to(contain('bar'))
+
+    with it('fails if string is empty'):
+        with failure("but: is empty"):
+            expect("").to(contain('foo'))
+
+    with context('when negated'):
         with it('passes if list does not contain item'):
             expect(self.lst).not_to(contain('foo'))
 
@@ -73,6 +85,10 @@ with describe('contain'):
         with it('fails if list contains items'):
             with failure("but: item equal 'bar' found\n          item equal 'baz' found"):
                 expect(self.lst).not_to(contain('bar', 'baz'))
+
+        with it('fails if string contains string'):
+            with failure("but: item 'foo' found"):
+                expect("My foo string").not_to(contain('foo'))
 
         with it('fails if is not an iterable object'):
             with failure("but: is not a valid sequence type"):

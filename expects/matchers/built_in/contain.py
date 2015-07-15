@@ -44,19 +44,19 @@ class contain(Matcher):
         return True, reasons
 
     def _matches_any(self, expected, subject):
+        if len(subject) == 0:
+            return False, 'is empty'
+
         if isinstance(subject, _compat.string_types):
-            # TODO: test this
-            return expected in subject, ['contain {!r}'.format(expected)]
+            if expected in subject:
+                return True, 'item {!r} found'.format(expected)
+            return False, 'item {!r} not found'.format(expected)
 
         expected = default_matcher(expected)
         for item in subject:
             matches, _ = expected._match(item)
             if matches:
                 return True, 'item {!r} found'.format(expected)
-
-        # TODO: test this
-        if len(subject) == 0:
-            return False, 'is empty'
 
         return False, 'item {!r} not found'.format(expected)
 
