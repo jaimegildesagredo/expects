@@ -12,7 +12,7 @@ class contain(Matcher):
     def __init__(self, *expected):
         self._expected = expected
 
-    def _normalize_subject(method):
+    def _normalize_sequence(method):
         @functools.wraps(method)
         def wrapper(self, subject):
             if isinstance(subject, collections.Iterator):
@@ -21,7 +21,7 @@ class contain(Matcher):
             return method(self, subject)
         return wrapper
 
-    @_normalize_subject
+    @_normalize_sequence
     def _match(self, subject):
         if self._is_not_a_sequence(subject):
             return False, ['is not a valid sequence type']
@@ -60,7 +60,7 @@ class contain(Matcher):
 
         return False, 'item {!r} not found'.format(expected)
 
-    @_normalize_subject
+    @_normalize_sequence
     def _match_negated(self, subject):
         if self._is_not_a_sequence(subject):
             return False, ['is not a valid sequence type']
