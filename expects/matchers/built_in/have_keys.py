@@ -2,8 +2,7 @@
 
 import collections
 
-from . import equal as equal_matcher
-from .. import Matcher
+from .. import Matcher, default_matcher
 from ...texts import plain_enumerate
 
 
@@ -39,15 +38,16 @@ class _DictMatcher(Matcher):
 
     def _has_key(self, subject, name, *args):
         if args:
+            expected_value = default_matcher(args[0])
+
             try:
                 value = subject[name]
             except KeyError:
-                return False, 'key {!r} {} not found'.format(name, equal_matcher(args[0])._description(None))
+                return False, 'key {!r} {!r} not found'.format(name, expected_value)
             else:
-                result, reason = self._match_value(args[0],value)
-
+                result, _ = expected_value._match(value)
                 reason_message = 'not found' if not result else 'found'
-                return result, 'key {!r} {} {}'.format(name, reason, reason_message)
+                return result, 'key {!r} {!r} {}'.format(name, expected_value, reason_message)
 
         if name in subject:
             return True, 'key {!r} found'.format(name)
@@ -61,13 +61,8 @@ class _DictMatcher(Matcher):
         return not result, description
 
     def _description(self, subject):
-        message = '{} {}'.format(type(self).__name__.replace('_', ' '),
-                                 plain_enumerate(*self._expected))
-
-        if self._not_a_dict(subject):
-            message += ' but is not a dict'
-
-        return message
+        return '{} {}'.format(type(self).__name__.replace('_', ' '),
+                              plain_enumerate(*self._expected))
 
     def _failure_message(self, subject, reasons):
         return '\nexpected: {!r} to {}\n     but: {}'.format(
@@ -80,6 +75,7 @@ class _DictMatcher(Matcher):
             subject,
             self._description(subject),
             '\n          '.join(reasons))
+
 
 class have_keys(_DictMatcher):
     def __init__(self, *args, **kwargs):
