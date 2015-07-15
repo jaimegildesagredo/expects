@@ -69,21 +69,20 @@ class contain(Matcher):
 
         return not ok, message
 
-    @_normalize_subject
-    def _description(self, subject):
+    def __repr__(self):
         return '{} {expected}'.format(type(self).__name__.replace('_', ' '),
                                       expected=plain_enumerate(self._expected))
 
     def _failure_message(self, subject, reasons):
         return '\nexpected: {!r} to {}\n     but: {}'.format(
             subject,
-            self._description(subject),
+            repr(self),
             '\n          '.join(reasons))
 
     def _failure_message_negated(self, subject, reasons):
         return '\nexpected: {!r} not to {}\n     but: {}'.format(
             subject,
-            self._description(subject),
+            repr(self),
             '\n          '.join(reasons))
 
 

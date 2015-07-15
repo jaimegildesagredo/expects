@@ -31,13 +31,13 @@ class _raise_error(Matcher):
     def _failure_message(self, subject, reasons):
         return '\nexpected: {!r} to {}\n     but: {}'.format(
             subject,
-            self._description(None),
+            repr(self),
             '\n          '.join(reasons))
 
     def _failure_message_negated(self, subject, reasons):
         return '\nexpected: {!r} not to {}\n     but: {}'.format(
             subject,
-            self._description(subject),
+            repr(self),
             '\n          '.join(reasons))
 
 

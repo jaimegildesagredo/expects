@@ -11,5 +11,5 @@ class be_within(Matcher):
     def _match(self, subject):
         return self._start < subject < self._stop, ''
 
-    def _description(self, subject):
+    def __repr__(self):
         return 'be within {start} and {stop}'.format(start=self._start, stop=self._stop)

@@ -46,18 +46,3 @@ with describe('plain_enumerate'):
             result = plain_enumerate((have_key('foo'),))
 
             expect(result).to(equal("have key 'foo'"))
-
-    with context('with any object with a _description method'):
-        # https://github.com/jaimegildesagredo/expects/issues/26
-        # https://github.com/jaimegildesagredo/doublex-expects/issues/8
-
-        with it('returns object repr'):
-            class Object(object):
-                def _description(self, *args, **kwargs):
-                    pass
-
-            obj = Object()
-
-            result = plain_enumerate((obj,))
-
-            expect(result).to(equal(repr(obj)))

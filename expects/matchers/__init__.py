@@ -100,8 +100,9 @@ class Matcher(object):
 
         """
 
-        return 'Expected {subject!r} to {description}'.format(
-            subject=subject, description=self._description(subject))
+        # TODO: Fix this doc
+
+        return 'Expected {!r} to {!r}'.format(subject, self)
 
     def _failure_message_negated(self, subject, reasons=None):
         """Like the :func:`_failure_message` method but will be called
@@ -117,13 +118,10 @@ class Matcher(object):
 
         """
 
-        return 'Expected {subject!r} not to {description}'.format(
-            subject=subject, description=self._description(subject))
+        return 'Expected {!r} not to {!r}'.format(subject, self)
 
-    def _description(self, subject):
-        """This method receives the `subject` of the expectation and
-        returns a string with the description of the matcher to be
-        used in failure messages.
+    def __repr__(self):
+        """Returns a string with the description of the matcher.
 
         By default returns a string with the following format::
 
@@ -132,24 +130,14 @@ class Matcher(object):
         Where `name` is based on the matcher class name and `expected`
         is the value passed to the constructor.
 
-        :param subject: The target value of the expectation.
         :rtype: a string
 
         """
 
         if hasattr(self, '_expected'):
-            if hasattr(self._expected, '_description'):
-                expected = self._expected._description(None)
-            else:
-                expected = repr(self._expected)
-
-            return '{name} {expected}'.format(name=self._name,
-                                                expected=expected)
+            return '{name} {expected!r}'.format(name=self._name,
+                                                expected=self._expected)
         return self._name
-
-    def __repr__(self):
-        # TODO: the description method shouldn't receive the subject
-        return self._description(None)
 
     @property
     def _name(self):
@@ -179,9 +167,9 @@ class _And(Matcher):
 
         return result1 and result2, []
 
-    def _description(self, subject):
-        return '{} and {}'.format(self.op1._description(subject).replace(' and ', ', '),
-                                  self.op2._description(subject))
+    def __repr__(self):
+        return '{} and {}'.format(repr(self.op1).replace(' and ', ', '),
+                                  repr(self.op2))
 
 
 class _Or(Matcher):
@@ -195,8 +183,8 @@ class _Or(Matcher):
 
         return result1 or result2, []
 
-    def _description(self, subject):
-        return '{} or {}'.format(self.op1._description(subject).replace(' or ', ', '),
-                                 self.op2._description(subject))
+    def __repr__(self):
+        return '{} or {}'.format(repr(self.op1).replace(' or ', ', '),
+                                 repr(self.op2))
 
 from .built_in import equal as equal_matcher

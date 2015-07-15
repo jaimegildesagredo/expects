@@ -88,8 +88,8 @@ class failure(with_metaclass(_ContextManagerMeta)):
         matches, _ = self._message._match(exc_message)
         if not matches:
             raise AssertionError(
-                "Expected error message {!r} {}".format(
-                    exc_message, self._message._description(exc_value)))
+                "Expected error message {!r} {!r}".format(
+                    exc_message, self._message))
 
         return True
 

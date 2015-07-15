@@ -8,9 +8,9 @@ class _BeAnInstanceOf(Matcher):
         self._expected = expected
 
     def _match(self, subject):
-        return isinstance(subject, self._expected), ''
+        return isinstance(subject, self._expected), []
 
-    def _description(self, subject):
+    def __repr__(self):
         return '{name} {expected}'.format(name=self._name,
                                           expected=self._expected.__name__)
 
