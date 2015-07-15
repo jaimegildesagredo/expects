@@ -155,38 +155,6 @@ class Matcher(object):
     def _name(self):
         return type(self).__name__.replace('_', ' ').strip()
 
-    def _match_value(self, matcher, value):
-        """This method receives a :class:`Matcher` instance and a
-        `value to be matched` as first and second arguments respectively,
-        and returns :keyword:`True` or :keyword:`False` depending on
-        whether the `value` matches.
-
-        If the argument passed as `matcher` does not implements the
-        :class:`Matcher` interface then the :keyword:`equal` built-in
-        matcher is used.
-
-        Examples::
-
-           >>> self._match_value('foo', 'foo')
-            True
-            >>> self._match_value('foo', 'bar')
-            False
-            >>> self._match_value(match('\w+'), 'foo')
-            True
-
-        :param matcher: A matcher that will be used to match the given value.
-        :param value: A value to test if matches.
-        :rtype: bool
-
-        """
-
-        # TODO: deprecate this and use default_matcher function
-
-        if not hasattr(matcher, '_match'):
-            matcher = equal_matcher(matcher)
-
-        return matcher._match(value), matcher._description(value)
-
     def __and__(self, other):
         return _And(self, other)
 
