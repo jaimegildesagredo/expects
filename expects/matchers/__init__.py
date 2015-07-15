@@ -206,7 +206,10 @@ class _And(Matcher):
         self.op2 = op2
 
     def _match(self, subject):
-        return self.op1._match(subject) and self.op2._match(subject)
+        result1, _ = self.op1._match(subject)
+        result2, _ = self.op2._match(subject)
+
+        return result1 and result2, []
 
     def _description(self, subject):
         return '{} and {}'.format(self.op1._description(subject).replace(' and ', ', '),
@@ -219,7 +222,10 @@ class _Or(Matcher):
         self.op2 = op2
 
     def _match(self, subject):
-        return self.op1._match(subject) or self.op2._match(subject)
+        result1, _ = self.op1._match(subject)
+        result2, _ = self.op2._match(subject)
+
+        return result1 or result2, []
 
     def _description(self, subject):
         return '{} or {}'.format(self.op1._description(subject).replace(' or ', ', '),
