@@ -48,8 +48,14 @@ class _StarEndWith(Matcher):
 class start_with(_StarEndWith):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
-            return subject.startswith(self._args[0])
-        return list(self._args) == list(subject)[:len(self._args)]
+            return (
+                subject.startswith(self._args[0]),
+                ['starts with {!r}'.format(subject[:-len(self._args[0])])])
+
+        actual_start = list(subject)[:len(self._args)]
+        return (
+            list(self._args) == actual_start,
+            ['starts with {!r}'.format(actual_start)])
 
 
 class end_with(_StarEndWith):
