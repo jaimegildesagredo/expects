@@ -72,7 +72,9 @@ with describe('have_keys'):
                 expect(self.dct).to_not(have_keys('bar', 'baz'))
 
         with it('fails if dict has keys in kwargs'):
-            with failure("but: key 'bar' equal 0 found\n          key 'baz' equal 1 found"):
+            with failure(contain("key 'bar' equal 0 found") &
+                         contain("key 'baz' equal 1 found")):
+
                 expect(self.dct).not_to(have_keys(bar=0, baz=1))
 
         with it('fails if actual is not a dict'):

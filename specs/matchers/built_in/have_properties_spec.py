@@ -80,5 +80,7 @@ with describe('have_properties'):
                 expect(self.obj).to_not(have_properties('bar', 'baz'))
 
         with it('fails if object has properties in kwargs'):
-            with failure("but: property 'bar' equal 0 found\n          property 'baz' equal 1 found"):
+            with failure(contain("property 'bar' equal 0 found") &
+                         contain("property 'baz' equal 1 found")):
+
                 expect(self.obj).not_to(have_properties(bar=0, baz=1))
