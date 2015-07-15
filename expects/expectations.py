@@ -19,10 +19,10 @@ class Expectation(object):
         self._assert(matcher)
 
     def _assert(self, matcher):
-        ok, reason = self._match(matcher)
+        ok, reasons = self._match(matcher)
 
         if not ok:
-            raise AssertionError(self._failure_message(matcher, reason))
+            raise AssertionError(self._failure_message(matcher, reasons))
 
     def _match(self, matcher):
         return getattr(
