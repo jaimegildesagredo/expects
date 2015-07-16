@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*
 
-from .matchers import Matcher
-from .matchers.built_in import equal as equal_matcher
+from .matchers import default_matcher
 
 
 def plain_enumerate(args, kwargs=None):
@@ -11,16 +10,10 @@ def plain_enumerate(args, kwargs=None):
     tokens = []
 
     for arg in args:
-        if isinstance(arg, Matcher):
-            tokens.append(arg._description(None))
-        else:
-            tokens.append(repr(arg))
+        tokens.append(repr(arg))
 
     for k, v in _sorted_items(kwargs):
-        if not isinstance(v, Matcher):
-            v = equal_matcher(v)
-
-        tokens.append('{!r} {}'.format(k, v._description(None)))
+        tokens.append('{!r} {!r}'.format(k, default_matcher(v)))
 
     total = len(args) + len(kwargs)
 

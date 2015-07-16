@@ -8,7 +8,7 @@ class be_above_or_equal(Matcher):
         self._expected = expected
 
     def _match(self, subject):
-        return subject >= self._expected
+        return subject >= self._expected, []
 
 
 class above_or_equal(be_above_or_equal):

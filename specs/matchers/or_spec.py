@@ -12,7 +12,7 @@ with describe('matcher | matcher'):
         expect(True).to(be_false | be_true)
 
     with it('fails if both matchers do not match'):
-        with failure(contain(' or ')):
+        with failure('be below 0 or equal 2'):
             expect(1).to(be_below(0) | equal(2))
 
 with describe('matcher | matcher | matcher'):
@@ -23,7 +23,7 @@ with describe('matcher | matcher | matcher'):
         expect(True).to(be_false | be_false | be_true)
 
     with it('fails if all matchers do not match'):
-        with failure(contain(', ') & contain(' or ')):
+        with failure('be below 0, equal 2 or be a str'):
             expect(1).to(be_below(0) |
                          equal(2) |
                          be_a(str))

@@ -80,49 +80,66 @@ class Matcher(object):
 
         """
 
-        return not self._match(subject)
+        result, reason = self._match(subject)
+        return not result, reason
 
-    def _failure_message(self, subject):
+    def _failure_message(self, subject, reasons):
         """This method will be called from an expectation `only` when
         the expectation is going to fail. It should return a string
         with the failure message.
 
         By default returns a failure message with the following format::
 
-            'Expected {subject} to {description}'
+            expected: {subject} to {description}
+                 but: {reasons}
 
-        With the passed `subject` and the result of calling the
-        :func:`_description` method.
+        With the passed `subject` repr, this matcher repr as `description`
+        and the passed `reasons` from the matcher result.
 
         :param subject: The target value of the expectation.
+        :param reasons: A list of reasons that caused this matcher to fail.
+        :type subject: a string
+        :type reasons: list of strings
         :rtype: a string
 
         """
 
-        return 'Expected {subject!r} to {description}'.format(
-            subject=subject, description=self._description(subject))
+        message = '\nexpected: {subject!r} to {matcher!r}'.format(
+            subject=subject, matcher=self)
 
-    def _failure_message_negated(self, subject):
+        if reasons:
+            message += '\n     but: {}'.format('\n          '.join(reasons))
+
+        return message
+
+    def _failure_message_negated(self, subject, reasons):
         """Like the :func:`_failure_message` method but will be called
         when a negated expectation is going to fail. It should return a
         string with the failure message for the negated expectation.
 
         By default returns a failure message with the following format::
 
-            'Expected {subject} not to {description}'
+            expected: {subject} to {description}
+                 but: {reasons}
 
         :param subject: The target value of the expectation.
+        :param reasons: A list of reasons that caused this matcher to fail.
+        :type subject: a string
+        :type reasons: list of strings
         :rtype: a string
 
         """
 
-        return 'Expected {subject!r} not to {description}'.format(
-            subject=subject, description=self._description(subject))
+        message = '\nexpected: {subject!r} not to {matcher!r}'.format(
+            subject=subject, matcher=self)
 
-    def _description(self, subject):
-        """This method receives the `subject` of the expectation and
-        returns a string with the description of the matcher to be
-        used in failure messages.
+        if reasons:
+            message += '\n     but: {}'.format('\n          '.join(reasons))
+
+        return message
+
+    def __repr__(self):
+        """Returns a string with the description of the matcher.
 
         By default returns a string with the following format::
 
@@ -131,54 +148,18 @@ class Matcher(object):
         Where `name` is based on the matcher class name and `expected`
         is the value passed to the constructor.
 
-        :param subject: The target value of the expectation.
         :rtype: a string
 
         """
 
         if hasattr(self, '_expected'):
-            if hasattr(self._expected, '_description'):
-                expected = self._expected._description(None)
-            else:
-                expected = repr(self._expected)
-
-            return '{name} {expected}'.format(name=self._name,
-                                                expected=expected)
+            return '{name} {expected!r}'.format(name=self._name,
+                                                expected=self._expected)
         return self._name
 
     @property
     def _name(self):
         return type(self).__name__.replace('_', ' ').strip()
-
-    def _match_value(self, matcher, value):
-        """This method receives a :class:`Matcher` instance and a
-        `value to be matched` as first and second arguments respectively,
-        and returns :keyword:`True` or :keyword:`False` depending on
-        whether the `value` matches.
-
-        If the argument passed as `matcher` does not implements the
-        :class:`Matcher` interface then the :keyword:`equal` built-in
-        matcher is used.
-
-        Examples::
-
-            >>> self._match_value('foo', 'foo')
-            True
-            >>> self._match_value('foo', 'bar')
-            False
-            >>> self._match_value(match('\w+'), 'foo')
-            True
-
-        :param matcher: A matcher that will be used to match the given value.
-        :param value: A value to test if matches.
-        :rtype: bool
-
-        """
-
-        if not hasattr(matcher, '_match'):
-            matcher = equal_matcher(matcher)
-
-        return matcher._match(value)
 
     def __and__(self, other):
         return _And(self, other)
@@ -186,7 +167,11 @@ class Matcher(object):
     def __or__(self, other):
         return _Or(self, other)
 
-from .built_in import equal as equal_matcher
+
+def default_matcher(value):
+    if not isinstance(value, Matcher):
+        return equal_matcher(value)
+    return value
 
 
 class _And(Matcher):
@@ -195,11 +180,14 @@ class _And(Matcher):
         self.op2 = op2
 
     def _match(self, subject):
-        return self.op1._match(subject) and self.op2._match(subject)
+        result1, _ = self.op1._match(subject)
+        result2, _ = self.op2._match(subject)
 
-    def _description(self, subject):
-        return '{} and {}'.format(self.op1._description(subject).replace(' and ', ', '),
-                                  self.op2._description(subject))
+        return result1 and result2, []
+
+    def __repr__(self):
+        return '{} and {}'.format(repr(self.op1).replace(' and ', ', '),
+                                  repr(self.op2))
 
 
 class _Or(Matcher):
@@ -208,8 +196,13 @@ class _Or(Matcher):
         self.op2 = op2
 
     def _match(self, subject):
-        return self.op1._match(subject) or self.op2._match(subject)
+        result1, _ = self.op1._match(subject)
+        result2, _ = self.op2._match(subject)
 
-    def _description(self, subject):
-        return '{} or {}'.format(self.op1._description(subject).replace(' or ', ', '),
-                                 self.op2._description(subject))
+        return result1 or result2, []
+
+    def __repr__(self):
+        return '{} or {}'.format(repr(self.op1).replace(' or ', ', '),
+                                 repr(self.op2))
+
+from .built_in import equal as equal_matcher

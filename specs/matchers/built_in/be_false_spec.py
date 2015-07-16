@@ -9,7 +9,7 @@ with describe('be_false'):
         expect(False).to(be_false)
 
     with it('should fail if object is true'):
-        with failure('Expected True to be false'):
+        with failure('expected: True to be false'):
             expect(True).to(be_false)
 
     with context('#negated'):
@@ -17,5 +17,5 @@ with describe('be_false'):
             expect(True).not_to(be_false)
 
         with it('should fail if object is false'):
-            with failure('Expected False not to be false'):
+            with failure('expected: False not to be false'):
                 expect(False).not_to(be_false)

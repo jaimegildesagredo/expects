@@ -12,7 +12,7 @@ with describe('be_below_or_equal'):
         expect(5).to(be_below_or_equal(5))
 
     with it('should fail if number is not below or equal expected'):
-        with failure('Expected 4 to be below or equal 1'):
+        with failure('expected: 4 to be below or equal 1'):
             expect(4).to(be_below_or_equal(1))
 
     with context('#negated'):
@@ -20,9 +20,9 @@ with describe('be_below_or_equal'):
             expect(4).not_to(be_below_or_equal(1))
 
         with it('should fail if number is below expected'):
-            with failure('Expected 1 not to be below or equal 4'):
+            with failure('expected: 1 not to be below or equal 4'):
                 expect(1).not_to(be_below_or_equal(4))
 
         with it('should fail if number equals expected'):
-            with failure('Expected 5 not to be below or equal 5'):
+            with failure('expected: 5 not to be below or equal 5'):
                 expect(5).not_to(be_below_or_equal(5))

@@ -11,4 +11,7 @@ class match(Matcher):
         self._args = args
 
     def _match(self, subject):
+        return self.__matches(subject), []
+
+    def __matches(self, subject):
         return True if re.search(self._expected, subject, *self._args) is not None else False

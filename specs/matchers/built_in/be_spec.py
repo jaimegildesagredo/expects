@@ -10,7 +10,7 @@ with describe('be'):
         expect(value).to(be(value))
 
     with it('should fail if object is not expected'):
-        with failure('Expected 1 to be 2'):
+        with failure('expected: 1 to be 2'):
             expect(1).to(be(2))
 
     with context('#negated'):
@@ -20,5 +20,5 @@ with describe('be'):
         with it('should fail if object is expected'):
             value = 1
 
-            with failure('Expected 1 not to be 1'):
+            with failure('expected: 1 not to be 1'):
                 expect(value).not_to(be(value))

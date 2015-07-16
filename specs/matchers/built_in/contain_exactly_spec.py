@@ -29,45 +29,47 @@ with describe('contain_exactly'):
         expect(self.str).to(contain_exactly('My foo', ' string'))
 
     with it('fails if list contains fewer elements that the expected one'):
-        with failure("to contain exactly 'foo' and 'bar'"):
+        with failure("but: item equal 'bar' not found at index 1"):
             expect(['foo']).to(contain_exactly('foo', 'bar'))
 
     with it('fails if list does not contain expected item'):
-        with failure("to contain exactly 'foo'"):
+        with failure("but: item equal 'foo' not found at index 0"):
             expect(self.lst).to(contain_exactly('foo'))
 
     with it('fails if list does not contain expected items'):
-        with failure("to contain exactly 'foo' and 'fuu'"):
+        with failure("but: item equal 'foo' not found at index 0"):
             expect(self.lst).to(contain_exactly('foo', 'fuu'))
 
     with it('fails if list does not contain expected items in order'):
-        with failure("to contain exactly 'baz' and 'bar'"):
+        with failure("but: item equal 'baz' not found at index 0"):
             expect(self.lst).to(contain_exactly('baz', 'bar'))
 
-    with it('fails if list not exactly has expected item'):
-        with failure("to contain exactly 'bar'"):
+    with it('fails if list has the given item and more'):
+        with failure("but: have a different length"):
             expect(self.lst).to(contain_exactly('bar'))
 
-    with it('fails if list not exactly has two expected items'):
+    with it('fails if list has the given items and more'):
         self.lst.append('foo')
 
-        with failure("to contain exactly 'bar' and 'baz'"):
+        with failure("but: have a different length"):
             expect(self.lst).to(contain_exactly('bar', 'baz'))
 
-    with it('fails if list not exactly has three expected items'):
-        self.lst.extend(['foo', 'fuu'])
-
-        with failure("to contain exactly 'bar', 'baz' and 'foo'"):
-            expect(self.lst).to(contain_exactly('bar', 'baz', 'foo'))
-
     with it('fails if string does not exactly contain string'):
-        with failure("to contain exactly 'foo'"):
+        with failure("item equal 'foo' not found at index 0"):
             expect(self.str).to(contain_exactly('foo'))
 
-    with it('fails if is not an iterable object'):
-        with failure("to contain exactly 'bar' but is not a valid sequence type"):
+    with it('fails if string contains first item but not second'):
+        with failure("item equal 'bar' not found at index 2"):
+            expect(self.str).to(contain_exactly('My', 'bar'))
+
+    with it('fails if string contains item and more'):
+        with failure("but: have a different length"):
+            expect(self.str).to(contain_exactly('My'))
+
+    with it('fails if is not a valid sequence type'):
+        with failure("but: is not a valid sequence type"):
             expect(object()).to(contain_exactly('bar'))
 
     with it('fails if list does not contain exactly matching items'):
-        with failure:
-            expect(self.lst).to(contain_exactly(equal('baz'), equal('baz')))
+        with failure("but: item be an int not found at index 0"):
+            expect(self.lst).to(contain_exactly(be_an(int)))

@@ -31,24 +31,28 @@ with describe('contain_only'):
     with it('passes if list only has expected matching items'):
         expect(self.lst).to(contain_only(equal('bar'), equal('baz')))
 
-    with it('fails if list does not contain expected item'):
-        with failure("to contain only 'foo'"):
+    with it('fails if list does not have item'):
+        with failure("but: item equal 'foo' not found"):
             expect(self.lst).to(contain_only('foo'))
 
-    with it('fails if list not only has two expected items'):
+    with it('fails if list has two expected items but has a different length'):
         self.lst.append('foo')
 
-        with failure("to contain only 'bar' and 'baz'"):
+        with failure("but: have a different length"):
             expect(self.lst).to(contain_only('bar', 'baz'))
 
-    with it('fails if string does not only contain string'):
-        with failure("to contain only 'foo'"):
+    with it('fails if string contains string and more'):
+        with failure("but: have a different length"):
             expect(self.str).to(contain_only('foo'))
 
+    with it('fails if string does not contain item'):
+        with failure("but: item 'bar' not found"):
+            expect(self.str).to(contain_only('bar'))
+
     with it('fails if is not an iterable object'):
-        with failure("to contain only 'bar' but is not a valid sequence type"):
+        with failure("but: is not a valid sequence type"):
             expect(object()).to(contain_only('bar'))
 
-    with it('fails if list does not contain only matching items'):
-        with failure:
+    with it('fails if list does not have matching items'):
+        with failure(''):
             expect(self.lst).to(contain_only(equal('baz'), equal('foo')))

@@ -2,14 +2,14 @@
 
 import collections
 
-from .. import Matcher
+from .. import Matcher, default_matcher
 from ...texts import plain_enumerate
 
 
 class _DictMatcher(Matcher):
     def _match(self, subject):
         if self._not_a_dict(subject):
-            return False
+            return False, ['is not a dict']
 
         return self._matches(subject)
 
@@ -19,41 +19,50 @@ class _DictMatcher(Matcher):
     def _matches(self, subject):
         args, kwargs = self._expected
 
+        reasons = []
         for name in args:
-            if not self._has_key(subject, name):
-                return False
+            has_key, reason = self._has_key(subject, name)
+            if not has_key:
+                return False, [reason]
+            else:
+                reasons.append(reason)
 
         for name, value in kwargs.items():
-            if not self._has_key(subject, name, value):
-                return False
+            has_key, reason = self._has_key(subject, name, value)
+            if not has_key:
+                return False, [reason]
+            else:
+                reasons.append(reason)
 
-        return True
+        return True, reasons
 
     def _has_key(self, subject, name, *args):
         if args:
+            expected_value = default_matcher(args[0])
+
             try:
                 value = subject[name]
             except KeyError:
-                return False
+                return False, 'key {!r} {!r} not found'.format(name, expected_value)
             else:
-                return self._match_value(args[0], value)
+                result, _ = expected_value._match(value)
+                reason_message = 'not found' if not result else 'found'
+                return result, 'key {!r} {!r} {}'.format(name, expected_value, reason_message)
 
-        return name in subject
+        if name in subject:
+            return True, 'key {!r} found'.format(name)
+        return False, 'key {!r} not found'.format(name)
 
     def _match_negated(self, subject):
         if self._not_a_dict(subject):
-            return False
+            return False, ['is not a dict']
 
-        return not self._matches(subject)
+        result, description = self._matches(subject)
+        return not result, description
 
-    def _description(self, subject):
-        message = '{} {}'.format(type(self).__name__.replace('_', ' '),
-                                 plain_enumerate(*self._expected))
-
-        if self._not_a_dict(subject):
-            message += ' but is not a dict'
-
-        return message
+    def __repr__(self):
+        return '{} {}'.format(type(self).__name__.replace('_', ' '),
+                              plain_enumerate(*self._expected))
 
 
 class have_keys(_DictMatcher):

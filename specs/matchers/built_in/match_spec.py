@@ -23,7 +23,7 @@ with describe('match'):
         with failure("to match 'My \\\\W+ string'"):
             expect(self.str).to(match(r'My \W+ string'))
 
-    with context('#negated'):
+    with context('when negated'):
         with it('passes if string does not match expected regexp'):
             expect(self.str).not_to(match(r'My \W+ string'))
 

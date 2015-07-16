@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 
-from .. import Matcher
+from .. import Matcher, default_matcher
 from ... import _compat
 from ...texts import plain_enumerate
 
@@ -9,28 +9,41 @@ class _PropertyMatcher(Matcher):
     def _match(self, subject):
         args, kwargs = self._expected
 
+        success_reasons = []
         for name in args:
-            if not self._has_property(subject, name):
-                return False
+            has_property, reason = self._has_property(subject, name)
+            if not has_property:
+                return False, [reason]
+            else:
+                success_reasons.append(reason)
 
         for name, value in kwargs.items():
-            if not self._has_property(subject, name, value):
-                return False
+            has_property, reason = self._has_property(subject, name, value)
+            if not has_property:
+                return False, [reason]
+            else:
+                success_reasons.append(reason)
 
-        return True
+        return True, success_reasons
 
     def _has_property(self, subject, name, *args):
         if args:
             try:
                 value = getattr(subject, name)
             except AttributeError:
-                return False
+                return False, 'property {!r} not found'.format(name)
             else:
-                return self._match_value(args[0], value)
+                expected_value = default_matcher(args[0])
+                result, _ = expected_value._match(value)
+                if not result:
+                    return  False, 'property {!r} {!r} not found'.format(name, expected_value)
+                return True, 'property {!r} {!r} found'.format(name, expected_value)
 
-        return hasattr(subject, name)
+        if not hasattr(subject, name):
+            return False, 'property {!r} not found'.format(name)
+        return True, 'property {!r} found'.format(name)
 
-    def _description(self, subject):
+    def __repr__(self):
         return '{} {}'.format(type(self).__name__.replace('_', ' '),
                               plain_enumerate(*self._expected))
 

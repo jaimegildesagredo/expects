@@ -19,8 +19,10 @@ class Expectation(object):
         self._assert(matcher)
 
     def _assert(self, matcher):
-        if not self._match(matcher):
-            raise AssertionError(self._failure_message(matcher))
+        ok, reasons = self._match(matcher)
+
+        if not ok:
+            raise AssertionError(self._failure_message(matcher, reasons))
 
     def _match(self, matcher):
         return getattr(
@@ -28,8 +30,8 @@ class Expectation(object):
             '_match_negated' if self._negated else '_match'
         )(self._subject)
 
-    def _failure_message(self, matcher):
+    def _failure_message(self, matcher, *args):
         return getattr(
             matcher,
             '_failure_message_negated' if self._negated else '_failure_message'
-        )(self._subject)
+        )(self._subject, *args)

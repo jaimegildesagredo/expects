@@ -3,7 +3,7 @@
 import functools
 import collections
 
-from .. import Matcher
+from .. import Matcher, default_matcher
 from ...texts import plain_enumerate
 from ... import _compat
 
@@ -12,7 +12,7 @@ class contain(Matcher):
     def __init__(self, *expected):
         self._expected = expected
 
-    def _normalize_subject(method):
+    def _normalize_sequence(method):
         @functools.wraps(method)
         def wrapper(self, subject):
             if isinstance(subject, collections.Iterator):
@@ -21,10 +21,10 @@ class contain(Matcher):
             return method(self, subject)
         return wrapper
 
-    @_normalize_subject
+    @_normalize_sequence
     def _match(self, subject):
         if self._is_not_a_sequence(subject):
-            return False
+            return False, ['is not a valid sequence type']
 
         return self._matches(subject)
 
@@ -32,59 +32,84 @@ class contain(Matcher):
         return not isinstance(value, collections.Sequence)
 
     def _matches(self, subject):
+        reasons = []
         for expected_item in self._expected:
-            if not self._matches_any(expected_item, subject):
-                return False
+            matches_any, reason = self._matches_any(expected_item, subject)
 
-        return True
+            if not matches_any:
+                return False, [reason]
+            else:
+                reasons.append(reason)
+
+        return True, reasons
 
     def _matches_any(self, expected, subject):
+        if len(subject) == 0:
+            return False, 'is empty'
+
         if isinstance(subject, _compat.string_types):
-            return expected in subject
+            if expected in subject:
+                return True, 'item {!r} found'.format(expected)
+            return False, 'item {!r} not found'.format(expected)
 
+        expected = default_matcher(expected)
         for item in subject:
-            if self._match_value(expected, item):
-                return True
-        return False
+            matches, _ = expected._match(item)
+            if matches:
+                return True, 'item {!r} found'.format(expected)
 
-    @_normalize_subject
+        return False, 'item {!r} not found'.format(expected)
+
+    @_normalize_sequence
     def _match_negated(self, subject):
         if self._is_not_a_sequence(subject):
-            return False
+            return False, ['is not a valid sequence type']
 
-        return not self._matches(subject)
+        ok, message = self._matches(subject)
 
-    @_normalize_subject
-    def _description(self, subject):
-        result = '{} {expected}'.format(type(self).__name__.replace('_', ' '),
-                                        expected=plain_enumerate(self._expected))
+        return not ok, message
 
-        if self._is_not_a_sequence(subject):
-            result += ' but is not a valid sequence type'
-
-        return result
+    def __repr__(self):
+        return '{} {expected}'.format(type(self).__name__.replace('_', ' '),
+                                      expected=plain_enumerate(self._expected))
 
 
 class contain_exactly(contain):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
-            return subject == ''.join(self._expected)
+            return self.__match_string(subject)
+
         try:
             for index, expected_item in enumerate(self._expected):
-                if not self._match_value(expected_item, subject[index]):
-                    return False
+                expected_item = default_matcher(expected_item)
+                result, _ = expected_item._match(subject[index])
+                if not result:
+                    return False, ['item {!r} not found at index {}'.format(expected_item, index)]
         except IndexError:
-            return False
+            return False, ['item {!r} not found at index {}'.format(expected_item, index)]
 
-        return len(subject) == len(self._expected)
+        return len(subject) == len(self._expected), ['have a different length']
+
+    def __match_string(self, subject):
+        currentIndex = 0
+        for part in self._expected:
+            if part != subject[currentIndex:currentIndex+len(part)]:
+                return False, ['item equal {!r} not found at index {}'.format(part, currentIndex)]
+            currentIndex = len(part)
+
+        return len(subject) == len(''.join(self._expected)), ['have a different length']
 
 
 class contain_only(contain):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
-            return subject == ''.join(self._expected)
+            for item in self._expected:
+                if not item in subject:
+                    return False, ['item {!r} not found'.format(item)]
+            return len(subject) == len(''.join(self._expected)), ['have a different length']
 
-        if not super(contain_only, self)._matches(subject):
-            return False
+        result, reason = super(contain_only, self)._matches(subject)
+        if not result:
+            return False, reason
 
-        return len(subject) == len(self._expected)
+        return len(subject) == len(self._expected), ['have a different length']

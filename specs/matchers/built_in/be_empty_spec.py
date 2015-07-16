@@ -12,7 +12,7 @@ with describe('be_empty'):
         expect(iter('')).to(be_empty)
 
     with it('should fail if string is not empty'):
-        with failure("Expected 'foo' to be empty"):
+        with failure("expected: 'foo' to be empty"):
             expect('foo').to(be_empty)
 
     with it('should fail if actual is a non empty iterable'):
@@ -24,5 +24,5 @@ with describe('be_empty'):
             expect('foo').not_to(be_empty)
 
         with it('should fail if actual is empty'):
-            with failure("Expected '' not to be empty"):
+            with failure("expected: '' not to be empty"):
                 expect('').not_to(be_empty)

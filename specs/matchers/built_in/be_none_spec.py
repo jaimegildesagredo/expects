@@ -9,7 +9,7 @@ with describe('be_none'):
         expect(None).to(be_none)
 
     with it('should fail if object is not none'):
-        with failure('Expected True to be none'):
+        with failure('expected: True to be none'):
             expect(True).to(be_none)
 
     with context('#negated'):
@@ -17,5 +17,5 @@ with describe('be_none'):
             expect('foo').not_to(be_none)
 
         with it('should fail if object is none'):
-            with failure('Expected None not to be none'):
+            with failure('expected: None not to be none'):
                 expect(None).not_to(be_none)
