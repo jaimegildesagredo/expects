@@ -25,7 +25,9 @@ a given header takes <10 lines of code::
             self._expected = expected
 
         def _match(self, request):
-            return self._expected in request.headers
+            if self._expected in request.headers:
+                return True, ['header found']
+            return True, ['header not found']
 
 An then you only need to import the new defined matcher and write
 your expectation::
@@ -58,11 +60,16 @@ class Matcher(object):
         logic. If not raises :class:`NotImplementedError`.
 
         Receives the expectation `subject` as the unique positional
-        argument and should return :keyword:`True` if the matcher matches
-        the subject and :keyword:`False` if it does not.
+        argument and should return a :keyword:`tuple` with the
+        :keyword:`bool` result of the matcher and a :keyword:`list` of
+        reasons for this result.
+
+        If the matcher matches the subject then the boolean result
+        should be :keyword:`True`. The reasons should be a list with
+        0 or more strings.
 
         :param subject: The target value of the expectation.
-        :rtype: a boolean
+        :rtype: tuple (bool, [str])
 
         """
 
@@ -73,10 +80,10 @@ class Matcher(object):
         negated expectation. It can be used to implement a custom
         logic for negated expectations.
 
-        By default returns the result of ``not self._match(subject)``.
+        By default returns the result of negating ``self._match(subject)``.
 
         :param subject: The target value of the expectation.
-        :rtype: a boolean
+        :rtype: tuple (bool, [str])
 
         """
 
