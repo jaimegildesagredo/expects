@@ -1,8 +1,8 @@
 Changes
 =======
 
-0.8.0rc1 (Jul 17, 2015)
------------------------
+0.8.0rc1 (2015-07-17)
+---------------------
 
 Highlights
 ^^^^^^^^^^
@@ -40,8 +40,8 @@ Although your assertions should still be working (if are broken, just `report an
     False, ['was 1']
 
 
-0.7.2 (Jun 26, 2015)
---------------------
+0.7.0 (2015-06-26)
+------------------
 
 Bug fixes
 ^^^^^^^^^
@@ -53,16 +53,16 @@ Bug fixes
 
 * The ``contain_exactly`` matcher does not raise an ``IndexError`` if the subject list has fewer elements than the expected one. `GH-23 <https://github.com/jaimegildesagredo/expects/issues/23>`_.
 
-0.7.1 (Jun 9, 2015)
--------------------
+0.7.1 (2015-06-09)
+------------------
 
 Bug fixes
 ^^^^^^^^^
 
 * The ``contain_exactly`` matcher does not raise an ``IndexError`` if the subject list has fewer elements than the expected one. `GH-23 <https://github.com/jaimegildesagredo/expects/issues/23>`_.
 
-0.7.0 (Mar 1, 2015)
--------------------
+0.7.0 (2015-03-01)
+------------------
 
 Highlights
 ^^^^^^^^^^
@@ -106,24 +106,24 @@ Backwards-incompatible
     >>> with failure('message'):
     ...     raise AssertionError('A foo message')
 
-0.6.2 (Dec 10, 2014)
---------------------
+0.6.2 (2014-12-10)
+------------------
 
 Bug fixes
 ^^^^^^^^^
 
 * Fixed ``contain_exactly`` to work with iterable objects. Regression introduced in v0.6.1.
 
-0.6.1 (Nov 30, 2014)
---------------------
+0.6.1 (2014-11-30)
+------------------
 
 Bug fixes
 ^^^^^^^^^
 
 * Now the ``contain`` and ``contain_exactly`` matchers fail with a proper message when used with a non-sequence type. See `GH-21 <https://github.com/jaimegildesagredo/expects/issues/21>`_.
 
-0.6.0 (Nov 24, 2014)
---------------------
+0.6.0 (2014-11-24)
+------------------
 
 Highlights
 ^^^^^^^^^^
@@ -136,8 +136,8 @@ Highlights
 
 * The ``specs`` and ``docs`` directories are now distributed with the source tarball. See `GH-20 <https://github.com/jaimegildesagredo/expects/pull/20>`_.
 
-0.5.0 (Sep 20, 2014)
---------------------
+0.5.0 (2014-09-20)
+------------------
 
 Highlights
 ^^^^^^^^^^
@@ -175,24 +175,24 @@ Backwards-incompatible
 * The ``match`` matcher now passes if matches a part of the subject string instead of all of it. Previously used the :func:`re.match` and now uses :func:`re.search`. If your tests depended on this you can migrate them by adding a ``'^'`` and ``'$'`` at the beginning and end of your regular expression.
 * The ``testing.failure`` context manager not longer tries to match regular expressions. Instead you can pass the ``match`` matcher with your regexp.
 
-0.4.2 (Ago 16, 2014)
---------------------
+0.4.2 (2014-08-16)
+------------------
 
 Highlights
 ^^^^^^^^^^
 
 * Added the ``not_`` matcher to negate another matcher when composing matchers.
 
-0.4.1 (Ago 16, 2014)
---------------------
+0.4.1 (2014-08-16)
+------------------
 
 Bug fixes
 ^^^^^^^^^
 
 * Now ``from expects import *`` only imports the ``expect`` callable and *built in* matchers.
 
-0.4.0 (Ago 15, 2014)
---------------------
+0.4.0 (2014-08-15)
+------------------
 
 Warnings
 ^^^^^^^^
@@ -219,8 +219,8 @@ Backwards-incompatible
 * Assertion chaining has been replaced by *matcher composition* in all places where was possible in the previous version.
 * The ``testing.failure`` context manager now only receives a string matching the failure message.
 
-0.3.0 (Jun 29, 2014)
---------------------
+0.3.0 (2014-06-29)
+------------------
 
 Highlights
 ^^^^^^^^^^
@@ -232,24 +232,24 @@ Bug fixes
 
 * Fixes a regression in the ``raise_error`` assertion introduced in v0.2.2 which caused some tests to fail. See `GH-17 <https://github.com/jaimegildesagredo/expects/issues/17>`_ for more info.
 
-0.2.3 (Jun 4, 2014)
--------------------
+0.2.3 (2014-06-04)
+------------------
 
 Highlights
 ^^^^^^^^^^
 
 * Added the `start_with <http://expects.readthedocs.org/en/v0.2.3/reference.html#start-with>`_ and `end_with <http://expects.readthedocs.org/en/v0.2.3/#end-with>`_ assertions. `GH-14 <https://github.com/jaimegildesagredo/expects/issues/14>`_.
 
-0.2.2 (May 20, 2014)
---------------------
+0.2.2 (2014-05-20)
+------------------
 
 Bug fixes
 ^^^^^^^^^
 
 * `to.raise_error` now works with a non-string object as second arg. See docs for `examples <http://expects.readthedocs.org/en/0.2.2/reference.html#raise-error>`_.
 
-0.2.1 (Mar 22, 2014)
---------------------
+0.2.1 (2014-03-22)
+------------------
 
 Highlights
 ^^^^^^^^^^
@@ -262,8 +262,8 @@ Bug fixes
 
 * `to.have` and `to.only.have` now work properly when actual is a string.
 
-0.2.0 (Feb 5, 2014)
--------------------
+0.2.0 (2014-02-05)
+------------------
 
 Highlights
 ^^^^^^^^^^
@@ -278,8 +278,8 @@ Backwards-incompatible
 
 * The ``greater_than``, ``greater_or_equal_to``, ``less_than`` and ``less_or_equal_to`` expectations are renamed to ``above``, ``above_or_equal``, ``below`` and ``below_or_equal``.
 
-0.1.1 (Ago 20, 2013)
---------------------
+0.1.1 (2013-08-20)
+------------------
 
 Bug fixes
 ^^^^^^^^^
@@ -287,8 +287,8 @@ Bug fixes
 * `to.have` when iterable items are not hashable (`Issue #8 <https://github.com/jaimegildesagredo/expects/issues/8>`_).
 * `to.have.key` weird behavior when actual is not a `dict` (`Issue #10 <https://github.com/jaimegildesagredo/expects/issues/10>`_).
 
-0.1.0 (Ago 11, 2013)
---------------------
+0.1.0 (2013-08-11)
+------------------
 
 Highlights
 ^^^^^^^^^^
