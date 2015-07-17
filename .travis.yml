@@ -20,8 +20,7 @@ deploy:
   skip_cleanup: true
   user: jaimegildesagredo
   password:
-    secure: YYB1WLCWX/u/zOWZjjjJhbXmeTN9/awkKF+Eol1FsICJkVLTqnK7/KrYry5ZHhpaGjUX6SE6cd0u/klE1wroLnDQfwKtYVCnrbr1aFDjmQQHeP7RL9nlC4qo8XuRmjHWxwuQgv7b+35COODyvFKT8jRu8lN9yds41dYB3R509O0=
-  server: https://testpypi.python.org/pypi
+    secure: KFU5K0be1VK6Chz5yXOIh+J5Fa+4QOw7T3qU599ex+EWHOuPFVShchxz8Z4+ChOwWfwS/erfY4J6xpj3rJZXhxu7BhcaQbFF2SBaI653kOol6N5rnpX63We4c1Sd7aNsqo5zURqlLe1TEM3n2zuob06+84K5r1dUcWcmzsKxBD4=
   on:
     tags: true
     repo: jaimegildesagredo/expects
