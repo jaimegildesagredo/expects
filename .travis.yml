@@ -12,3 +12,15 @@ install:
 
 script:
   - PYTHONPATH=$PYTHONPATH:. mamba -s 0.0001
+
+deploy:
+  provider: pypi
+  skip_cleanup: true
+  user: jaimegildesagredo
+  password:
+    secure: YYB1WLCWX/u/zOWZjjjJhbXmeTN9/awkKF+Eol1FsICJkVLTqnK7/KrYry5ZHhpaGjUX6SE6cd0u/klE1wroLnDQfwKtYVCnrbr1aFDjmQQHeP7RL9nlC4qo8XuRmjHWxwuQgv7b+35COODyvFKT8jRu8lN9yds41dYB3R509O0=
+  server: https://testpypi.python.org/pypi
+  on:
+    tags: true
+    repo: jaimegildesagredo/expects
+    python: 3.4
