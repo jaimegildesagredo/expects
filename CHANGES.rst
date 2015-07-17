@@ -1,8 +1,44 @@
 Changes
 =======
 
-0.8.0rc1 (Not released yet)
----------------------------
+0.8.0rc1 (Jul 17, 2015)
+-----------------------
+
+Highlights
+^^^^^^^^^^
+
+* New failure messages for matchers. Now its easier to see the reason that caused the assertion failure. For example::
+
+    >>> expect([1, {'foo': 1}]).to(contain(have_key('foo', 2)))
+
+    AssertionError:
+    expected: [1, {'foo': 1}] to contain have key 'foo' equal 2
+         but: item have key 'foo' equal 2 not found
+
+Bug fixes
+^^^^^^^^^
+
+* Now the failure message for ``have_key``/``have_keys`` is fixed when composed with another matcher. See `GH-29 <https://github.com/jaimegildesagredo/expects/issues/29>`_.
+
+Backwards-incompatible
+^^^^^^^^^^^^^^^^^^^^^^
+
+Although your assertions should still be working (if are broken, just `report an issue <https://github.com/jaimegildesagredo/expects/issues>`_), the *custom matchers* api has been changed. To see an example of how to migrate your custom matchers to the new api you can see `the doublex-expects migration <https://github.com/jaimegildesagredo/doublex-expects/commit/f4908989298fbbaed46b59080d3a619a37f533fa>`_.
+
+* The ``Matcher._match`` method now should return a tuple of ``bool`` representing the result of the matcher and a ``list`` of reasons that explain this result::
+
+    def _match(self, subject):
+        if subject:
+            return True, ['a reason']
+        return False, ['another reason']
+
+* The ``Matcher._description`` method was removed. Now, with the change announced above, a matcher description won't need the subject to describe itself, so the ``__repr__`` magic method will be used instead to describe matchers.
+
+* The ``Matcher._match_value`` method was removed. With the new api it made much less sense so it was removed and the ``expects.matchers.default_matcher`` wrapper function was added::
+
+    >>> default_matcher(1)._match(2)
+    False, ['was 1']
+
 
 0.7.2 (Jun 26, 2015)
 --------------------
