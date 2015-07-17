@@ -5,6 +5,8 @@ python:
   - 3.4
   - pypy
 
+sudo: false
+
 install:
   - python setup.py sdist
   - pip install dist/`python setup.py --name`-`python setup.py --version`.tar.gz
