@@ -3,16 +3,6 @@ Expects
 
 **Expects** is an *expressive* and *extensible* TDD/BDD assertion library for Python. Expects can be *extended* by defining `new matchers <custom-matchers.html>`_.
 
-.. code-block:: python
-
-    expect([1, {'foo': 1}]).to(contain(have_key('foo', 2)))
-
-.. admonition:: Failure
-    :class: error
-
-    expected: [1, {'foo': 1}] to contain have key 'foo' equal 2
-         but: item have key 'foo' equal 2 not found
-
 Usage
 -----
 
