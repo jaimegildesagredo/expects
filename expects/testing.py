@@ -8,7 +8,6 @@ of your `custom matchers <custom-matchers.html>`_.
 import re
 import traceback
 
-from ._compat import with_metaclass
 from .matchers.built_in import end_with as end_with_matcher
 
 _NO_MESSAGE = object()
