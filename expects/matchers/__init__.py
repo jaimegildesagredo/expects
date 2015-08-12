@@ -115,7 +115,7 @@ class Matcher(object):
             subject=subject, matcher=self)
 
         if reasons:
-            message += '\n     but: {}'.format('\n          '.join(reasons))
+            message += '\n     but: {0}'.format('\n          '.join(reasons))
 
         return message
 
@@ -141,7 +141,7 @@ class Matcher(object):
             subject=subject, matcher=self)
 
         if reasons:
-            message += '\n     but: {}'.format('\n          '.join(reasons))
+            message += '\n     but: {0}'.format('\n          '.join(reasons))
 
         return message
 
@@ -193,8 +193,8 @@ class _And(Matcher):
         return result1 and result2, []
 
     def __repr__(self):
-        return '{} and {}'.format(repr(self.op1).replace(' and ', ', '),
-                                  repr(self.op2))
+        return '{0} and {1}'.format(repr(self.op1).replace(' and ', ', '),
+                                    repr(self.op2))
 
 
 class _Or(Matcher):
@@ -209,7 +209,7 @@ class _Or(Matcher):
         return result1 or result2, []
 
     def __repr__(self):
-        return '{} or {}'.format(repr(self.op1).replace(' or ', ', '),
-                                 repr(self.op2))
+        return '{0} or {1}'.format(repr(self.op1).replace(' or ', ', '),
+                                   repr(self.op2))
 
 from .built_in import equal as equal_matcher

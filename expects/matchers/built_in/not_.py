@@ -12,4 +12,4 @@ class not_(Matcher):
         return not result, []
 
     def __repr__(self):
-        return 'not {!r}'.format(self._matcher)
+        return 'not {0!r}'.format(self._matcher)

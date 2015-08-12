@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*
 
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except ImportError:
+    OrderedDict = lambda *args: None
 
 from expects import *
 from expects.testing import failure
@@ -25,6 +28,9 @@ with describe('start_with'):
         expect(self.lst).to(start_with(*self.lst[:2]))
 
     with it('passes if ordered dict starts with keys'):
+        if self.ordered_dct is None:
+            return
+
         expected_args = list(self.ordered_dct)[:2]
 
         expect(self.ordered_dct).to(start_with(*expected_args))
@@ -33,19 +39,19 @@ with describe('start_with'):
         expect(iter(self.lst)).to(start_with(*self.lst[:2]))
 
     with it('fails if string does not start with string'):
-        with failure('but: starts with {!r}'.format(self.str[:-5])):
+        with failure('but: starts with {0!r}'.format(self.str[:-5])):
             expect(self.str).to(start_with(self.str[-5:]))
 
     with it('fails if list does not start with arg'):
-        with failure('but: starts with {!r}'.format(self.lst[:1])):
+        with failure('but: starts with {0!r}'.format(self.lst[:1])):
             expect(self.lst).to(start_with(self.lst[1]))
 
     with it('fails if list does not start with args'):
-        with failure('but: starts with {!r}'.format(self.lst[:2])):
+        with failure('but: starts with {0!r}'.format(self.lst[:2])):
             expect(self.lst).to(start_with(*self.lst[1:]))
 
     with it('fails if list starts with first arg but not second'):
-        with failure('but: starts with {!r}'.format(self.lst[:2])):
+        with failure('but: starts with {0!r}'.format(self.lst[:2])):
             expect(self.lst).to(start_with(self.lst[0], self.lst[0]))
 
     with it('fails if actual is a dict'):

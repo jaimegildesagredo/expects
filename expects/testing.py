@@ -11,17 +11,10 @@ import traceback
 from ._compat import with_metaclass
 from .matchers.built_in import end_with as end_with_matcher
 
-
-class _ContextManagerMeta(type):
-    def __enter__(cls):
-        pass
-
-    def __exit__(cls, exc_type, exc_value, exc_tb):
-        cls._handle_exception(exc_type, exc_value, exc_tb)
-        return True
+_NO_MESSAGE = object()
 
 
-class failure(with_metaclass(_ContextManagerMeta)):
+class _Failure(object):
     """The :class:`failure` context manager can be used to build
     assertions of your expectation failures. It tests that the
     code inside the context manager raises an :class:`AssertionError`
@@ -71,11 +64,15 @@ class failure(with_metaclass(_ContextManagerMeta)):
 
     """
 
-    def __init__(self, message):
-        if not hasattr(message, '_match'):
+    def __init__(self, message=_NO_MESSAGE):
+        if message is not _NO_MESSAGE and not hasattr(message, '_match'):
             message = end_with_matcher(message)
 
         self._message = message
+
+
+    def __call__(self, message):
+        return _Failure(message)
 
     def __enter__(self):
         pass
@@ -83,13 +80,14 @@ class failure(with_metaclass(_ContextManagerMeta)):
     def __exit__(self, exc_type, exc_value, exc_tb):
         self._handle_exception(exc_type, exc_value, exc_tb)
 
-        exc_message = str(exc_value)
+        if self._message is not _NO_MESSAGE:
+            exc_message = str(exc_value)
 
-        matches, _ = self._message._match(exc_message)
-        if not matches:
-            raise AssertionError(
-                "Expected error message {!r} {!r}".format(
-                    exc_message, self._message))
+            matches, _ = self._message._match(exc_message)
+            if not matches:
+                raise AssertionError(
+                    "Expected error message {0!r} {1!r}".format(
+                        exc_message, self._message))
 
         return True
 
@@ -100,11 +98,14 @@ class failure(with_metaclass(_ContextManagerMeta)):
 
         if exc_type != AssertionError:
             raise AssertionError(
-                'Expected AssertionError to be raised but {} raised.'
-                '\n\n{}'.format(exc_type.__name__,
-                                _format_exception(exc_type, exc_value, exc_tb))
+                'Expected AssertionError to be raised but {0} raised.'
+                '\n\n{1}'.format(exc_type.__name__,
+                                 _format_exception(exc_type, exc_value, exc_tb))
             )
 
 
 def _format_exception(exc_type, exc_value, exc_tb):
     return ''.join(traceback.format_exception(exc_type, exc_value, exc_tb))
+
+
+failure = _Failure()

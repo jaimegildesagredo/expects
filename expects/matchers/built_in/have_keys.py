@@ -43,15 +43,15 @@ class _DictMatcher(Matcher):
             try:
                 value = subject[name]
             except KeyError:
-                return False, 'key {!r} {!r} not found'.format(name, expected_value)
+                return False, 'key {0!r} {1!r} not found'.format(name, expected_value)
             else:
                 result, _ = expected_value._match(value)
                 reason_message = 'not found' if not result else 'found'
-                return result, 'key {!r} {!r} {}'.format(name, expected_value, reason_message)
+                return result, 'key {0!r} {1!r} {2}'.format(name, expected_value, reason_message)
 
         if name in subject:
-            return True, 'key {!r} found'.format(name)
-        return False, 'key {!r} not found'.format(name)
+            return True, 'key {0!r} found'.format(name)
+        return False, 'key {0!r} not found'.format(name)
 
     def _match_negated(self, subject):
         if self._not_a_dict(subject):
@@ -61,7 +61,7 @@ class _DictMatcher(Matcher):
         return not result, description
 
     def __repr__(self):
-        return '{} {}'.format(type(self).__name__.replace('_', ' '),
+        return '{0} {1}'.format(type(self).__name__.replace('_', ' '),
                               plain_enumerate(*self._expected))
 
 

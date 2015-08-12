@@ -11,7 +11,7 @@ class have_length(Matcher):
         expected_length = default_matcher(self._expected)
         actual_length = self.__length(subject)
         result, _ = expected_length._match(actual_length)
-        return result, ['was {!r}'.format(actual_length)]
+        return result, ['was {0!r}'.format(actual_length)]
 
     def __length(self, collection):
         try:

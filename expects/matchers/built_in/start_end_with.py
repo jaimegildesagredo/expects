@@ -12,25 +12,30 @@ class _StarEndWith(Matcher):
         self._args = args
 
     def _match(self, subject):
-        if self._is_unordered(subject):
+        if self._is_unordered_dict(subject):
             return False, ['does not have ordered keys']
 
         return self._matches(subject)
 
-    def _is_unordered(self, subject):
-        return (isinstance(subject, collections.Mapping) and
-                not isinstance(subject, collections.OrderedDict))
+    def _is_unordered_dict(self, subject):
+        if isinstance(subject, collections.Mapping):
+            if not hasattr(collections, 'OrderedDict'):
+                return True
+
+            return not isinstance(subject, collections.OrderedDict)
+
+        return False
 
     def _match_negated(self, subject):
-        if self._is_unordered(subject):
+        if self._is_unordered_dict(subject):
             return False, ['does not have ordered keys']
 
         result, reasons = self._matches(subject)
         return not result, reasons
 
     def __repr__(self):
-        return '{} {expected}'.format(type(self).__name__.replace('_', ' '),
-                                      expected=plain_enumerate(self._args))
+        return '{0} {1}'.format(type(self).__name__.replace('_', ' '),
+                                plain_enumerate(self._args))
 
 
 class start_with(_StarEndWith):
@@ -38,12 +43,12 @@ class start_with(_StarEndWith):
         if isinstance(subject, _compat.string_types):
             return (
                 subject.startswith(self._args[0]),
-                ['starts with {!r}'.format(subject[:-len(self._args[0])])])
+                ['starts with {0!r}'.format(subject[:-len(self._args[0])])])
 
         actual_start = list(subject)[:len(self._args)]
         return (
             list(self._args) == actual_start,
-            ['starts with {!r}'.format(actual_start)])
+            ['starts with {0!r}'.format(actual_start)])
 
 
 class end_with(_StarEndWith):
@@ -51,9 +56,9 @@ class end_with(_StarEndWith):
         if isinstance(subject, _compat.string_types):
             return (
                 subject.endswith(self._args[0]),
-                ['ends with {!r}'.format(subject[-len(self._args[0]):])])
+                ['ends with {0!r}'.format(subject[-len(self._args[0]):])])
 
         actual_end = list(subject)[-len(self._args):]
         return (
             list(self._args) == actual_end,
-            ['ends with {!r}'.format(actual_end)])
+            ['ends with {0!r}'.format(actual_end)])

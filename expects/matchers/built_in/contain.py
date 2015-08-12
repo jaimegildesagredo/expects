@@ -49,16 +49,16 @@ class contain(Matcher):
 
         if isinstance(subject, _compat.string_types):
             if expected in subject:
-                return True, 'item {!r} found'.format(expected)
-            return False, 'item {!r} not found'.format(expected)
+                return True, 'item {0!r} found'.format(expected)
+            return False, 'item {0!r} not found'.format(expected)
 
         expected = default_matcher(expected)
         for item in subject:
             matches, _ = expected._match(item)
             if matches:
-                return True, 'item {!r} found'.format(expected)
+                return True, 'item {0!r} found'.format(expected)
 
-        return False, 'item {!r} not found'.format(expected)
+        return False, 'item {0!r} not found'.format(expected)
 
     @_normalize_sequence
     def _match_negated(self, subject):
@@ -70,8 +70,8 @@ class contain(Matcher):
         return not ok, message
 
     def __repr__(self):
-        return '{} {expected}'.format(type(self).__name__.replace('_', ' '),
-                                      expected=plain_enumerate(self._expected))
+        return '{0} {1}'.format(type(self).__name__.replace('_', ' '),
+                                plain_enumerate(self._expected))
 
 
 class contain_exactly(contain):
@@ -84,9 +84,9 @@ class contain_exactly(contain):
                 expected_item = default_matcher(expected_item)
                 result, _ = expected_item._match(subject[index])
                 if not result:
-                    return False, ['item {!r} not found at index {}'.format(expected_item, index)]
+                    return False, ['item {0!r} not found at index {1}'.format(expected_item, index)]
         except IndexError:
-            return False, ['item {!r} not found at index {}'.format(expected_item, index)]
+            return False, ['item {0!r} not found at index {1}'.format(expected_item, index)]
 
         return len(subject) == len(self._expected), ['have a different length']
 
@@ -94,7 +94,7 @@ class contain_exactly(contain):
         currentIndex = 0
         for part in self._expected:
             if part != subject[currentIndex:currentIndex+len(part)]:
-                return False, ['item equal {!r} not found at index {}'.format(part, currentIndex)]
+                return False, ['item equal {0!r} not found at index {1}'.format(part, currentIndex)]
             currentIndex = len(part)
 
         return len(subject) == len(''.join(self._expected)), ['have a different length']
@@ -105,7 +105,7 @@ class contain_only(contain):
         if isinstance(subject, _compat.string_types):
             for item in self._expected:
                 if not item in subject:
-                    return False, ['item {!r} not found'.format(item)]
+                    return False, ['item {0!r} not found'.format(item)]
             return len(subject) == len(''.join(self._expected)), ['have a different length']
 
         result, reason = super(contain_only, self)._matches(subject)

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*
 
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except ImportError:
+    OrderedDict = lambda *args: None
 
 from expects import *
 from expects.testing import failure
@@ -25,6 +28,9 @@ with describe('end_with'):
         expect(self.lst).to(end_with(*self.lst[-2:]))
 
     with it('should pass if ordered dict ends with keys'):
+        if self.ordered_dct is None:
+            return
+
         expected_args = list(self.ordered_dct)[:2]
 
         expect(self.ordered_dct).to(end_with(*expected_args))
@@ -32,11 +38,11 @@ with describe('end_with'):
     with it('should fail if string does not end with string'):
         str_ = 'My foo string'
 
-        with failure('but: ends with {!r}'.format(str_[-5:])):
+        with failure('but: ends with {0!r}'.format(str_[-5:])):
             expect(self.str).to(end_with(str_[:5]))
 
     with it('should fail if list ends with first arg but not second'):
-        with failure('but: ends with {!r}'.format(self.lst[-2:])):
+        with failure('but: ends with {0!r}'.format(self.lst[-2:])):
             expect(self.lst).to(end_with(self.lst[-1], self.lst[-1]))
 
     with it('should fail if subject is a dict'):

@@ -31,11 +31,11 @@ with describe('failure'):
 
         with it('passes if assertion raised and message ends with'):
             with failure(self.message):
-                raise AssertionError("Expected 'foo' {}".format(self.message))
+                raise AssertionError("Expected 'foo' {0}".format(self.message))
 
         with it('passes if assertion error raised and message matches'):
             with failure(match(self.pattern)):
-                raise AssertionError("Expected 'foo' {}".format(self.message))
+                raise AssertionError("Expected 'foo' {0}".format(self.message))
 
         with it('passes if assertion error raised and message has length 0'):
             with failure(have_length(0)):

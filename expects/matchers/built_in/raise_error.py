@@ -19,12 +19,12 @@ class _raise_error(Matcher):
                 actual_value = exc.args[0]
                 expected_value = default_matcher(self._args[0])
                 result, _ = expected_value._match(actual_value)
-                return result, ['{} raised with {!r}'.format(type(exc).__name__, actual_value)]
+                return result, ['{0} raised with {1!r}'.format(type(exc).__name__, actual_value)]
 
-            return True, ['{} raised'.format(type(exc).__name__)]
+            return True, ['{0} raised'.format(type(exc).__name__)]
 
         except Exception as err:
-            return False, ['{} raised'.format(type(err).__name__)]
+            return False, ['{0} raised'.format(type(err).__name__)]
         else:
             return False, ['no exception raised']
 

@@ -31,21 +31,21 @@ class _PropertyMatcher(Matcher):
             try:
                 value = getattr(subject, name)
             except AttributeError:
-                return False, 'property {!r} not found'.format(name)
+                return False, 'property {0!r} not found'.format(name)
             else:
                 expected_value = default_matcher(args[0])
                 result, _ = expected_value._match(value)
                 if not result:
-                    return  False, 'property {!r} {!r} not found'.format(name, expected_value)
-                return True, 'property {!r} {!r} found'.format(name, expected_value)
+                    return  False, 'property {0!r} {1!r} not found'.format(name, expected_value)
+                return True, 'property {0!r} {1!r} found'.format(name, expected_value)
 
         if not hasattr(subject, name):
-            return False, 'property {!r} not found'.format(name)
-        return True, 'property {!r} found'.format(name)
+            return False, 'property {0!r} not found'.format(name)
+        return True, 'property {0!r} found'.format(name)
 
     def __repr__(self):
-        return '{} {}'.format(type(self).__name__.replace('_', ' '),
-                              plain_enumerate(*self._expected))
+        return '{0} {1}'.format(type(self).__name__.replace('_', ' '),
+                                plain_enumerate(*self._expected))
 
 
 class have_properties(_PropertyMatcher):

@@ -13,7 +13,7 @@ def plain_enumerate(args, kwargs=None):
         tokens.append(repr(arg))
 
     for k, v in _sorted_items(kwargs):
-        tokens.append('{!r} {!r}'.format(k, default_matcher(v)))
+        tokens.append('{0!r} {1!r}'.format(k, default_matcher(v)))
 
     total = len(args) + len(kwargs)
 
