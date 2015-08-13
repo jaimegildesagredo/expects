@@ -10,8 +10,6 @@ import traceback
 
 from .matchers.built_in import end_with as end_with_matcher
 
-_NO_MESSAGE = object()
-
 
 class _Failure(object):
     """The :class:`failure` context manager can be used to build
@@ -63,8 +61,8 @@ class _Failure(object):
 
     """
 
-    def __init__(self, message=_NO_MESSAGE):
-        if message is not _NO_MESSAGE and not hasattr(message, '_match'):
+    def __init__(self, message=None):
+        if message is not None and not hasattr(message, '_match'):
             message = end_with_matcher(message)
 
         self._message = message
@@ -79,7 +77,7 @@ class _Failure(object):
     def __exit__(self, exc_type, exc_value, exc_tb):
         self._handle_exception(exc_type, exc_value, exc_tb)
 
-        if self._message is not _NO_MESSAGE:
+        if self._message is not None:
             exc_message = str(exc_value)
 
             matches, _ = self._message._match(exc_message)
