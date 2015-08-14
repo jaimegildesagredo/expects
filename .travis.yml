@@ -16,6 +16,10 @@ install:
 script:
   - PYTHONPATH=$PYTHONPATH:. mamba -s 0.0001
 
+# PyPI deploy workaround based on: https://github.com/travis-ci/dpl/issues/299
+before_deploy:
+  - pip install twine
+
 deploy:
   provider: pypi
   skip_cleanup: true
