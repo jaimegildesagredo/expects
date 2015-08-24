@@ -15,7 +15,7 @@ class contain(Matcher):
     def _normalize_sequence(method):
         @functools.wraps(method)
         def wrapper(self, subject):
-            if isinstance(subject, collections.Iterator):
+            if isinstance(subject, collections.Iterable):
                 subject = list(subject)
 
             return method(self, subject)
