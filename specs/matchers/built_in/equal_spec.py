@@ -23,24 +23,26 @@ with describe('equal'):
     with context('when comparing objects'):
         with before.each:
             class Foo(object):
-                compared = False
+                def __init__(self, bar):
+                    self.bar = bar
 
                 def __eq__(self, other):
-                    self.compared = True
-                    return True
+                    if other.bar is 'crazy':
+                        return self.bar != other.bar
+                    return self.bar == other.bar
 
                 def __ne__(self, other):
-                    self.compared = True
-                    return True
+                    return self.bar != other.bar
 
-            self.an_object = Foo()
-            self.another_object = Foo()
+                def __repr__(self):
+                    return 'Foo with bar={bar}'.format(bar=self.bar)
 
-        with it('should be computed based on the object __eq__ method'):
-            expect(self.an_object).to(equal(self.another_object))
-            expect(self.an_object.compared).to(equal(True))
+            self.object = Foo(1)
+            self.object_with_crazy_logic = Foo('crazy')
 
-        with context('#negated'):
-            with it('should be computed based on the object __ne__ method'):
-                expect(self.an_object).not_to(equal(self.another_object))
-                expect(self.an_object.compared).to(equal(True))
+        with it('should pass if object does not equal expected'):
+            expect(self.object).not_to(equal(self.object_with_crazy_logic))
+
+        with it('should fail if object equals expected'):
+            with failure('Foo with bar=crazy not to equal Foo with bar=crazy'):
+                expect(self.object_with_crazy_logic).not_to(equal(self.object_with_crazy_logic))
