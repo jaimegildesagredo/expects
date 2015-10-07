@@ -1,6 +1,15 @@
 Changes
 =======
 
+0.8.0rc3 (2015-10-07)
+---------------------
+
+Bug fixes
+^^^^^^^^^
+
+* The ``equal`` matcher now uses ``__ne__`` for negated assertions. See `GH-40 <https://github.com/jaimegildesagredo/expects/pull/40>`_.
+* The ``not_`` matcher now uses the inner matcher ``_match_negated`` method to perform a negated assertion.
+
 0.8.0rc2 (2015-08-14)
 ---------------------
 
