@@ -8,8 +8,7 @@ class not_(Matcher):
         self._matcher = matcher
 
     def _match(self, subject):
-        result, _ = self._matcher._match(subject)
-        return not result, []
+        return self._matcher._match_negated(subject)
 
     def __repr__(self):
         return 'not {0!r}'.format(self._matcher)
