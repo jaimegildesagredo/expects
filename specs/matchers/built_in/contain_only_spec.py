@@ -54,5 +54,14 @@ with describe('contain_only'):
             expect(object()).to(contain_only('bar'))
 
     with it('fails if list does not have matching items'):
-        with failure(''):
+        with failure:
             expect(self.lst).to(contain_only(equal('baz'), equal('foo')))
+
+    with context('when negated'):
+        with it('fails if list contains only items'):
+            with failure("item equal {0!r} found".format(self.lst[1])):
+                expect(self.lst).not_to(contain_only(*self.lst))
+
+        with it('fails when string contains only string'):
+            with failure("item {0!r} found".format(self.str)):
+                expect(self.str).not_to(contain_only(self.str))

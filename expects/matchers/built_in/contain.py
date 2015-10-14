@@ -79,37 +79,58 @@ class contain_exactly(contain):
         if isinstance(subject, _compat.string_types):
             return self.__match_string(subject)
 
+        reasons = []
         try:
             for index, expected_item in enumerate(self._expected):
                 expected_item = default_matcher(expected_item)
                 result, _ = expected_item._match(subject[index])
                 if not result:
                     return False, ['item {0!r} not found at index {1}'.format(expected_item, index)]
+                else:
+                    reasons.append('item {0!r} found at index {1}'.format(expected_item, index))
         except IndexError:
             return False, ['item {0!r} not found at index {1}'.format(expected_item, index)]
 
-        return len(subject) == len(self._expected), ['have a different length']
+        if len(subject) != len(reasons):
+            return False, ['have a different length']
+        return True, reasons
 
     def __match_string(self, subject):
-        currentIndex = 0
+        reasons = []
+        index = 0
         for part in self._expected:
-            if part != subject[currentIndex:currentIndex+len(part)]:
-                return False, ['item equal {0!r} not found at index {1}'.format(part, currentIndex)]
-            currentIndex = len(part)
+            if part != subject[index:index+len(part)]:
+                return False, ['item equal {0!r} not found at index {1}'.format(part, index)]
+            else:
+                reasons.append('item equal {0!r} found at index {1}'.format(part, index))
+            index = len(part)
 
-        return len(subject) == len(''.join(self._expected)), ['have a different length']
+        if len(subject) != len(''.join(self._expected)):
+            return False, ['have a different length']
+        return True, reasons
 
 
 class contain_only(contain):
     def _matches(self, subject):
         if isinstance(subject, _compat.string_types):
-            for item in self._expected:
-                if not item in subject:
-                    return False, ['item {0!r} not found'.format(item)]
-            return len(subject) == len(''.join(self._expected)), ['have a different length']
+            return self.__match_string(subject)
 
         result, reason = super(contain_only, self)._matches(subject)
         if not result:
             return False, reason
 
-        return len(subject) == len(self._expected), ['have a different length']
+        if len(subject) != len(self._expected):
+            return False, ['have a different length']
+        return True, reason
+
+    def __match_string(self, subject):
+        reasons = []
+        for item in self._expected:
+            if not item in subject:
+                return False, ['item {0!r} not found'.format(item)]
+            else:
+                reasons.append('item {0!r} found'.format(item))
+
+        if len(subject) != len(''.join(self._expected)):
+            return False, ['have a different length']
+        return True, reasons

@@ -73,3 +73,12 @@ with describe('contain_exactly'):
     with it('fails if list does not contain exactly matching items'):
         with failure("but: item be an int not found at index 0"):
             expect(self.lst).to(contain_exactly(be_an(int)))
+
+    with context('when negated'):
+        with it('fails when list contains exactly items'):
+            with failure("item equal {0!r} found at index 1".format(self.lst[1])):
+                expect(self.lst).not_to(contain_exactly(*self.lst))
+
+        with it('fails when string contains exactly string'):
+            with failure("item equal {0!r} found at index 0".format(self.str)):
+                expect(self.str).not_to(contain_exactly(self.str))
