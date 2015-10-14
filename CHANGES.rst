@@ -1,8 +1,13 @@
 Changes
 =======
 
-0.8.0rc4 (Not released yet)
----------------------------
+0.8.0rc4 (2015-10-14)
+---------------------
+
+Bug fixes
+^^^^^^^^^
+
+* Show the correct failure message on negated ``contain_exactly`` and ``contain_only`` matchers. See `GH-33 <https://github.com/jaimegildesagredo/expects/issues/33>`_.
 
 0.8.0rc3 (2015-10-07)
 ---------------------
