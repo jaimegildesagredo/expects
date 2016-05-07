@@ -8,6 +8,7 @@ Bug fixes
 ^^^^^^^^^
 
 * Allow ``contain``, ``contain_exactly`` and ``contain_only`` matchers to work with dict views (e.g. ``dict.keys()``). See `GH-42 <https://github.com/jaimegildesagredo/expects/issues/42>`_.
+* Allow ``contain``, ``contain_exactly`` and ``contain_only`` matchers to work with sets. See `GH-38 <https://github.com/jaimegildesagredo/expects/issues/38>`_.
 
 0.8.0rc4 (2015-10-14)
 ---------------------
