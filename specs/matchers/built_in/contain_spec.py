@@ -40,6 +40,11 @@ with describe('contain'):
     with it('passes if list contains a item matching'):
         expect(self.lst).to(contain(a(str)))
 
+    with it('passes if dict.keys() contains item'):
+        # https://github.com/jaimegildesagredo/expects/issues/42
+
+        expect({'bar': 0, 'baz': 1}.keys()).to(contain('bar'))
+
     with it('fails if list does not contain item'):
         with failure("but: item equal 'foo' not found"):
             expect(self.lst).to(contain('bar', 'foo'))

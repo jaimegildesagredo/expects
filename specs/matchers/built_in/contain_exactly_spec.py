@@ -28,6 +28,11 @@ with describe('contain_exactly'):
     with it('passes if string exactly contains strings'):
         expect(self.str).to(contain_exactly('My foo', ' string'))
 
+    with it('passes if dict.keys() exactly contains item'):
+        # https://github.com/jaimegildesagredo/expects/issues/42
+
+        expect({'bar': 0}.keys()).to(contain_exactly('bar'))
+
     with it('fails if list contains fewer elements that the expected one'):
         with failure("but: item equal 'bar' not found at index 1"):
             expect(['foo']).to(contain_exactly('foo', 'bar'))

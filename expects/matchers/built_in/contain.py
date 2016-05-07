@@ -9,13 +9,18 @@ from ... import _compat
 
 
 class contain(Matcher):
+    _NON_NORMALIZED_SEQUENCE_TYPES = (
+        collections.Iterator,
+        collections.MappingView
+    )
+
     def __init__(self, *expected):
         self._expected = expected
 
     def _normalize_sequence(method):
         @functools.wraps(method)
         def wrapper(self, subject):
-            if isinstance(subject, collections.Iterator):
+            if isinstance(subject, self._NON_NORMALIZED_SEQUENCE_TYPES):
                 subject = list(subject)
 
             return method(self, subject)
