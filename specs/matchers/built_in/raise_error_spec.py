@@ -46,7 +46,7 @@ with describe('raise_error'):
         def callback():
             raise KeyError()
 
-        with failure('but: KeyError raised'):
+        with failure(contain('but: KeyError raised')):
             expect(callback).to(raise_error(AttributeError))
 
     with it('fails if callable does not raise exception'):
