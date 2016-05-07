@@ -6,7 +6,7 @@ Expects
     :alt: Latest version
 
 .. image:: https://img.shields.io/badge/Docs-latest-brightgreen.svg
-    :target: http://expects.readthedocs.org/en/latest
+    :target: http://expects.readthedocs.io/en/latest
     :alt: Docs
 
 .. image:: https://img.shields.io/badge/Licence-Apache2-brightgreen.svg
@@ -21,12 +21,12 @@ Expects
     :target: http://travis-ci.org/jaimegildesagredo/expects
     :alt: Build status
 
-**Expects** is an *expressive* and *extensible* TDD/BDD assertion library for Python. Expects can be *extended* by defining `new matchers <http://expects.readthedocs.org/en/latest/custom-matchers.html>`_.
+**Expects** is an *expressive* and *extensible* TDD/BDD assertion library for Python. Expects can be *extended* by defining `new matchers <http://expects.readthedocs.io/en/latest/custom-matchers.html>`_.
 
 Usage
 -----
 
-Just import the ``expect`` callable and the `built-in matchers <http://expects.readthedocs.org/en/latest/matchers.html>`_ and start writing test assertions.
+Just import the ``expect`` callable and the `built-in matchers <http://expects.readthedocs.io/en/latest/matchers.html>`_ and start writing test assertions.
 
 .. code-block:: python
 
@@ -75,9 +75,9 @@ To run the Expects specs you should install the development requirements and the
 Changes
 -------
 
-See `Changes  <https://expects.readthedocs.org/en/latest/changes.html>`_.
+See `Changes  <https://expects.readthedocs.io/en/latest/changes.html>`_.
 
 3rd Party Matchers
 ------------------
 
-See `3rd-Party Matchers list <http://expects.readthedocs.org/en/latest/3rd-party-matchers.html>`_.
+See `3rd-Party Matchers list <http://expects.readthedocs.io/en/latest/3rd-party-matchers.html>`_.
