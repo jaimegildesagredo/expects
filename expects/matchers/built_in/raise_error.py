@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*
 
+import traceback
+
 from .. import Matcher, default_matcher
 
 
@@ -24,7 +26,7 @@ class _raise_error(Matcher):
             return True, ['{0} raised'.format(type(exc).__name__)]
 
         except Exception as err:
-            return False, ['{0} raised'.format(type(err).__name__)]
+            return False, ['{0} raised\n\n{1}'.format(type(err).__name__, traceback.format_exc())]
         else:
             return False, ['no exception raised']
 
