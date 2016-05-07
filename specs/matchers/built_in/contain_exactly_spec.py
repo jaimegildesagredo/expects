@@ -33,6 +33,11 @@ with describe('contain_exactly'):
 
         expect({'bar': 0}.keys()).to(contain_exactly('bar'))
 
+    with it('passes if set exactly contains items'):
+        # https://github.com/jaimegildesagredo/expects/issues/38
+
+        expect(set(['bar'])).to(contain_exactly('bar'))
+
     with it('fails if list contains fewer elements that the expected one'):
         with failure("but: item equal 'bar' not found at index 1"):
             expect(['foo']).to(contain_exactly('foo', 'bar'))

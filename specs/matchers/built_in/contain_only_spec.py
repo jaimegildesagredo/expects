@@ -36,6 +36,11 @@ with describe('contain_only'):
 
         expect({'bar': 0, 'baz': 1}.keys()).to(contain_only('bar', 'baz'))
 
+    with it('passes if set only contains items'):
+        # https://github.com/jaimegildesagredo/expects/issues/38
+
+        expect(set(self.lst)).to(contain_only('bar', 'baz'))
+
     with it('fails if list does not have item'):
         with failure("but: item equal 'foo' not found"):
             expect(self.lst).to(contain_only('foo'))

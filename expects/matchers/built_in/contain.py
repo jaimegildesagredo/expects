@@ -11,7 +11,8 @@ from ... import _compat
 class contain(Matcher):
     _NON_NORMALIZED_SEQUENCE_TYPES = (
         collections.Iterator,
-        collections.MappingView
+        collections.MappingView,
+        collections.Set
     )
 
     def __init__(self, *expected):
