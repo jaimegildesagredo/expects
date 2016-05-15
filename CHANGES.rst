@@ -1,6 +1,53 @@
 Changes
 =======
 
+0.8.0 (2016-05-15)
+---------------------
+
+Changes since last stable release:
+
+Highlights
+^^^^^^^^^^
+
+* New failure messages for matchers. Now its easier to see the reason that caused the assertion failure. For example::
+
+    >>> expect([1, {'foo': 1}]).to(contain(have_key('foo', 2)))
+
+    AssertionError:
+    expected: [1, {'foo': 1}] to contain have key 'foo' equal 2
+         but: item have key 'foo' equal 2 not found
+
+Bug fixes
+^^^^^^^^^
+
+* Now the failure message for ``have_key``/``have_keys`` is fixed when composed with another matcher. See `GH-29 <https://github.com/jaimegildesagredo/expects/issues/29>`_.
+* Allow ``contain``, ``contain_exactly`` and ``contain_only`` matchers to work with dict views (e.g. ``dict.keys()``). See `GH-42 <https://github.com/jaimegildesagredo/expects/issues/42>`_.
+* Allow ``contain``, ``contain_exactly`` and ``contain_only`` matchers to work with sets. See `GH-38 <https://github.com/jaimegildesagredo/expects/issues/38>`_.
+* Show traceback in ``raise_error`` when another exception is raised. See `GH-41 <https://github.com/jaimegildesagredo/expects/issues/41>`_.
+* The ``equal`` matcher now uses ``__ne__`` for negated assertions. See `GH-40 <https://github.com/jaimegildesagredo/expects/pull/40>`_.
+* The ``not_`` matcher now uses the inner matcher ``_match_negated`` method to perform a negated assertion.
+* Python 2.6 support.
+
+Backwards-incompatible
+^^^^^^^^^^^^^^^^^^^^^^
+
+Although your assertions should still be working (if are broken, just `report an issue <https://github.com/jaimegildesagredo/expects/issues>`_), the *custom matchers* api has been changed. To see an example of how to migrate your custom matchers to the new api you can see `the doublex-expects migration <https://github.com/jaimegildesagredo/doublex-expects/commit/f4908989298fbbaed46b59080d3a619a37f533fa>`_.
+
+* The ``Matcher._match`` method now should return a tuple of ``bool`` representing the result of the matcher and a ``list`` of reasons that explain this result::
+
+    def _match(self, subject):
+        if subject:
+            return True, ['a reason']
+        return False, ['another reason']
+
+* The ``Matcher._description`` method was removed. Now, with the change announced above, a matcher description won't need the subject to describe itself, so the ``__repr__`` magic method will be used instead to describe matchers.
+
+* The ``Matcher._match_value`` method was removed. With the new api it made much less sense so it was removed and the ``expects.matchers.default_matcher`` wrapper function was added::
+
+    >>> default_matcher(1)._match(2)
+    False, ['was 1']
+
+
 0.8.0rc5 (2016-05-07)
 ---------------------
 
