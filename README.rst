@@ -13,10 +13,6 @@ Expects
     :target: https://www.tldrlegal.com/l/apache2
     :alt: License
 
-.. image:: https://img.shields.io/pypi/dm/expects.svg
-    :target: https://pypi.python.org/pypi/expects
-    :alt: Number of PyPI downloads
-
 .. image:: https://secure.travis-ci.org/jaimegildesagredo/expects.svg?branch=master
     :target: http://travis-ci.org/jaimegildesagredo/expects
     :alt: Build status
