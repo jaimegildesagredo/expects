@@ -8,17 +8,21 @@ class Expectation(object):
 
     @property
     def not_to(self):
+        __tracebackhide__ = True
         self._negated = True
         return self.to
 
     @property
     def to_not(self):
+        __tracebackhide__ = True
         return self.not_to
 
     def to(self, matcher):
+        __tracebackhide__ = True
         self._assert(matcher)
 
     def _assert(self, matcher):
+        __tracebackhide__ = True
         ok, reasons = self._match(matcher)
 
         if not ok:
