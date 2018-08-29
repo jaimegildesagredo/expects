@@ -74,6 +74,13 @@ with describe('raise_error'):
         with failure("but: AttributeError raised with 'foo'"):
             expect(callback).to(raise_error(AttributeError, 1))
 
+    with it('allows parameters to be passed to function expectation'):
+        def callback(a, b):
+            if a == b:
+                raise AttributeError()
+
+        expect(callback, 1, 1).to(raise_error(AttributeError))
+
     with context('when negated'):
         with it('passes if callable does not raise expected exception'):
             def callback():
@@ -103,6 +110,13 @@ with describe('raise_error'):
 
             with failure("but: AttributeError raised with 'foo'"):
                 expect(callback).not_to(raise_error(AttributeError, 'foo'))
+
+        with it('allows parameters to be passed to function expectation'):
+            def callback(a, b):
+                if a == b:
+                    raise AttributeError()
+
+            expect(callback, 1, 2).not_to(raise_error(AttributeError))
 
     with context('when combined'):
         with it('passes if callable raises exception and message matches'):

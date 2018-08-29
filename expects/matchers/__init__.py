@@ -75,7 +75,7 @@ class Matcher(object):
 
         raise NotImplementedError()
 
-    def _match_negated(self, subject):
+    def _match_negated(self, subject, *args, **kwargs):
         """Like :func:`_match` but will be called when used in a
         negated expectation. It can be used to implement a custom
         logic for negated expectations.
@@ -87,7 +87,7 @@ class Matcher(object):
 
         """
 
-        result, reason = self._match(subject)
+        result, reason = self._match(subject, *args, **kwargs)
         return not result, reason
 
     def _failure_message(self, subject, reasons):

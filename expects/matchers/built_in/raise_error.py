@@ -13,9 +13,9 @@ class _raise_error(Matcher):
     def __call__(self, *args, **kwargs):
         return _raise_error(*args, **kwargs)
 
-    def _match(self, subject):
+    def _match(self, subject, *args, **kwargs):
         try:
-            subject()
+            subject(*args, **kwargs)
         except self._expected as exc:
             if len(self._args) != 0:
                 actual_value = exc.args[0]
