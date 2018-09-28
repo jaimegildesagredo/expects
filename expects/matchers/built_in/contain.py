@@ -10,9 +10,9 @@ from ... import _compat
 
 class contain(Matcher):
     _NON_NORMALIZED_SEQUENCE_TYPES = (
-        collections.Iterator,
-        collections.MappingView,
-        collections.Set
+        collections.abc.Iterator,
+        collections.abc.MappingView,
+        collections.abc.Set
     )
 
     def __init__(self, *expected):
