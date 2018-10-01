@@ -2,6 +2,7 @@
 
 import functools
 import collections
+import sys
 
 from .. import Matcher, default_matcher
 from ...texts import plain_enumerate
@@ -9,11 +10,18 @@ from ... import _compat
 
 
 class contain(Matcher):
-    _NON_NORMALIZED_SEQUENCE_TYPES = (
-        collections.abc.Iterator,
-        collections.abc.MappingView,
-        collections.abc.Set
-    )
+    if sys.version_info >= (3, 4):
+        _NON_NORMALIZED_SEQUENCE_TYPES = (
+            collections.abc.Iterator,
+            collections.abc.MappingView,
+            collections.abc.Set
+        )
+    else:
+        _NON_NORMALIZED_SEQUENCE_TYPES = (
+            collections.Iterator,
+            collections.MappingView,
+            collections.Set
+        )
 
     def __init__(self, *expected):
         self._expected = expected
