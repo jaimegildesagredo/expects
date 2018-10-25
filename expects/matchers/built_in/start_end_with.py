@@ -2,6 +2,11 @@
 
 import collections
 
+try:
+    import collections.abc as collections_abc
+except ImportError:
+    import collections as collections_abc
+
 from .. import Matcher
 from ...texts import plain_enumerate
 from ... import _compat
@@ -19,7 +24,7 @@ class _StarEndWith(Matcher):
 
     def _is_unordered_dict(self, subject):
         return (
-            isinstance(subject, collections.Mapping) and
+            isinstance(subject, collections_abc.Mapping) and
             not isinstance(subject, collections.OrderedDict)
         )
 

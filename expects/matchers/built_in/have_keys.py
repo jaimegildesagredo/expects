@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*
 
-import collections
+try:
+    import collections.abc as collections_abc
+except ImportError:
+    import collections as collections_abc
 
 from .. import Matcher, default_matcher
 from ...texts import plain_enumerate
@@ -14,7 +17,7 @@ class _DictMatcher(Matcher):
         return self._matches(subject)
 
     def _not_a_dict(self, value):
-        return not isinstance(value, collections.Mapping)
+        return not isinstance(value, collections_abc.Mapping)
 
     def _matches(self, subject):
         args, kwargs = self._expected

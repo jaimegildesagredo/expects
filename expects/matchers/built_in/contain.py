@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*
 
 import functools
-import collections
+
+try:
+    import collections.abc as collections_abc
+except ImportError:
+    import collections as collections_abc
 
 from .. import Matcher, default_matcher
 from ...texts import plain_enumerate
@@ -10,9 +14,9 @@ from ... import _compat
 
 class contain(Matcher):
     _NON_NORMALIZED_SEQUENCE_TYPES = (
-        collections.Iterator,
-        collections.MappingView,
-        collections.Set
+        collections_abc.Iterator,
+        collections_abc.MappingView,
+        collections_abc.Set
     )
 
     def __init__(self, *expected):
@@ -35,7 +39,7 @@ class contain(Matcher):
         return self._matches(subject)
 
     def _is_not_a_sequence(self, value):
-        return not isinstance(value, collections.Sequence)
+        return not isinstance(value, collections_abc.Sequence)
 
     def _matches(self, subject):
         reasons = []
