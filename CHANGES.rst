@@ -7,8 +7,8 @@ Changes
 Highlights
 ^^^^^^^^^^
 
-* Fix Python 3.7 collections ABC classes deprecation warning. See `GH-55 <https://github.com/jaimegildesagredo/expects/pull/55>`.
-* Hide ``expects`` internals from pytest tracebacks. See `GH-51 <https://github.com/jaimegildesagredo/expects/pull/51>`.
+* Fix Python 3.7 collections ABC classes deprecation warning. See `GH-55 <https://github.com/jaimegildesagredo/expects/pull/55>`_.
+* Hide ``expects`` internals from pytest tracebacks. See `GH-51 <https://github.com/jaimegildesagredo/expects/pull/51>`_.
 
 Backwards-incompatible
 ^^^^^^^^^^^^^^^^^^^^^^
