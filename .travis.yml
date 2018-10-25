@@ -6,6 +6,9 @@ python:
   - pypy
   - pypy3.5
 
+env:
+  - PYTHONWARNINGS=all
+
 sudo: false
 
 install:
