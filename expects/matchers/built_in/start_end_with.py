@@ -18,13 +18,10 @@ class _StarEndWith(Matcher):
         return self._matches(subject)
 
     def _is_unordered_dict(self, subject):
-        if isinstance(subject, collections.Mapping):
-            if not hasattr(collections, 'OrderedDict'):
-                return True
-
-            return not isinstance(subject, collections.OrderedDict)
-
-        return False
+        return (
+            isinstance(subject, collections.Mapping) and
+            not isinstance(subject, collections.OrderedDict)
+        )
 
     def _match_negated(self, subject):
         if self._is_unordered_dict(subject):

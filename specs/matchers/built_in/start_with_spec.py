@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*
 
-try:
-    from collections import OrderedDict
-except ImportError:
-    OrderedDict = lambda *args: None
+from collections import OrderedDict
 
 from expects import *
 from expects.testing import failure
@@ -28,9 +25,6 @@ with describe('start_with'):
         expect(self.lst).to(start_with(*self.lst[:2]))
 
     with it('passes if ordered dict starts with keys'):
-        if self.ordered_dct is None:
-            return
-
         expected_args = list(self.ordered_dct)[:2]
 
         expect(self.ordered_dct).to(start_with(*expected_args))
