@@ -1,8 +1,22 @@
 Changes
 =======
 
+0.9.0 (2018-10-25)
+------------------
+
+Highlights
+^^^^^^^^^^
+
+* Fix Python 3.7 collections ABC classes deprecation warning. See `GH-55 <https://github.com/jaimegildesagredo/expects/pull/55>`.
+* Hide ``expects`` internals from pytest tracebacks. See `GH-51 <https://github.com/jaimegildesagredo/expects/pull/51>`.
+
+Backwards-incompatible
+^^^^^^^^^^^^^^^^^^^^^^
+
+* Dropped Python 2.6 support.
+
 0.8.0 (2016-05-15)
----------------------
+------------------
 
 Changes since last stable release:
 
