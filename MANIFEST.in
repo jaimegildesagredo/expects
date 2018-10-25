@@ -1,5 +1,6 @@
 include *requirements.txt
 include README.rst
 include LICENSE
-recursive-include docs *
 recursive-include specs *.py
+recursive-include examples *.txt *.py
+recursive-include docs *

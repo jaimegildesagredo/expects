@@ -13,7 +13,7 @@ setup(
     author='Jaime Gil de Sagredo Luna',
     author_email='jaimegildesagredo@gmail.com',
     license='Apache 2.0',
-    packages=find_packages(exclude=['specs', 'specs.*']),
+    packages=find_packages(exclude=['specs', 'specs.*', 'examples', 'examples.*']),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
