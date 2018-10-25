@@ -27,7 +27,7 @@ with describe('failure'):
     with context('with message'):
         with before.each:
             self.message = "to be 'bar'"
-            self.pattern = "to be '\w+'"
+            self.pattern = r"to be '\w+'"
 
         with it('passes if assertion raised and message ends with'):
             with failure(self.message):
