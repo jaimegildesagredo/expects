@@ -2,10 +2,11 @@ language: python
 python:
   - 2.6
   - 2.7
-  - 3.3
-  - 3.4
   - 3.5
+  - 3.6
+  - 3.7
   - pypy
+  - pypy3.5
 
 sudo: false
 
@@ -15,11 +16,7 @@ install:
   - pip install -r test-requirements.txt
 
 script:
-  - PYTHONPATH=$PYTHONPATH:. mamba -s 0.0001
-
-# PyPI deploy workaround based on: https://github.com/travis-ci/dpl/issues/299
-before_deploy:
-  - pip install twine
+  - mamba
 
 deploy:
   provider: pypi
@@ -30,4 +27,4 @@ deploy:
   on:
     tags: true
     repo: jaimegildesagredo/expects
-    python: 3.4
+    python: 3.7
