@@ -18,5 +18,5 @@ with describe('equal values'):
         with it('should pass if object values does not equal expected object values'):
             expect(self.object).not_to(equal_values(self.object_with_crazy_logic))
 
-        with it('should pass if object equals expected'):
+        with it('should pass if object values equals expected object values'):
             expect(self.object).to(equal_values(self.another_object))
