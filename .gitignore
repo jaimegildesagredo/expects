@@ -6,3 +6,4 @@ dist/
 docs/_build/
 .coverage
 .tox/
+.venv/
