@@ -23,11 +23,13 @@ with describe('equal'):
     with context('when comparing objects'):
         with before.each:
             class Foo(object):
+                CRAZY = 'crazy'
+
                 def __init__(self, bar):
                     self.bar = bar
 
                 def __eq__(self, other):
-                    if other.bar is 'crazy':
+                    if other.bar == Foo.CRAZY:
                         return self.bar != other.bar
                     return self.bar == other.bar
 
@@ -38,7 +40,7 @@ with describe('equal'):
                     return 'Foo with bar={bar}'.format(bar=self.bar)
 
             self.object = Foo(1)
-            self.object_with_crazy_logic = Foo('crazy')
+            self.object_with_crazy_logic = Foo(Foo.CRAZY)
 
         with it('should pass if object does not equal expected'):
             expect(self.object).not_to(equal(self.object_with_crazy_logic))
