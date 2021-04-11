@@ -27,7 +27,7 @@ a given header takes <10 lines of code::
         def _match(self, request):
             if self._expected in request.headers:
                 return True, ['header found']
-            return True, ['header not found']
+            return False, ['header not found']
 
 An then you only need to import the new defined matcher and write
 your expectation::
