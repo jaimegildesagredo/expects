@@ -3,5 +3,5 @@
 from .expectations import Expectation
 
 
-def expect(subject):
-    return Expectation(subject)
+def expect(subject, *args, **kwargs):
+    return Expectation(subject, *args, **kwargs)

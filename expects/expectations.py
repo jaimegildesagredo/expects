@@ -2,8 +2,10 @@
 
 
 class Expectation(object):
-    def __init__(self, subject):
+    def __init__(self, subject, *args, **kwargs):
         self._subject = subject
+        self._args = args
+        self._kwargs = kwargs
         self._negated = False
 
     @property
@@ -36,7 +38,7 @@ class Expectation(object):
         return getattr(
             matcher,
             '_match_negated' if self._negated else '_match'
-        )(self._subject)
+        )(self._subject, *self._args, **self._kwargs)
 
     def _failure_message(self, matcher, *args):
         return getattr(
