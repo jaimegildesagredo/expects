@@ -405,12 +405,12 @@ have_len / have_length
 
 .. code-block:: python
 
-    expect('foo').to(have_len(be_bellow(2)))
+    expect('foo').to(have_len(be_below(2)))
 
 .. admonition:: Failure
     :class: error
 
-    Expected ``'foo'`` to have len be bellow ``2``
+    Expected ``'foo'`` to have len be below ``2``
 .. code-block:: python
 
     expect(iter('foo')).to(have_len(2))
