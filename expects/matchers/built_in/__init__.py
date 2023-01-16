@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*
 
 from .equal import equal
+from .equal_values import equal_values
 from .be import be
 from .be_true import be_true
 from .be_false import be_false
@@ -24,6 +25,7 @@ from .not_ import not_
 
 __all__ = [
     'equal',
+    'equal_values',
     'be',
     'be_true',
     'be_false',
