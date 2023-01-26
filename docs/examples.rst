@@ -1254,7 +1254,7 @@ raise_error
 .. admonition:: Failure
     :class: error
 
-    Expected ``<function callback at 0x7fe70cb103b0>`` to raise ``AttributeError`` but ``KeyError`` raised
+    Expected ``<function callback at 0x7fe70cb103b0>`` to raise ``AttributeError`` but ``no exception`` raised
 
 .. code-block:: python
 
