@@ -48,3 +48,14 @@ with describe('equal'):
         with it('should fail if object equals expected'):
             with failure('Foo with bar=crazy not to equal Foo with bar=crazy'):
                 expect(self.object_with_crazy_logic).not_to(equal(self.object_with_crazy_logic))
+
+    with context('when comparing within'):
+        with it('should pass if numbers exactly equal'):
+            expect(42).to(equal(42).within(0.1))
+
+        with it('should pass if numbers are within tolerance'):
+            expect(42.04).to(equal(42).within(0.1))
+
+        with it('should fail if numbers are not within tolerance'):
+            with failure('expected: 41 to equal 40 ± 0.5'):
+                expect(41).to(equal(40).within(0.5))
