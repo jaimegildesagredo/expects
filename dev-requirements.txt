@@ -1,3 +1,4 @@
 -r test-requirements.txt
 sphinx
+sphinx-rtd-theme
 ruff
