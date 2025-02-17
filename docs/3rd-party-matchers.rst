@@ -1,6 +1,9 @@
 3rd Party Matchers
 ==================
 
+`CDK Expects matchers <https://github.com/elgamala/cdk_expects_matcher>`_
+    Matchers for AWS CDK & AWS Cloudformation IaC.
+
 `Tornado Expects <https://github.com/jaimegildesagredo/tornado-expects>`_
     Matchers for Tornado request and response objects.
 
