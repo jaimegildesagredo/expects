@@ -13,8 +13,8 @@ Expects
     :target: https://www.tldrlegal.com/l/apache2
     :alt: License
 
-.. image:: https://secure.travis-ci.org/jaimegildesagredo/expects.svg?branch=master
-    :target: http://travis-ci.org/jaimegildesagredo/expects
+.. image:: https://github.com/jaimegildesagredo/expects/actions/workflows/pipeline.yml/badge.svg
+    :target: https://github.com/jaimegildesagredo/expects/actions/workflows/pipeline.yml
     :alt: Build status
 
 .. image:: https://img.shields.io/pypi/pyversions/expects.svg
